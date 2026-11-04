@@ -7,6 +7,7 @@ import ParkrunCard from "../components/ParkrunCard.astro";
 import AdaptsDemo from "../components/AdaptsDemo.astro";
 import ProgressDemo from "../components/ProgressDemo.astro";
 import Waitlist from "../components/Waitlist.astro";
+import { APP } from "../site";
 
 const steps = [
   {
@@ -89,10 +90,10 @@ const faq = [
           <p class="bubble" data-type>Missed Tuesday? Drag it to Thursday. I'll sort out the rest.</p>
         </div>
         <div class="actions">
-          <a class="button" href="#get" data-cta="hero">Get Bao</a>
+          <a class="button" href={APP} data-app data-cta="hero">Get started</a>
           <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
         </div>
-        <p class="small muted">For Android. Couch to 5K is free.</p>
+        <p class="small muted">Works in your browser. Android app coming soon. Couch to 5K is free.</p>
         <div class="inline hero-phone"><Device shots={[screens[0]]} eager /></div>
       </section>
 
@@ -128,8 +129,11 @@ const faq = [
       <Bao mood="happy" size={132} wave />
       <div>
         <h2>Get <em>Bao</em></h2>
-        <p class="lede">Bao is on its way to Google Play. Couch to 5K will be free; longer plans will be a small
-          subscription.</p>
+        <p class="lede">Make your plan now, right here in your browser, no phone needed. Couch to 5K is free; longer
+          plans will be a small subscription.</p>
+        <p><a class="button" href={APP} data-app data-cta="get">Get started</a></p>
+        <p class="small muted">The Android app is on its way to Google Play, with GPS tracking and recovery from your
+          sleep. Leave your email and Bao will tell you when it's out.</p>
         <Waitlist />
       </div>
     </div>

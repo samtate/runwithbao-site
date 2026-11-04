@@ -5,7 +5,7 @@
  *
  * Recorded: the page view; how far down it was scrolled (25/50/75/100% as they're reached, and the furthest on
  * leaving); each section seen and for how long; clicks on anything marked [data-cta]; and joining the waitlist,
- * the conversion. Every event carries the A/B variants the visitor saw, as PostHog's `$feature/<key>`.
+ * the conversion, and leaving for the web app with "Get started". Every event carries the A/B variants the visitor saw, as PostHog's `$feature/<key>`.
  *
  * A/B tests: an element with [data-experiment="flag-key"] holds one child per variant, [data-variant="name"].
  * PostHog's flag picks the variant; the rest are removed. While the flag loads the element is hidden, for at
@@ -118,4 +118,17 @@ addEventListener("pagehide", () => {
 document.addEventListener("click", (event) => {
   const cta = (event.target as Element).closest<HTMLElement>("[data-cta]");
   if (cta) track("cta_clicked", { cta: cta.dataset.cta, text: cta.textContent?.trim() });
+});
+
+// Into the web app: its link carries this visit's id and the variants shown, so PostHog can follow the visit
+// from the A/B test through onboarding and sign-in. Added at the moment of the click, once the variants are known.
+document.addEventListener("click", (event) => {
+  const link = (event.target as Element).closest<HTMLAnchorElement>("a[data-app]");
+  if (!link) return;
+  const url = new URL(link.href);
+  url.searchParams.set("visit", id);
+  for (const [flag, variant] of Object.entries(flags)) url.searchParams.set(`v.${flag}`, variant);
+  link.href = url.toString();
+  track("web_app_started", { cta: link.dataset.cta });
+  flush();
 });
