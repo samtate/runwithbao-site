@@ -40,8 +40,9 @@ import { CONTACT as contact } from "../site";
         <td>To send runs you record in Bao to Strava, and bring runs from Strava into Bao.</td></tr>
       <tr><td><strong>Signing up on the web</strong>, before you've answered “Help improve Bao”: which setup
           pages you reached, whether you signed in and made a plan, and which version of this website you came from</td>
-        <td>To see where people give up, so we can make it easier. This is anonymous: it uses a random id that isn't
-          stored on your device and isn't linked to your account unless you then allow “Help improve Bao”. Choose
+        <td>To see where people give up, so we can make it easier. This is anonymous: it uses a random visit id that's
+          kept only until you close the tab, and isn't linked to your account unless you then allow “Help improve
+          Bao”. Choose
           “No thanks” and nothing more is sent.</td></tr>
       <tr><td><strong>How you use the app</strong>, only if you allow “Help improve Bao”: screens visited, buttons
           used, crash reports, phone model or browser, and app version</td>
@@ -120,12 +121,14 @@ import { CONTACT as contact } from "../site";
 
   <h2>This website</h2>
   <ul>
-    <li><strong>No cookies.</strong> The site stores nothing on your device, except your light or dark choice if you
-      pick one.</li>
+    <li><strong>No cookies.</strong> The site keeps only two things in your browser: your light or dark choice if you
+      pick one, and a random visit id that's forgotten when you close the tab.</li>
     <li><strong>Visit statistics</strong>, through PostHog in the EU: which pages and sections were seen, how far down
       the page you scrolled, which buttons were clicked, and which version of the page you saw when we're testing
-      two. These aren't linked to you, and don't follow you between visits. If you click “Get started”, that visit's
-      random id goes with you to the web app, so we can tell which version of the page helped.</li>
+      two. These aren't linked to you. To count visitors without
+      cookies, PostHog works out a daily id on its servers from a scrambled mix of your IP address and browser, which
+      changes every day, so a visit on Tuesday can't be matched to one on Wednesday. If you click “Get started”,
+      the visit id goes with you to the web app, so we can tell which version of the page helped.</li>
     <li><strong>The old waitlist</strong>: if you left your email address before the beta opened, we keep it in
       London and use it once, to tell you Bao is on Google Play. Then we delete the list.</li>
   </ul>

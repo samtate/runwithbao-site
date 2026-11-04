@@ -1,7 +1,9 @@
 /**
- * What visitors do on the site, sent straight to PostHog (EU) with no library and no cookies: each visit gets a
- * random id that lives only in memory, so nothing is stored on the visitor's device and no consent banner is
- * needed. Events go in small batches, and on leaving the page by beacon.
+ * What visitors do on the site, sent straight to PostHog (EU) with no library and no cookies. PostHog's cookieless
+ * mode tells visitors apart on its servers, from a hash of the address and browser with a salt that changes
+ * every day, so the same person is counted once a day and never followed across days. A visit id in
+ * sessionStorage joins the pages of one visit in one tab, and is forgotten when the tab closes. Events go in
+ * small batches, and on leaving the page by beacon.
  *
  * Recorded: the page view; how far down it was scrolled (25/50/75/100% as they're reached, and the furthest on
  * leaving); each section seen and for how long; clicks on anything marked [data-cta]; and joining the waitlist,
@@ -13,7 +15,20 @@
  */
 const KEY = "phc_BckPJ6iERzFZJ64uBP77aNwNZaSwLnwtmRFoBeiFB5wq";
 const HOST = "https://eu.i.posthog.com";
-const id = crypto.randomUUID();
+/** This visit, for this tab only: kept across pages and reloads, gone when the tab closes. */
+const id = (() => {
+  try {
+    const kept = sessionStorage.getItem("bao-visit");
+    if (kept) return kept;
+    const fresh = crypto.randomUUID();
+    sessionStorage.setItem("bao-visit", fresh);
+    return fresh;
+  } catch {
+    return crypto.randomUUID();
+  }
+})();
+/** PostHog's sign for "work out who this is on the server", with no id stored on the device. */
+const COOKIELESS = "$posthog_cookieless";
 // JSON sent as plain text: PostHog reads it the same, and the browser needn't ask permission first (no preflight).
 const PLAIN = { "Content-Type": "text/plain" };
 const flags: Record<string, string> = {};
@@ -37,7 +52,7 @@ function base() {
 
 /** Records an event. Batched for a moment, so a burst of them is one request. */
 export function track(event: string, props: Record<string, unknown> = {}) {
-  batch.push({ event, distinct_id: id, properties: { ...base(), ...props }, timestamp: new Date().toISOString() });
+  batch.push({ event, distinct_id: COOKIELESS, properties: { ...base(), $cookieless_mode: true, visit_id: id, ...props }, timestamp: new Date().toISOString() });
   clearTimeout(timer);
   timer = setTimeout(flush, 1500) as unknown as number;
 }
