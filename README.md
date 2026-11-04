@@ -6,7 +6,7 @@ client-side JavaScript; Bao is drawn at build time and screenshots are compresse
 ```sh
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # static site in dist/
+npm run build    # regenerate share artwork and build the static site in dist/
 ```
 
 It's hosted on Cloudflare Pages, project `runwithbao-site`. Deploy with Node 22.23.4 or later:
@@ -17,6 +17,7 @@ npx wrangler@4 pages deploy dist --project-name runwithbao-site --branch main
 ```
 
 Screenshots in `src/assets/screens/` are real app screens at 640×916 (the phone's status bar cropped off).
-`public/og.png` and `public/favicon.svg` are drawn from Bao's shapes.
+`npm run build` generates the 1200×630 share card in `src/assets/share/bao.png` and `public/og.png` from Bao's
+shapes and licensed Fraunces and Archivo fonts in `scripts/fonts/`. `public/favicon.svg` is also drawn from Bao's shapes.
 
 Before taking payments, add a postal address to the contact page and the privacy policy's "Who we are".
