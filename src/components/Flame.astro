@@ -1,0 +1,9 @@
+---
+/** The app's streak flame (BaoIcon "flame"), as an outline in the current colour. */
+interface Props { size?: number; class?: string }
+const { size = 16, class: className = "" } = Astro.props;
+---
+<svg class:list={["flame", className]} viewBox="0 0 24 24" width={size} height={size} aria-hidden="true" fill="none"
+  stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+  <path d="M12 22C5 21 4 13 9 9c0 3 2 4 2 4-1-5 1-9 3-11 1 5 7 8 5 14-1 4-4 6-7 6z" />
+</svg>

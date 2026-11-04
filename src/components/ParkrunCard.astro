@@ -1,0 +1,78 @@
+---
+/**
+ * parkrun in the plan, shown not told: Saturday's 5 km with Bao running the course (easy, a stretch at tempo,
+ * easy home) as the distance ticks up; then Christmas week, where Thursday's run slides onto the Christmas Day
+ * parkrun. Loops while on screen.
+ */
+import Bao from "./Bao.astro";
+const week = [["Tue", "22", "run"], ["Wed", "23", ""], ["Thu", "24", "from"], ["Fri", "25", "xmas"], ["Sat", "26", "run"]];
+---
+<div class="park" data-reveal role="img"
+  aria-label="Saturday's parkrun as a 5 km session: easy, 2 km at tempo, easy to the finish. Then in Christmas week, Thursday's run moves to the Christmas Day parkrun on Friday.">
+  <div class="course">
+    <p class="head"><span class="label">Sat 7 Nov · parkrun</span><span class="km"><b class="tick"></b> km</span></p>
+    <div class="track">
+      <span class="seg easy" style="--w: 30%"></span><span class="seg tempo" style="--w: 40%"></span><span class="seg easy" style="--w: 30%"></span>
+      <span class="runner"><Bao mood="happy" size={40} /></span>
+    </div>
+    <p class="key"><span><i class="dot easy"></i>Easy</span><span><i class="dot tempo"></i>Tempo</span><span>5 km course</span></p>
+  </div>
+  <div class="xmas">
+    <p class="label">Christmas week</p>
+    <div class="days">
+      {week.map(([d, n, kind]) => (
+        <span class:list={["day", kind]}><small>{d}</small><b>{n}</b>{kind === "xmas" && <em>parkrun</em>}</span>
+      ))}
+      <span class="hop">Easy</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .park { display: grid; gap: 0.9rem; max-width: 30rem; }
+  .course, .xmas { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.1rem 1.2rem; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.9rem; }
+  .km { font: 600 1.5rem/1 var(--serif); font-variant-numeric: tabular-nums; }
+  .tick::after { content: "0.0"; }
+  .track { position: relative; display: flex; gap: 4px; height: 12px; margin: 2.2rem 0 0.8rem; }
+  .seg { width: var(--w); border-radius: 6px; background: var(--walk); }
+  .seg.tempo { background: var(--accent); }
+  .runner { position: absolute; left: 0; bottom: 6px; translate: -50% 0; }
+  .key { display: flex; gap: 1rem; font-size: 0.85rem; color: var(--muted); }
+  .key span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .key span:last-child { margin-left: auto; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--walk); }
+  .dot.tempo { background: var(--accent); }
+
+  .days { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 0.7rem; }
+  .day { display: grid; justify-items: center; align-content: start; gap: 0.1rem; padding: 0.5rem 0.2rem 2.4rem;
+    border-radius: 14px; border: 1.5px dashed var(--border); position: relative; }
+  .day small { font: 500 0.7rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .day b { font: 600 1.15rem/1.2 var(--serif); }
+  .day.run::after, .day.from::after { content: "Easy"; position: absolute; bottom: 0.45rem; left: 6px; right: 6px;
+    text-align: center; font: 700 0.68rem/1.9 var(--sans); border-radius: 8px; background: var(--sage); color: #1b2a1d; }
+  .day.run:last-of-type::after { content: "Long"; background: var(--blue); color: #fff; }
+  .day.xmas { border: 1.5px solid var(--butter); background: color-mix(in srgb, var(--butter) 14%, transparent); }
+  .day.xmas em { position: absolute; bottom: 0.45rem; left: 6px; right: 6px; text-align: center; font: 700 0.68rem/1.9 var(--sans);
+    font-style: normal; border-radius: 8px; background: var(--butter); color: #2b2118; opacity: 0.35; }
+  .hop { display: none; }
+
+  /* The loop: run the course while the distance counts, then Thursday's run hops onto Christmas Day. */
+  .park:global(.in) .runner { animation: run 6s linear infinite; }
+  .park:global(.in) .tick::after { animation: count 6s steps(1) infinite; }
+  .park:global(.in) .day.from::after { animation: leave 6s ease infinite; }
+  .park:global(.in) .day.xmas em { animation: arrive 6s cubic-bezier(.3,1.6,.5,1) infinite; }
+  @keyframes run { 0% { left: 0; } 70%, 100% { left: 100%; } }
+  @keyframes count {
+    0% { content: "0.0"; } 7% { content: "0.5"; } 14% { content: "1.0"; } 21% { content: "1.5"; } 28% { content: "2.0"; }
+    35% { content: "2.5"; } 42% { content: "3.0"; } 49% { content: "3.5"; } 56% { content: "4.0"; } 63% { content: "4.5"; }
+    70%, 100% { content: "5.0"; }
+  }
+  @keyframes leave { 0%, 72% { opacity: 1; transform: none; } 82%, 100% { opacity: 0.15; transform: translateX(60%) scale(0.9); } }
+  @keyframes arrive { 0%, 76% { opacity: 0.35; transform: none; } 84% { opacity: 1; transform: scale(1.15); } 90%, 100% { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .park:global(.in) .runner, .park:global(.in) .tick::after, .park:global(.in) .day.from::after,
+    .park:global(.in) .day.xmas em { animation: none; }
+    .runner { left: 70%; } .tick::after { content: "3.5"; } .day.xmas em { opacity: 1; }
+  }
+</style>

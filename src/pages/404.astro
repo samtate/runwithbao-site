@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Bao from "../components/Bao.astro";
+---
+<Base title="Lost · Bao Run" description="This page wandered off.">
+  <section class="wrap lost">
+    <Bao mood="think" size={150} />
+    <h1>Took a <em>wrong</em> turn</h1>
+    <p class="lede">This page isn't here. Happens to the best of us on a long run.</p>
+    <a class="button" href="/">Back to the start</a>
+  </section>
+</Base>
+
+<style>
+  .lost { display: grid; justify-items: center; text-align: center; gap: 1.25rem; padding-top: clamp(2rem, 8vw, 6rem); }
+</style>

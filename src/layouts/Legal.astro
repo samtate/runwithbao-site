@@ -1,0 +1,48 @@
+---
+/** The legal pages: readable prose, a short summary up top in Bao's bubble, and when it last changed. */
+import Base from "./Base.astro";
+import Bao from "../components/Bao.astro";
+
+interface Props {
+  title: string;
+  heading: string;
+  description: string;
+  updated: string;
+  summary: string;
+}
+const { title, heading, description, updated, summary } = Astro.props;
+---
+<Base title={`${title} · Bao Run`} description={description}>
+  <article class="wrap legal">
+    <p class="label">Last updated {updated}</p>
+    <h1 set:html={heading} />
+    <div class="tldr">
+      <Bao mood="think" size={84} />
+      <p class="bubble"><strong>The short version:</strong> {summary}</p>
+    </div>
+    <div class="prose"><slot /></div>
+  </article>
+</Base>
+
+<style>
+  .legal { max-width: 46rem; padding-top: clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1.5rem; }
+  .tldr { display: flex; align-items: center; gap: 1.25rem; margin-block: 0.5rem 1rem; }
+  .tldr .bubble { flex: 1; }
+  .prose :global(h2) { font-size: 1.75rem; margin: 2.5rem 0 0.75rem; }
+  .prose :global(h3) { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol), .prose :global(table) { margin: 0 0 1rem; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(table) { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+  .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem 0.6rem 0;
+    border-bottom: 1px solid var(--border); }
+  .prose :global(th) { font-weight: 600; }
+  @media (max-width: 560px) {
+    .tldr { gap: 1rem; }
+    .tldr :global(.bao) { width: 64px; height: 64px; }
+    /* Narrow screens read each row as a small block: the label, then what it's for. */
+    .prose :global(thead) { display: none; }
+    .prose :global(tr) { display: block; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+    .prose :global(td) { display: block; border: 0; padding: 0.15rem 0; }
+    .prose :global(td + td) { color: var(--muted); }
+  }
+</style>

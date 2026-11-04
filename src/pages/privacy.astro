@@ -1,0 +1,131 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { CONTACT as contact } from "../site";
+---
+<Legal
+  title="Privacy"
+  heading="Your data, <em>plainly</em>"
+  description="What Bao Run collects, why, where it's kept, who else touches it, and how to delete it."
+  updated="4 November 2026"
+  summary="Bao keeps what it needs to plan your running, and nothing else. It's stored in London, never sold or used for ads, health data is only read with your permission, and you can delete everything from the app."
+>
+  <h2>Who we are</h2>
+  <p>Bao Run is made and run by Sam Tate, in the UK. For data protection law, that makes Sam the “controller” of
+    your personal data, called “we” below. You can reach us at <a href={`mailto:${contact}`}>{contact}</a>.</p>
+
+  <h2>What we collect, and why</h2>
+  <table>
+    <thead><tr><th>What</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Your email address</strong></td>
+        <td>To sign you in with a one-time code, and to reach you about your account if we must. No newsletters
+          unless you ask.</td></tr>
+      <tr><td><strong>Your plan answers</strong>: experience, goal, race date, running days, units, and optionally
+          birth year, resting and maximum heart rate</td>
+        <td>To build your plan. Birth year is only used to estimate a maximum heart rate.</td></tr>
+      <tr><td><strong>Your runs</strong>: start time, duration, distance, route, heart rate, laps, how it felt, and
+          any notes</td>
+        <td>To track progress and adjust the plan. Routes are shown only to you.</td></tr>
+      <tr><td><strong>Watch files</strong> (FIT files) you import</td>
+        <td>Kept as you sent them, so a run can be read again if Bao gets better at reading them.</td></tr>
+      <tr><td><strong>Health data from Health Connect</strong>, only if you connect it: sleep, resting heart rate,
+          heart rate variability, heart rate, exercise sessions, distance, weight and height</td>
+        <td>To spot a rough night or a heavy few days and suggest an easier session, to fill in your height and
+          weight, and to bring in runs recorded by other apps. Bao only reads; it never writes to Health Connect.
+          </td></tr>
+      <tr><td><strong>Your location</strong>, only while you're tracking a run</td>
+        <td>To draw your route and measure distance. Bao doesn't use location at any other time.</td></tr>
+      <tr><td><strong>Strava</strong>, only if you connect it: access tokens, your Strava name, and your Strava
+          runs</td>
+        <td>To send runs you record in Bao to Strava, and bring runs from Strava into Bao.</td></tr>
+      <tr><td><strong>How you use the app</strong>, only if you allow “Help improve Bao”: screens visited, buttons
+          used, crash reports, phone model and app version</td>
+        <td>To find what's confusing or broken. These never include health data, your name or your email.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The legal bits behind that</h2>
+  <ul>
+    <li><strong>To provide the app you asked for</strong> (contract): your account, plan answers, runs and watch
+      files.</li>
+    <li><strong>Your explicit consent</strong>: health data from Health Connect, Strava, and usage analytics. Each is
+      off until you turn it on, and you can turn it off again at any time in the app, or in Android's Health
+      Connect settings.</li>
+    <li><strong>Legitimate interests</strong>: keeping the service secure and stopping abuse, such as limits on
+      sign-in attempts.</li>
+  </ul>
+  <p>Heart rate, sleep and similar readings are health data, which the law protects specially. We only process
+    them with your explicit consent, given when you connect Health Connect, and only to plan your training.</p>
+
+  <h2>What we never do</h2>
+  <ul>
+    <li>Sell your data, or share it with advertisers or data brokers.</li>
+    <li>Show ads.</li>
+    <li>Use your health data, or data from Health Connect, Strava or any watch, to train AI models.</li>
+    <li>Show your runs, routes or health data to anyone but you.</li>
+  </ul>
+
+  <h2>Who else handles your data</h2>
+  <p>A few companies run parts of Bao for us. They may only use your data to provide that service.</p>
+  <table>
+    <thead><tr><th>Who</th><th>What for</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Database, sign-in and file storage: everything above except analytics</td>
+        <td>London, UK</td></tr>
+      <tr><td>Resend</td><td>Sending sign-in codes to your email address</td><td>United States</td></tr>
+      <tr><td>PostHog</td><td>Usage analytics and crash reports, only if you allow them</td>
+        <td>European Union</td></tr>
+      <tr><td>Strava</td><td>Only if you connect it: the runs Bao sends and receives</td><td>United States</td></tr>
+    </tbody>
+  </table>
+  <p>Where data leaves the UK, it's protected by the UK's adequacy regulations or the standard contractual clauses
+    approved for those transfers.</p>
+  <p>Workouts sent to a watch through Gadgetbridge stay on your phone and watch; they don't pass through us.</p>
+
+  <h2>Health Connect</h2>
+  <p>Bao's use of information received from Health Connect follows the Health Connect permissions policy,
+    including its Limited Use requirements. In short: we only use it to provide and improve Bao's training
+    features, we don't transfer it except as described here, and no person reads it unless you ask us to help
+    with a problem or the law requires it.</p>
+
+  <h2>How long we keep it</h2>
+  <ul>
+    <li>Your account, plan, runs and files: until you delete them or your account.</li>
+    <li>Health readings: until you delete your account. Bao only looks at the last few weeks.</li>
+    <li>Strava: disconnecting deletes your Strava tokens and link straight away. Runs already brought into Bao
+      stay part of your history until you delete them.</li>
+    <li>Analytics: kept by PostHog for up to a year.</li>
+  </ul>
+
+  <h2>Deleting everything</h2>
+  <p>In the app, go to <strong>Settings → Delete my account</strong>. Your account, plan, runs, routes, health
+    readings, watch files and Strava link are deleted straight away. Copies in our hosting provider's backups
+    expire within a short time after that. There's more on the <a href="/delete-account">delete your account</a>
+    page.</p>
+
+  <h2>Your rights</h2>
+  <p>You can ask to see the data we hold about you, correct it, delete it, take a copy in a portable format,
+    object to how we use it, or withdraw consent at any time. Much of this you can do in the app; for anything
+    else, email <a href={`mailto:${contact}`}>{contact}</a>. The law gives us a month to respond.</p>
+  <p>If you're unhappy with how we've handled your data, you can complain to the Information Commissioner's
+    Office at <a href="https://ico.org.uk/make-a-complaint/">ico.org.uk</a>. We'd appreciate the chance to put it
+    right first.</p>
+
+  <h2>This website</h2>
+  <ul>
+    <li><strong>No cookies.</strong> The site stores nothing on your device, except your light or dark choice if you
+      pick one.</li>
+    <li><strong>Visit statistics</strong>, through PostHog in the EU: which pages and sections were seen, how far down
+      the page you scrolled, which buttons were clicked, and which version of the page you saw when we're testing
+      two. These aren't linked to you, and don't follow you between visits.</li>
+    <li><strong>The waitlist</strong>: if you leave your email address, we keep it in London and use it once, to tell
+      you Bao is on Google Play. Then we delete the list.</li>
+  </ul>
+
+  <h2>Age</h2>
+  <p>Bao is for people aged 16 and over.</p>
+
+  <h2>Changes</h2>
+  <p>If we change this policy in a way that matters, we'll say so in the app before it takes effect. The date at the
+    top shows when it last changed.</p>
+</Legal>

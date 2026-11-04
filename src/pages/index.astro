@@ -1,0 +1,223 @@
+---
+import Base from "../layouts/Base.astro";
+import Bao from "../components/Bao.astro";
+import Device from "../components/Device.astro";
+import WeekStrip from "../components/WeekStrip.astro";
+import ParkrunCard from "../components/ParkrunCard.astro";
+import AdaptsDemo from "../components/AdaptsDemo.astro";
+import ProgressDemo from "../components/ProgressDemo.astro";
+import Waitlist from "../components/Waitlist.astro";
+
+const steps = [
+  {
+    id: "flexible",
+    shot: "calendar",
+    label: "Flexible",
+    title: "Life gets busy. Your plan <em>moves</em>.",
+    body: "Hold a run and drag it up to three days either way. It still counts towards the week it came from, so " +
+      "a busy week doesn't leave the next one overloaded.",
+    points: ["Ill or injured? Tell Bao, and your streak carries on.",
+      "Only a missed run breaks your streak, never a rest day."],
+    alt: "Bao Run's calendar, with Thursday's run moved to Friday",
+  },
+  {
+    id: "parkrun",
+    shot: "plan",
+    label: "parkrun",
+    title: "Saturday's <em>parkrun</em>, planned in.",
+    body: "Tell Bao you go to parkrun and Saturday's session happens on the course: an easy 5K in a lighter week, " +
+      "or with faster stretches as you build.",
+    points: ["Your hard sessions go on other days, so you turn up fresh.",
+      "Just starting out? Run your intervals, then walk to the finish.",
+      "Christmas Day, New Year's Day: Bao knows your country's extra parkruns and offers to swap one in."],
+    alt: "Bao Run's week, with Saturday's parkrun as part of the plan",
+  },
+  {
+    id: "adapts",
+    shot: "rate",
+    label: "Adapts",
+    title: "One question after every <em>run</em>.",
+    body: "How did that feel? A tap from 1 to 10, or one of three words if you're new. That's all Bao needs to " +
+      "keep the plan right for you.",
+    points: ["Struggling? Bao offers an easier week, or to repeat one.", "Cruising? It suggests a step up.",
+      "Connect Health Connect, and a short night's sleep can mean an easier day."],
+    alt: "Rating a run in Bao Run, on a scale from 1 to 10",
+  },
+  {
+    id: "progress",
+    shot: "progress",
+    label: "Progress",
+    title: "Every run <em>counts</em>.",
+    body: "A streak of planned runs, badges for real milestones like your first 10K or a run before 7am, and " +
+      "Couch to 5K's 27 runs ticked off one at a time.",
+    points: [],
+    alt: "Bao Run's progress screen, with weekly distance, likely race times and badges",
+  },
+] as const;
+
+const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a parkrun Saturday" } as const,
+  ...steps.map((s) => ({ shot: s.shot, key: s.id, alt: s.alt }))];
+
+const faq = [
+  { q: "Is it free?", a: "Couch to 5K is free and stays free. Plans for longer distances will be a small " +
+    "subscription. No ads, and nobody's data is for sale." },
+  { q: "Do I need a watch?", a: "No. Your phone tracks the run and tells you when to run and when to walk. If you " +
+    "have a watch, Bao can use its runs too." },
+  { q: "What about iPhone?", a: "Not yet. Android comes first." },
+  { q: "Is Bao a doctor?", a: "No, Bao is a bun in a headband. If you have a health condition or haven't " +
+    "exercised in a while, check with your GP before you start." },
+  { q: "What happens to my data?", a: "It's used to plan your running and nothing else. It's stored in London and " +
+    "never sold. The <a href=\"/privacy\">privacy policy</a> has the details." },
+];
+---
+<Base
+  title="Bao Run · running plans that bend around your week"
+  description="Running plans for Android that move when your week does, with Saturday parkrun built in. Couch to 5K to marathon."
+>
+  <div class="wrap showcase" data-story data-active="hero">
+    <div class="flow">
+      <section class="hero" data-step="hero" data-section="hero">
+        <h1 data-experiment="site-hero">
+          <span data-variant="control">Running plans that <em>bend</em>.</span>
+          <span data-variant="parkrun">Your running plan, <em>parkrun</em> included.</span>
+          <span data-variant="move">Missed a run? Just <em>move</em> it.</span>
+        </h1>
+        <p class="lede">Bao plans your running around the days you actually have, then reshuffles when the week
+          doesn't go to plan. Saturday parkrun built in, from Couch to 5K to marathon.</p>
+        <div class="say">
+          <Bao mood="cheer" size={104} wave />
+          <p class="bubble" data-type>Missed Tuesday? Drag it to Thursday. I'll sort out the rest.</p>
+        </div>
+        <div class="actions">
+          <a class="button" href="#get" data-cta="hero">Get Bao</a>
+          <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
+        </div>
+        <p class="small muted">For Android. Couch to 5K is free.</p>
+        <div class="inline hero-phone"><Device shots={[screens[0]]} eager /></div>
+      </section>
+
+      {steps.map((s) => (
+        <article id={s.id} class="step" data-step={s.id} data-section={s.id}>
+          <div class="copy" data-reveal>
+            <p class="label">{s.label}</p>
+            <h2 set:html={s.title} />
+            <p class="lede">{s.body}</p>
+            {s.points.length > 0 && <ul class="points">{s.points.map((p) => <li>{p}</li>)}</ul>}
+          </div>
+          {s.id === "flexible" && <WeekStrip />}
+          {s.id === "parkrun" && <ParkrunCard />}
+          {s.id === "adapts" && <AdaptsDemo />}
+          {s.id === "progress" && <ProgressDemo />}
+          <div class="inline"><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} /></div>
+        </article>
+      ))}
+    </div>
+    <div class="side" aria-hidden="true">
+      <div class="pin"><Device shots={screens} eager class="main turned" /></div>
+    </div>
+  </div>
+
+  <section class="wrap works" data-section="works" data-reveal>
+    <Bao mood="proud" size={72} />
+    <p>Your phone is all you need. Bao can also bring in runs from <strong>Strava</strong>, <strong>Health
+      Connect</strong> or any watch's <strong>FIT file</strong>, and send your runs to Strava.</p>
+  </section>
+
+  <section id="get" class="wrap get" data-section="get">
+    <div class="card get-card" data-reveal>
+      <Bao mood="happy" size={132} wave />
+      <div>
+        <h2>Get <em>Bao</em></h2>
+        <p class="lede">Bao is on its way to Google Play. Couch to 5K will be free; longer plans will be a small
+          subscription.</p>
+        <Waitlist />
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="wrap faq" data-section="faq">
+    <h2 data-reveal>Fair <em>questions</em></h2>
+    {faq.map((f) => (
+      <details data-reveal>
+        <summary>{f.q}</summary>
+        <p set:html={f.a} />
+      </details>
+    ))}
+  </section>
+</Base>
+
+<style>
+  /* One phone for the hero and the story: pinned on the right, angled beside the hero, flat once the story starts. */
+  .showcase { display: grid; grid-template-columns: 1fr minmax(300px, 360px); gap: clamp(2rem, 6vw, 5rem); }
+  .side { position: relative; }
+  .pin { position: sticky; top: max(5.5rem, calc(50vh - 330px)); display: grid; justify-items: center; padding-block: 1rem; }
+  .pin :global(.device) { --w: min(300px, calc((100vh - 9rem) * 0.45)); }
+
+  .hero { min-height: calc(100vh - 5rem); display: grid; align-content: center; gap: 1.3rem; justify-items: start;
+    padding-block: 2rem 4rem; }
+  .hero > * { animation: rise 700ms cubic-bezier(.2,.8,.2,1) both; }
+  .hero > :nth-child(2) { animation-delay: 90ms; }
+  .hero > :nth-child(3) { animation-delay: 180ms; }
+  .hero > :nth-child(4) { animation-delay: 270ms; }
+  .hero > :nth-child(5) { animation-delay: 340ms; }
+  .side .pin { animation: rise 900ms cubic-bezier(.2,.8,.2,1) 200ms both; }
+  [data-experiment][data-waiting] { visibility: hidden; }
+  .say { display: flex; align-items: center; gap: 1.25rem; margin-block: 0.25rem; }
+  .say .bubble { max-width: 21rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .small { font-size: 0.95rem; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+
+  .step { min-height: 92vh; display: grid; align-content: center; gap: 2rem; padding-block: 3rem; scroll-margin-top: 4rem; }
+  .copy { display: grid; gap: 1rem; max-width: 34rem; }
+  .points { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; font-weight: 500; }
+  .points li { position: relative; padding-left: 1.6rem; }
+  .points li::before { content: ""; position: absolute; left: 0.2rem; top: 0.55em; width: 0.6rem; height: 0.6rem;
+    border-radius: 50%; background: var(--accent); }
+  .inline { display: none; }
+  /* The hero lines its text up on the left; its phone spans the full width so it can sit in the middle. */
+  .hero-phone { justify-self: stretch; }
+
+  [data-reveal] { transition: opacity 700ms ease, transform 800ms cubic-bezier(.2,.8,.2,1); }
+  [data-reveal]:not(.in) { opacity: 0; transform: translateY(28px); }
+
+  .works { display: flex; align-items: center; gap: 1.5rem; max-width: 46rem; padding-block: 4rem 2rem;
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem); line-height: 1.5; }
+  .get { padding-block: clamp(3rem, 8vw, 6rem) 1rem; scroll-margin-top: 4rem; }
+  .get-card { display: flex; align-items: center; gap: clamp(1.5rem, 5vw, 3.5rem); }
+  .get-card > div { display: grid; gap: 1.1rem; flex: 1; }
+
+  .faq { max-width: 46rem; padding-top: clamp(3rem, 8vw, 6rem); display: grid; gap: 0.25rem; }
+  .faq h2 { margin-bottom: 1.25rem; }
+  details { border-bottom: 1px solid var(--border); }
+  summary { cursor: pointer; list-style: none; padding: 1.1rem 2rem 1.1rem 0; position: relative;
+    font: 600 1.2rem/1.3 var(--serif); }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: 0.25rem; top: 50%; translate: 0 -50%;
+    font: 400 1.6rem/1 var(--sans); color: var(--accent); transition: rotate 250ms cubic-bezier(.3,1.6,.5,1); }
+  details[open] summary::after { rotate: 135deg; }
+  details p { padding-bottom: 1.25rem; color: var(--muted); max-width: 40em; }
+
+  @media (max-width: 900px) {
+    .showcase { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .inline { display: grid; justify-items: center; padding-block: 1rem 0; }
+    .hero { min-height: 0; padding-top: 1.5rem; }
+    .step { min-height: 0; padding-block: 2.5rem; }
+    .get-card { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 520px) {
+    .say { gap: 1rem; }
+    .say :global(.bao) { width: 76px; height: 76px; }
+    .works { flex-direction: column; align-items: flex-start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero > *, .side .pin { animation: none; }
+    [data-reveal]:not(.in) { opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  import "../scripts/motion";
+  import "../scripts/analytics";
+</script>

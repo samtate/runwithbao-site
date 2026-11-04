@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import Bao from "../components/Bao.astro";
+import { CONTACT as contact } from "../site";
+---
+<Base title="Contact · Bao Run" description="Get in touch with the person who makes Bao Run.">
+  <section class="wrap contact">
+    <Bao mood="happy" size={140} wave />
+    <div>
+      <p class="label">Contact</p>
+      <h1>Say <em>hello</em></h1>
+      <p class="lede">For anything about your data, these terms or the app, email
+        <a href={`mailto:${contact}`}>{contact}</a>.</p>
+      <dl>
+        <dt>Made by</dt><dd>Sam Tate</dd>
+        <dt>Email</dt><dd><a href={`mailto:${contact}`}>{contact}</a></dd>
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact { display: flex; align-items: center; gap: clamp(1.5rem, 6vw, 4rem); padding-top: clamp(2rem, 7vw, 5rem); }
+  .contact > div { display: grid; gap: 1.1rem; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1.5rem; margin: 0.5rem 0 0; }
+  dt { color: var(--muted); }
+  dd { margin: 0; font-weight: 500; }
+  @media (max-width: 640px) { .contact { flex-direction: column; align-items: flex-start; } }
+</style>

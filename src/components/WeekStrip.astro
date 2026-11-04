@@ -1,0 +1,96 @@
+---
+/**
+ * A week that rearranges itself: Tuesday's run lifts, slides to Thursday and drops in, and the streak stays lit.
+ * Plays on a loop while it's on screen ([data-reveal] adds .in), and sits still with motion turned off.
+ */
+import Flame from "./Flame.astro";
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+---
+<div class="strip" data-reveal role="img"
+  aria-label="A week of runs: Tuesday's easy run is dragged to Thursday, and the run streak stays at 18.">
+  <div class="days">
+    {days.map((d) => <span class="day">{d}</span>)}
+  </div>
+  <div class="track">
+    <span class="slot rest" style="--c: 1">Rest</span>
+    <span class="slot ghost" style="--c: 2">moved</span>
+    <span class="slot rest" style="--c: 3">Rest</span>
+    <span class="slot rest" style="--c: 5">Rest</span>
+    <span class="slot run sat" style="--c: 6">parkrun</span>
+    <span class="slot run long" style="--c: 7">Long</span>
+    <span class="chip">Easy 5 km<i class="hand" aria-hidden="true"></i></span>
+  </div>
+  <p class="streak"><Flame size={18} /> 18 runs in a row</p>
+</div>
+
+<style>
+  .strip {
+    --cell: calc((100% - 6 * 6px) / 7);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 1.1rem 1.1rem 1rem;
+    display: grid;
+    gap: 0.6rem;
+    max-width: 30rem;
+  }
+  .days, .track { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .day { font: 500 0.72rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    text-align: center; }
+  .track { position: relative; height: 64px; }
+  .slot { grid-column: var(--c); grid-row: 1; display: grid; place-items: center; border-radius: 12px;
+    font: 600 0.72rem/1.1 var(--sans); text-align: center; padding: 2px; }
+  .rest { color: var(--muted); border: 1.5px dashed var(--border); font-weight: 500; }
+  .run { color: #fff; }
+  .sat { background: var(--butter); color: #2b2118; }
+  .long { background: var(--blue); }
+  .ghost { border: 1.5px dashed var(--accent); color: var(--accent-strong); opacity: 0; font-weight: 500; }
+  .chip {
+    position: absolute;
+    top: 0;
+    left: calc(var(--cell) + 6px);
+    width: var(--cell);
+    height: 100%;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--sage);
+    color: #1b2a1d;
+    font: 700 0.72rem/1.1 var(--sans);
+    text-align: center;
+    padding: 2px;
+    z-index: 1;
+  }
+  .hand {
+    position: absolute;
+    right: -6px;
+    bottom: -10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--ink);
+    border: 3px solid var(--surface);
+    opacity: 0;
+  }
+  .streak { display: flex; align-items: center; gap: 0.45rem; font-weight: 600; font-size: 0.95rem; }
+  .streak :global(.flame) { color: var(--accent); }
+
+  .strip:global(.in) .chip { animation: drag 4.6s cubic-bezier(.45,.05,.25,1) 0.6s infinite; }
+  .strip:global(.in) .hand { animation: hand 4.6s ease 0.6s infinite; }
+  .strip:global(.in) .ghost { animation: ghost 4.6s ease 0.6s infinite; }
+  .strip:global(.in) :global(.flame) { animation: flicker 1.6s ease-in-out infinite; }
+  @keyframes drag {
+    0%, 12% { transform: translate(0, 0) scale(1) rotate(0); box-shadow: none; }
+    22% { transform: translate(0, -10px) scale(1.08) rotate(-3deg); box-shadow: 0 12px 20px -8px rgb(0 0 0 / .35); }
+    52% { transform: translate(calc(200% + 12px), -10px) scale(1.08) rotate(3deg);
+      box-shadow: 0 12px 20px -8px rgb(0 0 0 / .35); }
+    60%, 88% { transform: translate(calc(200% + 12px), 0) scale(1) rotate(0); box-shadow: none; }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes hand { 0%, 14% { opacity: 0; } 20%, 56% { opacity: 1; } 64%, 100% { opacity: 0; } }
+  @keyframes ghost { 0%, 24% { opacity: 0; } 34%, 88% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.12) rotate(3deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .strip:global(.in) .chip, .strip:global(.in) .hand, .strip:global(.in) .ghost, .strip:global(.in) :global(.flame) { animation: none; }
+  }
+</style>

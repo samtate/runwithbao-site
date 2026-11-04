@@ -1,0 +1,73 @@
+---
+import Bao from "./Bao.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+const home = Astro.url.pathname === "/";
+---
+<header class="top" data-header>
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="Bao Run home">
+      <Bao mood="happy" size={40} />
+      <span>Bao Run</span>
+    </a>
+    <nav aria-label="Main">
+      <a href={home ? "#flexible" : "/#flexible"}>Discover</a>
+      <ThemeToggle />
+      <a class="pill" href={home ? "#get" : "/#get"} data-cta="header">Get Bao</a>
+    </nav>
+  </div>
+  <span class="progress" aria-hidden="true"></span>
+</header>
+
+<script>
+  // Tucks away while reading down the page, and comes back as soon as you scroll up.
+  const header = document.querySelector<HTMLElement>("[data-header]")!;
+  let last = scrollY;
+  addEventListener("scroll", () => {
+    const y = scrollY;
+    header.classList.toggle("scrolled", y > 8);
+    header.classList.toggle("hidden", y > last && y > 240);
+    last = y;
+  }, { passive: true });
+</script>
+
+<style>
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid transparent;
+    transition: transform 320ms cubic-bezier(.2,.8,.2,1), border-color 200ms ease;
+  }
+  .top.scrolled { border-bottom-color: var(--border); }
+  .top.hidden { transform: translateY(-100%); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; }
+  .brand { display: flex; align-items: center; gap: 0.55rem; color: var(--ink); text-decoration: none;
+    font: 600 1.3rem/1 var(--serif); letter-spacing: -0.02em; white-space: nowrap; }
+  .brand :global(svg) { transition: transform 300ms cubic-bezier(0.2, 0.9, 0.3, 1.6); }
+  .brand:hover :global(svg) { transform: rotate(-10deg) scale(1.1); }
+  nav { display: flex; align-items: center; gap: clamp(0.6rem, 2.2vw, 1.6rem); font-weight: 500; }
+  nav a { color: var(--ink); text-decoration: none; }
+  nav a:not(.pill):hover { color: var(--accent-strong); }
+  nav .pill { padding: 0.6rem 1.15rem; border-radius: 999px; background: var(--ink); color: var(--paper);
+    white-space: nowrap; }
+  nav .pill:hover { color: var(--paper); background: var(--accent-strong); }
+  /* How far down the page you are, drawn by the browser from the scroll position where it can. */
+  .progress { position: absolute; left: 0; bottom: -1px; height: 3px; width: 100%; background: var(--accent);
+    transform-origin: left; transform: scaleX(0); }
+  @supports (animation-timeline: scroll()) {
+    .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    @keyframes grow { to { transform: scaleX(1); } }
+  }
+  @media (max-width: 640px) { nav a:not(.pill) { display: none; } }
+  @media (max-width: 460px) {
+    .bar { gap: 0.5rem; }
+    .brand { font-size: 1.1rem; gap: 0.4rem; }
+    .brand :global(svg) { width: 32px; height: 32px; }
+    nav { gap: 0.5rem; }
+    nav .pill { padding: 0.55rem 0.9rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .top { transition: none; } }
+</style>

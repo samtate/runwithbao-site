@@ -1,0 +1,29 @@
+---
+import Bao from "./Bao.astro";
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap foot">
+    <div class="sign">
+      <Bao mood="tired" size={64} />
+      <p>Bao Run · for people who'd rather be running than reading this.</p>
+    </div>
+    <nav aria-label="Legal and contact">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/delete-account">Delete your account</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <p class="small muted">© {year} Bao Run. Strava is a trademark of Strava, Inc.
+      Couch to 5K is the NHS's beginner programme; Bao Run isn't affiliated with any of them.</p>
+  </div>
+</footer>
+
+<style>
+  footer { border-top: 1px solid var(--border); margin-top: clamp(4rem, 10vw, 8rem); padding-block: 2.5rem 3rem; }
+  .foot { display: grid; gap: 1.5rem; }
+  .sign { display: flex; align-items: center; gap: 1rem; font-weight: 500; }
+  nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  nav a { color: var(--ink); font-weight: 500; }
+  .small { font-size: 0.875rem; max-width: 46em; }
+</style>

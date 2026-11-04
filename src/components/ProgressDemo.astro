@@ -1,0 +1,52 @@
+---
+/** Progress, small and satisfying: the streak ticks up with the flame, and a badge drops in. Loops on screen. */
+import Flame from "./Flame.astro";
+---
+<div class="prog" data-reveal role="img" aria-label="The run streak goes from 17 to 18, and the First 10K badge is earned.">
+  <div class="streak">
+    <Flame size={34} class="fl" />
+    <div class="count"><b class="num"></b><span>runs in a row</span></div>
+  </div>
+  <div class="badges">
+    <span class="medal done">5K</span>
+    <span class="medal done">10′</span>
+    <span class="medal new">10K</span>
+    <span class="medal">½</span>
+  </div>
+  <p class="earned"><b>First 10K</b> · badge earned</p>
+</div>
+
+<style>
+  .prog { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.2rem; display: grid;
+    gap: 1rem; max-width: 30rem; }
+  .streak { display: flex; align-items: center; gap: 0.9rem; color: var(--accent); }
+  .count { display: grid; color: var(--ink); }
+  .num { font: 600 2.6rem/1 var(--serif); font-variant-numeric: tabular-nums; }
+  .num::after { content: "17"; }
+  .count span { font-size: 0.9rem; color: var(--muted); }
+  .badges { display: flex; gap: 0.7rem; }
+  .medal { width: 58px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font: 700 1rem/1 var(--sans);
+    border: 2px dashed var(--border); color: var(--muted); }
+  .medal.done { border: 4px solid color-mix(in srgb, var(--sage) 50%, var(--surface)); background: var(--sage); color: #1b2a1d; }
+  .medal.new { position: relative; }
+  .earned { font-size: 0.95rem; color: var(--muted); opacity: 0; }
+  .earned b { color: var(--ink); }
+
+  .prog:global(.in) .num::after { animation: up 5s steps(1) infinite; }
+  .prog:global(.in) :global(.fl) { animation: flicker 1.4s ease-in-out infinite; }
+  .prog:global(.in) .medal.new { animation: earn 5s cubic-bezier(.3,1.7,.5,1) infinite; }
+  .prog:global(.in) .earned { animation: say 5s ease infinite; }
+  @keyframes up { 0%, 30% { content: "17"; } 32%, 100% { content: "18"; } }
+  @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-4deg); } 50% { transform: scale(1.12) rotate(4deg); } }
+  @keyframes earn {
+    0%, 40% { transform: scale(1); background: transparent; border: 2px dashed var(--border); color: var(--muted); }
+    48% { transform: scale(1.35) rotate(-10deg); background: var(--accent); border: 4px solid var(--butter); color: #fff; }
+    56%, 92% { transform: scale(1); background: var(--accent); border: 4px solid var(--butter); color: #fff; }
+    100% { transform: scale(1); }
+  }
+  @keyframes say { 0%, 46% { opacity: 0; transform: translateY(6px); } 54%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .prog:global(.in) * { animation: none !important; }
+    .num::after { content: "18"; } .earned { opacity: 1; }
+  }
+</style>
