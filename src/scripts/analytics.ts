@@ -44,6 +44,8 @@ function base() {
     $screen_width: screen.width,
     $viewport_width: innerWidth,
     $lib: "bao-site",
+    // PostHog's cookieless mode needs these to work out the day's id; without them it drops the event.
+    $raw_user_agent: navigator.userAgent,
     $process_person_profile: false,
     site: "runwithbao.app",
     ...Object.fromEntries(Object.entries(flags).map(([k, v]) => [`$feature/${k}`, v])),
