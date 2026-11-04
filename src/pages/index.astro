@@ -13,7 +13,7 @@ const steps = [
     id: "flexible",
     shot: "calendar",
     label: "Flexible",
-    title: "Life gets busy. Your plan <em>moves</em>.",
+    title: "Your plan <em>adjusts</em> as you do.",
     body: "Hold a run and drag it up to three days either way. It still counts towards the week it came from, so " +
       "a busy week doesn't leave the next one overloaded.",
     points: ["Ill or injured? Tell Bao, and your streak carries on.",
@@ -47,7 +47,7 @@ const steps = [
     id: "progress",
     shot: "progress",
     label: "Progress",
-    title: "Every run <em>counts</em>.",
+    title: "Watch the <em>runs</em> add up.",
     body: "A streak of planned runs, badges for real milestones like your first 10K or a run before 7am, and " +
       "Couch to 5K's 27 runs ticked off one at a time.",
     points: [],
@@ -59,8 +59,8 @@ const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a
   ...steps.map((s) => ({ shot: s.shot, key: s.id, alt: s.alt }))];
 
 const faq = [
-  { q: "Is it finished?", a: "It's a public beta. Plans, runs, Strava and the rest all work, and Bao gets better " +
-    "every week. If something's off, tell us at hello@runwithbao.app." },
+  { q: "Is it finished?", a: "Not quite. It's a public beta: plans, tracking and imports work, and there'll be " +
+    "rough edges. Tell us at hello@runwithbao.app when you hit one." },
   { q: "Is it free?", a: "Couch to 5K is free and stays free. Plans for longer distances will be a small " +
     "subscription. No ads, and nobody's data is for sale." },
   { q: "Do I need a watch?", a: "No. The Android app tracks your run with your phone's GPS and tells you when to " +
@@ -87,7 +87,7 @@ const faq = [
           <span data-variant="parkrun">Your running plan, <em>parkrun</em> included.</span>
           <span data-variant="move">Missed a run? Just <em>move</em> it.</span>
         </h1>
-        <p class="lede">Bao plans your running around the days you actually have, then reshuffles when the week
+        <p class="lede">Bao plans your running around the days you can run, then reshuffles when the week
           doesn't go to plan. Saturday parkrun built in, from Couch to 5K to marathon.</p>
         <div class="say">
           <Bao mood="cheer" size={104} wave />
@@ -133,9 +133,8 @@ const faq = [
       <Bao mood="happy" size={132} wave />
       <div>
         <h2>Get <em>Bao</em></h2>
-        <p class="lede">Bao is in public beta: everything works, and it's still getting better every week. Make your
-          plan right here in your browser, or get the Android app for GPS tracking and recovery from your sleep.
-          Couch to 5K is free; longer plans will be a small subscription.</p>
+        <p class="lede">Bao is in public beta. Make your plan in your browser, or get the Android app for GPS
+          tracking and recovery from your sleep.</p>
         <div class="actions">
           <a class="button" href={APP} data-app data-cta="get">Get started</a>
           <a class="button quiet" href={APK} data-cta="apk" download>Download for Android</a>
