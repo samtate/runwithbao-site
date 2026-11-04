@@ -6,8 +6,7 @@ import WeekStrip from "../components/WeekStrip.astro";
 import ParkrunCard from "../components/ParkrunCard.astro";
 import AdaptsDemo from "../components/AdaptsDemo.astro";
 import ProgressDemo from "../components/ProgressDemo.astro";
-import Waitlist from "../components/Waitlist.astro";
-import { APP } from "../site";
+import { APK, APP } from "../site";
 
 const steps = [
   {
@@ -60,6 +59,8 @@ const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a
   ...steps.map((s) => ({ shot: s.shot, key: s.id, alt: s.alt }))];
 
 const faq = [
+  { q: "Is it finished?", a: "It's a public beta. Plans, runs, Strava and the rest all work, and Bao gets better " +
+    "every week. If something's off, tell us at hello@runwithbao.app." },
   { q: "Is it free?", a: "Couch to 5K is free and stays free. Plans for longer distances will be a small " +
     "subscription. No ads, and nobody's data is for sale." },
   { q: "Do I need a watch?", a: "No. The Android app tracks your run with your phone's GPS and tells you when to " +
@@ -96,7 +97,7 @@ const faq = [
           <a class="button" href={APP} data-app data-cta="hero">Get started</a>
           <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
         </div>
-        <p class="small muted">Free to start, in your browser. Android app coming soon.</p>
+        <p class="small muted">Public beta. Free to start, in your browser or on Android.</p>
         <div class="inline hero-phone"><Device shots={[screens[0]]} eager /></div>
       </section>
 
@@ -132,12 +133,15 @@ const faq = [
       <Bao mood="happy" size={132} wave />
       <div>
         <h2>Get <em>Bao</em></h2>
-        <p class="lede">Make your plan now, right here in your browser, no phone needed. Couch to 5K is free; longer
-          plans will be a small subscription.</p>
-        <p><a class="button" href={APP} data-app data-cta="get">Get started</a></p>
-        <p class="small muted">The Android app is on its way to Google Play, with GPS tracking and recovery from your
-          sleep. Leave your email and Bao will tell you when it's out.</p>
-        <Waitlist />
+        <p class="lede">Bao is in public beta: everything works, and it's still getting better every week. Make your
+          plan right here in your browser, or get the Android app for GPS tracking and recovery from your sleep.
+          Couch to 5K is free; longer plans will be a small subscription.</p>
+        <div class="actions">
+          <a class="button" href={APP} data-app data-cta="get">Get started</a>
+          <a class="button quiet" href={APK} data-cta="apk" download>Download for Android</a>
+        </div>
+        <p class="small muted">The Android beta comes straight from us, not Google Play yet, so your phone will ask
+          you to allow the install. Same account and plan as the browser.</p>
       </div>
     </div>
   </section>
