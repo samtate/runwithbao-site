@@ -33,13 +33,18 @@ import { CONTACT as contact } from "../site";
         <td>To spot a rough night or a heavy few days and suggest an easier session, to fill in your height and
           weight, and to bring in runs recorded by other apps. Bao only reads; it never writes to Health Connect.
           </td></tr>
-      <tr><td><strong>Your location</strong>, only while you're tracking a run</td>
+      <tr><td><strong>Your location</strong>, only while you're tracking a run in the Android app</td>
         <td>To draw your route and measure distance. Bao doesn't use location at any other time.</td></tr>
       <tr><td><strong>Strava</strong>, only if you connect it: access tokens, your Strava name, and your Strava
           runs</td>
         <td>To send runs you record in Bao to Strava, and bring runs from Strava into Bao.</td></tr>
+      <tr><td><strong>Signing up on the web</strong>, before you've answered “Help improve Bao”: which setup
+          pages you reached, whether you signed in and made a plan, and which version of this website you came from</td>
+        <td>To see where people give up, so we can make it easier. This is anonymous: it uses a random id that isn't
+          stored on your device and isn't linked to your account unless you then allow “Help improve Bao”. Choose
+          “No thanks” and nothing more is sent.</td></tr>
       <tr><td><strong>How you use the app</strong>, only if you allow “Help improve Bao”: screens visited, buttons
-          used, crash reports, phone model and app version</td>
+          used, crash reports, phone model or browser, and app version</td>
         <td>To find what's confusing or broken. These never include health data, your name or your email.</td></tr>
     </tbody>
   </table>
@@ -51,6 +56,8 @@ import { CONTACT as contact } from "../site";
     <li><strong>Your explicit consent</strong>: health data from Health Connect, Strava, and usage analytics. Each is
       off until you turn it on, and you can turn it off again at any time in the app, or in Android's Health
       Connect settings.</li>
+    <li><strong>Legitimate interests</strong>: anonymous statistics about this website and signing up on the web, to
+      make them work better.</li>
     <li><strong>Legitimate interests</strong>: keeping the service secure and stopping abuse, such as limits on
       sign-in attempts.</li>
   </ul>
@@ -117,10 +124,16 @@ import { CONTACT as contact } from "../site";
       pick one.</li>
     <li><strong>Visit statistics</strong>, through PostHog in the EU: which pages and sections were seen, how far down
       the page you scrolled, which buttons were clicked, and which version of the page you saw when we're testing
-      two. These aren't linked to you, and don't follow you between visits.</li>
+      two. These aren't linked to you, and don't follow you between visits. If you click “Get started”, that visit's
+      random id goes with you to the web app, so we can tell which version of the page helped.</li>
     <li><strong>The waitlist</strong>: if you leave your email address, we keep it in London and use it once, to tell
       you Bao is on Google Play. Then we delete the list.</li>
   </ul>
+
+  <h2>Bao in your browser</h2>
+  <p>The web app at app.runwithbao.app keeps your sign-in, a copy of your plan, and changes waiting to be sent in
+    your browser's own storage, so it works when the connection drops. It sets no cookies and nothing for
+    advertising. Signing out removes your sign-in.</p>
 
   <h2>Age</h2>
   <p>Bao is for people aged 16 and over.</p>

@@ -9,8 +9,12 @@ npm run dev      # http://localhost:4321
 npm run build    # static site in dist/
 ```
 
-Deploy `dist/` to any static host (Cloudflare Pages, Netlify, GitHub Pages): build command `npm run build`,
-output directory `dist`.
+It's hosted on Cloudflare Pages, project `runwithbao-site`. Deploy with Node 22.23.4 or later:
+
+```sh
+npm run build
+npx wrangler@4 pages deploy dist --project-name runwithbao-site --branch main
+```
 
 Screenshots in `src/assets/screens/` are real app screens at 640×916 (the phone's status bar cropped off).
 `public/og.png` and `public/favicon.svg` are drawn from Bao's shapes.

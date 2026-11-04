@@ -62,9 +62,12 @@ const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a
 const faq = [
   { q: "Is it free?", a: "Couch to 5K is free and stays free. Plans for longer distances will be a small " +
     "subscription. No ads, and nobody's data is for sale." },
-  { q: "Do I need a watch?", a: "No. Your phone tracks the run and tells you when to run and when to walk. If you " +
-    "have a watch, Bao can use its runs too." },
-  { q: "What about iPhone?", a: "Not yet. Android comes first." },
+  { q: "Do I need a watch?", a: "No. The Android app tracks your run with your phone's GPS and tells you when to " +
+    "run and when to walk. If you have a watch, Bao can use its runs too, through Strava or a FIT file." },
+  { q: "Can I use it without the app?", a: "Yes. Bao works in any modern browser, on a laptop or a phone, with " +
+    "the same plan and the same account. Bring your runs in from Strava or your watch. Tracking a run with GPS, " +
+    "and recovery from your sleep, need the Android app." },
+  { q: "What about iPhone?", a: "There's no iPhone app yet, but Bao works in Safari. Android's app comes first." },
   { q: "Is Bao a doctor?", a: "No, Bao is a bun in a headband. If you have a health condition or haven't " +
     "exercised in a while, check with your GP before you start." },
   { q: "What happens to my data?", a: "It's used to plan your running and nothing else. It's stored in London and " +
@@ -73,7 +76,7 @@ const faq = [
 ---
 <Base
   title="Bao Run · running plans that bend around your week"
-  description="Running plans for Android that move when your week does, with Saturday parkrun built in. Couch to 5K to marathon."
+  description="Running plans that move when your week does, with Saturday parkrun built in. Couch to 5K to marathon, in your browser or on Android."
 >
   <div class="wrap showcase" data-story data-active="hero">
     <div class="flow">
@@ -93,7 +96,7 @@ const faq = [
           <a class="button" href={APP} data-app data-cta="hero">Get started</a>
           <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
         </div>
-        <p class="small muted">Works in your browser. Android app coming soon. Couch to 5K is free.</p>
+        <p class="small muted">Free to start, in your browser. Android app coming soon.</p>
         <div class="inline hero-phone"><Device shots={[screens[0]]} eager /></div>
       </section>
 
@@ -120,7 +123,7 @@ const faq = [
 
   <section class="wrap works" data-section="works" data-reveal>
     <Bao mood="proud" size={72} />
-    <p>Your phone is all you need. Bao can also bring in runs from <strong>Strava</strong>, <strong>Health
+    <p>A browser or a phone is all you need. Bao can also bring in runs from <strong>Strava</strong>, <strong>Health
       Connect</strong> or any watch's <strong>FIT file</strong>, and send your runs to Strava.</p>
   </section>
 
