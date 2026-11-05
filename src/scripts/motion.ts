@@ -62,18 +62,40 @@ if (story) {
 }
 
 // The pinned phone's angle on wide screens: turned beside the hero, lying flat over the first part of the
-// scroll. Phones on narrow screens stay flat. One frame's work per scroll, at most.
+// scroll. Beside the hero it drifts gently on its own; scrolling eases it from wherever the drift has it to the
+// scroll's angle, and the drift fades out as it flattens. Phones on narrow screens are flat and never touched.
 const turned = [...document.querySelectorAll<HTMLElement>(".device.turned")];
 const clamp = (n: number) => Math.min(1, Math.max(0, n));
-let queued = false;
-const angle = () => {
-  queued = false;
-  const vh = innerHeight;
-  const turn = 1 - clamp(scrollY / (vh * 0.6));
-  for (const el of turned) el.style.setProperty("--turn", turn.toFixed(3));
+let shown = 1; // The angle on screen, chasing the scroll's.
+let running = false;
+const frame = (now: number) => {
+  const target = 1 - clamp(scrollY / (innerHeight * 0.6));
+  shown += (target - shown) * 0.12;
+  if (Math.abs(target - shown) < 0.001) shown = target;
+  const t = now / 1000;
+  // Two slow waves out of step, so the drift never visibly repeats. Gone once the phone lies flat.
+  const sway = shown * shown;
+  for (const el of turned) {
+    if (!el.offsetParent) continue; // Hidden on narrow screens.
+    el.style.setProperty("--turn", shown.toFixed(4));
+    el.style.setProperty("--sway-y", (sway * (Math.sin(t * 0.55) * 7 + Math.sin(t * 0.21) * 3)).toFixed(3) + "deg");
+    el.style.setProperty("--sway-x", (sway * Math.sin(t * 0.43 + 1) * 3.5).toFixed(3) + "deg");
+  }
+  // Keep going while it drifts or is still catching up; stop once it's flat and settled.
+  running = shown > 0 || target > 0;
+  if (running) requestAnimationFrame(frame);
 };
+const wake = () => { if (!running && turned.some((el) => el.offsetParent)) { running = true; requestAnimationFrame(frame); } };
 if (!reduced) {
-  angle();
-  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(angle); } }, { passive: true });
-  addEventListener("resize", angle);
+  wake();
+  addEventListener("scroll", wake, { passive: true });
+  addEventListener("resize", wake);
+}
+
+// The scroll-down nudge: gone for good as soon as the page moves.
+const more = document.querySelector<HTMLElement>("[data-more]");
+if (more) {
+  const hide = () => { if (scrollY > 8) { more.classList.add("gone"); removeEventListener("scroll", hide); } };
+  hide();
+  addEventListener("scroll", hide, { passive: true });
 }

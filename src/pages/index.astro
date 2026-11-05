@@ -99,8 +99,12 @@ const faq = [
           <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
         </div>
         <p class="small muted">Public beta. Free to start, in your browser or on Android.</p>
-        <div class="inline hero-phone"><Device shots={[screens[0]]} eager /></div>
+        <div class="inline hero-phone"><Device shots={[screens[0]]} eager flat /></div>
       </section>
+      <a class="more" href="#flexible" aria-label="Scroll down" data-more>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none"
+          stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </a>
 
       {steps.map((s) => (
         <article id={s.id} class="step" data-step={s.id} data-section={s.id}>
@@ -114,7 +118,7 @@ const faq = [
           {s.id === "parkrun" && <ParkrunCard />}
           {s.id === "adapts" && <AdaptsDemo />}
           {s.id === "progress" && <ProgressDemo />}
-          <div class="inline"><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} /></div>
+          <div class="inline"><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} flat /></div>
         </article>
       ))}
     </div>
@@ -209,6 +213,15 @@ const faq = [
   details[open] summary::after { rotate: 135deg; }
   details p { padding-bottom: 1.25rem; color: var(--muted); max-width: 40em; }
 
+  /* A nudge that there's more below, until the visitor starts scrolling. */
+  .more { position: fixed; left: 50%; bottom: max(1.25rem, env(safe-area-inset-bottom)); translate: -50% 0;
+    z-index: 5; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
+    color: var(--ink); background: color-mix(in srgb, var(--surface) 85%, transparent);
+    border: 1px solid var(--border); box-shadow: 0 2px 12px rgb(0 0 0 / 0.12); animation: nudge 1.6s ease-in-out infinite;
+    transition: opacity 300ms ease, visibility 300ms; }
+  .more.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+  @keyframes nudge { 0%, 100% { transform: translateY(0); opacity: 0.75; } 50% { transform: translateY(6px); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .more { animation: none; } }
   @media (max-width: 900px) {
     .showcase { grid-template-columns: 1fr; }
     .side { display: none; }
