@@ -6,7 +6,7 @@
 import Flame from "./Flame.astro";
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 ---
-<div class="strip" data-reveal role="img"
+<div class="strip" data-reveal data-loop role="img"
   aria-label="A week of runs: Tuesday's easy run is dragged to Thursday, and the run streak stays at 18.">
   <div class="days">
     {days.map((d) => <span class="day">{d}</span>)}
@@ -15,12 +15,13 @@ const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     <span class="slot rest" style="--c: 1">Rest</span>
     <span class="slot ghost" style="--c: 2">moved</span>
     <span class="slot rest" style="--c: 3">Rest</span>
+    <span class="slot drop" style="--c: 4"></span>
     <span class="slot rest" style="--c: 5">Rest</span>
     <span class="slot run sat" style="--c: 6">parkrun</span>
     <span class="slot run long" style="--c: 7">Long</span>
-    <span class="chip">Easy 5 km<i class="hand" aria-hidden="true"></i></span>
+    <span class="chip"><span class="face">Easy 5 km</span><i class="hand" aria-hidden="true"></i></span>
   </div>
-  <p class="streak"><Flame size={18} /> 18 runs in a row</p>
+  <p class="streak"><Flame size={18} /> <span class="kept">18 runs in a row</span></p>
 </div>
 
 <style>
@@ -75,22 +76,50 @@ const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   .streak { display: flex; align-items: center; gap: 0.45rem; font-weight: 600; font-size: 0.95rem; }
   .streak :global(.flame) { color: var(--accent); }
 
-  .strip:global(.in) .chip { animation: drag 4.6s cubic-bezier(.45,.05,.25,1) 0.6s infinite; }
-  .strip:global(.in) .hand { animation: hand 4.6s ease 0.6s infinite; }
-  .strip:global(.in) .ghost { animation: ghost 4.6s ease 0.6s infinite; }
+  .drop { border: 1.5px dashed var(--sage); opacity: 0; }
+  .face { display: grid; place-items: center; width: 100%; height: 100%; border-radius: inherit; background: var(--sage); }
+  .chip { background: none; }
+
+  /* One 5s loop: press, lift, carry Tuesday's run to Thursday, drop with a little settle; the streak nods; the
+     run fades out and back into Tuesday, so the restart is never a jump. Transforms and opacity only. */
+  .strip:global(.in) .chip { animation: drag 5s cubic-bezier(.45,.05,.25,1) infinite; }
+  .strip:global(.in) .face { animation: lift 5s ease infinite; }
+  .strip:global(.in) .hand { animation: hand 5s ease infinite; }
+  .strip:global(.in) .ghost { animation: ghost 5s ease infinite; }
+  .strip:global(.in) .drop { animation: drop 5s ease infinite; }
+  .strip:global(.in) .kept { animation: kept 5s ease infinite; }
   .strip:global(.in) :global(.flame) { animation: flicker 1.6s ease-in-out infinite; }
   @keyframes drag {
-    0%, 12% { transform: translate(0, 0) scale(1) rotate(0); box-shadow: none; }
-    22% { transform: translate(0, -10px) scale(1.08) rotate(-3deg); box-shadow: 0 12px 20px -8px rgb(0 0 0 / .35); }
-    52% { transform: translate(calc(200% + 12px), -10px) scale(1.08) rotate(3deg);
-      box-shadow: 0 12px 20px -8px rgb(0 0 0 / .35); }
-    60%, 88% { transform: translate(calc(200% + 12px), 0) scale(1) rotate(0); box-shadow: none; }
-    100% { transform: translate(0, 0); }
+    0%, 20% { transform: translateX(0); opacity: 1; }
+    52% { transform: translateX(calc(200% + 12px)); }
+    84% { transform: translateX(calc(200% + 12px)); opacity: 1; }
+    90% { transform: translateX(calc(200% + 12px)); opacity: 0; }
+    91% { transform: translateX(0); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
   }
-  @keyframes hand { 0%, 14% { opacity: 0; } 20%, 56% { opacity: 1; } 64%, 100% { opacity: 0; } }
-  @keyframes ghost { 0%, 24% { opacity: 0; } 34%, 88% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes lift {
+    0%, 12% { transform: none; box-shadow: none; }
+    16% { transform: scale(0.95); }
+    24% { transform: translateY(-10px) scale(1.08) rotate(-3deg); box-shadow: 0 14px 22px -10px rgb(0 0 0 / .4); }
+    40% { transform: translateY(-12px) scale(1.08) rotate(2deg); box-shadow: 0 14px 22px -10px rgb(0 0 0 / .4); }
+    52% { transform: translateY(-10px) scale(1.08) rotate(3deg); box-shadow: 0 14px 22px -10px rgb(0 0 0 / .4); }
+    58% { transform: translateY(2px) scale(0.97); box-shadow: none; }
+    63%, 100% { transform: none; box-shadow: none; }
+  }
+  @keyframes hand {
+    0%, 8% { opacity: 0; transform: translate(10px, 10px); }
+    14% { opacity: 1; transform: none; }
+    16% { transform: scale(0.85); }
+    20%, 56% { opacity: 1; transform: none; }
+    62%, 100% { opacity: 0; transform: translate(10px, 10px); }
+  }
+  @keyframes ghost { 0%, 22% { opacity: 0; } 30%, 84% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes drop { 0%, 22% { opacity: 0; } 30%, 50% { opacity: 1; } 56%, 100% { opacity: 0; } }
+  @keyframes kept { 0%, 58% { transform: none; } 64% { transform: translateY(-3px); } 70%, 100% { transform: none; } }
   @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.12) rotate(3deg); } }
+  .kept { display: inline-block; }
   @media (prefers-reduced-motion: reduce) {
-    .strip:global(.in) .chip, .strip:global(.in) .hand, .strip:global(.in) .ghost, .strip:global(.in) :global(.flame) { animation: none; }
+    .strip:global(.in) * { animation: none !important; }
+    .chip { transform: translateX(calc(200% + 12px)); } .ghost { opacity: 1; }
   }
 </style>

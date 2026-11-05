@@ -2,15 +2,15 @@
 /** Progress, small and satisfying: the streak ticks up with the flame, and a badge drops in. Loops on screen. */
 import Flame from "./Flame.astro";
 ---
-<div class="prog" data-reveal role="img" aria-label="The run streak goes from 17 to 18, and the First 10K badge is earned.">
+<div class="prog" data-reveal data-loop role="img" aria-label="The run streak goes from 17 to 18, and the First 10K badge is earned.">
   <div class="streak">
-    <Flame size={34} class="fl" />
-    <div class="count"><b class="num"></b><span>runs in a row</span></div>
+    <span class="flare"><Flame size={34} class="fl" /></span>
+    <div class="count"><b class="num"><span class="roll"><span>17</span><span>18</span></span></b><span>runs in a row</span></div>
   </div>
   <div class="badges">
     <span class="medal done">5K</span>
     <span class="medal done">10′</span>
-    <span class="medal new">10K</span>
+    <span class="medal new">10K<i class="shine"></i>{[0, 1, 2, 3, 4, 5].map((k) => <i class="spark" style={`--a: ${k * 60}deg`}></i>)}</span>
     <span class="medal">½</span>
   </div>
   <p class="earned"><b>First 10K</b> · badge earned</p>
@@ -20,33 +20,64 @@ import Flame from "./Flame.astro";
   .prog { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.2rem; display: grid;
     gap: 1rem; max-width: 30rem; }
   .streak { display: flex; align-items: center; gap: 0.9rem; color: var(--accent); }
+  .flare { display: grid; }
   .count { display: grid; color: var(--ink); }
-  .num { font: 600 2.6rem/1 var(--serif); font-variant-numeric: tabular-nums; }
-  .num::after { content: "17"; }
-  .count span { font-size: 0.9rem; color: var(--muted); }
+  /* The number rolls like a counter: 17 slides up and out as 18 slides in. */
+  .num { font: 600 2.6rem/1 var(--serif); font-variant-numeric: tabular-nums; height: 1em; overflow: hidden; display: block; }
+  .roll { display: grid; }
+  .count > span { font-size: 0.9rem; color: var(--muted); }
   .badges { display: flex; gap: 0.7rem; }
   .medal { width: 58px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font: 700 1rem/1 var(--sans);
     border: 2px dashed var(--border); color: var(--muted); }
   .medal.done { border: 4px solid color-mix(in srgb, var(--sage) 50%, var(--surface)); background: var(--sage); color: #1b2a1d; }
   .medal.new { position: relative; }
+  .medal.new::before { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: var(--accent);
+    border: 4px solid var(--butter); transform: scale(0); }
+  .medal.new { isolation: isolate; }
+  .medal.new::before { z-index: -1; }
+  .shine { position: absolute; inset: -4px; border-radius: 50%; overflow: hidden; pointer-events: none; }
+  .shine::after { content: ""; position: absolute; inset: 0; transform: translateX(-120%) skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent); }
+  .spark { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%;
+    background: var(--butter); opacity: 0; }
   .earned { font-size: 0.95rem; color: var(--muted); opacity: 0; }
   .earned b { color: var(--ink); }
 
-  .prog:global(.in) .num::after { animation: up 5s steps(1) infinite; }
+  /* One 6s loop. The streak rolls from 17 to 18 and the flame flares; a beat later the 10K badge fills from the
+     middle, overshoots, throws a few sparks and catches the light, and the line beneath rises. All of it eases
+     back to the start before the loop comes round, so there's no snap. */
+  .prog:global(.in) .roll { animation: roll 6s cubic-bezier(.5,1.6,.5,1) infinite; }
+  .prog:global(.in) .flare { animation: flare 6s ease infinite; }
   .prog:global(.in) :global(.fl) { animation: flicker 1.4s ease-in-out infinite; }
-  .prog:global(.in) .medal.new { animation: earn 5s cubic-bezier(.3,1.7,.5,1) infinite; }
-  .prog:global(.in) .earned { animation: say 5s ease infinite; }
-  @keyframes up { 0%, 30% { content: "17"; } 32%, 100% { content: "18"; } }
-  @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-4deg); } 50% { transform: scale(1.12) rotate(4deg); } }
+  .prog:global(.in) .medal.new { animation: earn 6s infinite; }
+  .prog:global(.in) .medal.new::before { animation: fill 6s infinite; }
+  .prog:global(.in) .shine::after { animation: shine 6s ease-in-out infinite; }
+  .prog:global(.in) .spark { animation: spark 6s cubic-bezier(.2,.8,.3,1) infinite; }
+  .prog:global(.in) .earned { animation: say 6s cubic-bezier(.2,.8,.2,1) infinite; }
+  @keyframes roll { 0%, 22% { transform: none; } 30%, 90% { transform: translateY(-50%); }
+    97%, 100% { transform: none; animation-timing-function: ease-in-out; } }
+  @keyframes flare { 0%, 22% { transform: none; } 28% { transform: scale(1.35) translateY(-3px); } 36%, 100% { transform: none; } }
+  @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-4deg); } 50% { transform: scale(1.1) rotate(4deg); } }
   @keyframes earn {
-    0%, 40% { transform: scale(1); background: transparent; border: 2px dashed var(--border); color: var(--muted); }
-    48% { transform: scale(1.35) rotate(-10deg); background: var(--accent); border: 4px solid var(--butter); color: #fff; }
-    56%, 92% { transform: scale(1); background: var(--accent); border: 4px solid var(--butter); color: #fff; }
-    100% { transform: scale(1); }
+    0%, 40% { color: var(--muted); border-color: var(--border); transform: none; }
+    41% { color: #fff; border-color: transparent; }
+    47% { transform: scale(1.25) rotate(-8deg); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
+    56%, 90% { color: #fff; border-color: transparent; transform: none; }
+    96%, 100% { color: var(--muted); border-color: var(--border); transform: none; }
   }
-  @keyframes say { 0%, 46% { opacity: 0; transform: translateY(6px); } 54%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes fill { 0%, 40% { transform: scale(0); animation-timing-function: cubic-bezier(.3,1.5,.5,1); }
+    48%, 90% { transform: scale(1); } 96%, 100% { transform: scale(0); } }
+  @keyframes shine { 0%, 54% { transform: translateX(-120%) skewX(-20deg); } 66%, 100% { transform: translateX(120%) skewX(-20deg); } }
+  @keyframes spark {
+    0%, 44% { opacity: 0; transform: rotate(var(--a)) translateY(0) scale(1); }
+    46% { opacity: 1; }
+    60%, 100% { opacity: 0; transform: rotate(var(--a)) translateY(-46px) scale(0.3); }
+  }
+  @keyframes say { 0%, 48% { opacity: 0; transform: translateY(8px); } 56%, 90% { opacity: 1; transform: none; }
+    96%, 100% { opacity: 0; transform: translateY(-4px); } }
   @media (prefers-reduced-motion: reduce) {
-    .prog:global(.in) * { animation: none !important; }
-    .num::after { content: "18"; } .earned { opacity: 1; }
+    .prog:global(.in) *, .prog:global(.in) *::before, .prog:global(.in) *::after { animation: none !important; }
+    .roll { transform: translateY(-50%); } .earned { opacity: 1; }
+    .medal.new { color: #fff; border-color: transparent; } .medal.new::before { transform: scale(1); }
   }
 </style>

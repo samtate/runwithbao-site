@@ -15,6 +15,12 @@ const reveal = new IntersectionObserver((entries) => {
 }, { threshold: 0.25 });
 document.querySelectorAll("[data-reveal]").forEach((el) => reduced ? el.classList.add("in") : reveal.observe(el));
 
+// Looping illustrations pause while off screen.
+const loops = new IntersectionObserver((entries) => {
+  for (const entry of entries) entry.target.classList.toggle("rest", !entry.isIntersecting);
+});
+document.querySelectorAll("[data-loop]").forEach((el) => loops.observe(el));
+
 // Bao types: letter by letter, about as fast as in the app, with the full line kept for screen readers.
 const type = (el: HTMLElement) => {
   const text = el.textContent ?? "";

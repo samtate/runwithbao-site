@@ -193,6 +193,9 @@ const faq = [
   /* The hero lines its text up on the left; its phone spans the full width so it can sit in the middle. */
   .hero-phone { justify-self: stretch; }
 
+  /* Looping illustrations hold still while off screen, so they cost nothing as the page scrolls. */
+  :global([data-loop].rest), :global([data-loop].rest *), :global([data-loop].rest *::before),
+  :global([data-loop].rest *::after) { animation-play-state: paused !important; }
   [data-reveal] { transition: opacity 700ms ease, transform 800ms cubic-bezier(.2,.8,.2,1); }
   [data-reveal]:not(.in) { opacity: 0; transform: translateY(28px); }
 
