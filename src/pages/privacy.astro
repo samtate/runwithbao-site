@@ -6,7 +6,7 @@ import { CONTACT as contact } from "../site";
   title="Privacy Policy"
   heading="Privacy Policy"
   description="What Bao Run collects, why, where it's kept, who else touches it, and how to delete it."
-  updated="4 November 2026"
+  updated="5 November 2026"
   summary="Bao keeps what it needs to plan your running, and nothing else. It's stored in London, never sold or used for ads, health data is only read with your permission, and you can delete everything from the app."
 >
   <h2>Who we are</h2>
@@ -38,6 +38,12 @@ import { CONTACT as contact } from "../site";
       <tr><td><strong>Strava</strong>, only if you connect it: access tokens, your Strava name, and your Strava
           runs</td>
         <td>To send runs you record in Bao to Strava, and bring runs from Strava into Bao.</td></tr>
+      <tr><td><strong>Garmin</strong>, only if you connect it: access tokens, your Garmin user id, which data you let
+          Bao use, your Garmin runs (time, distance, duration, heart rate, route), and daily sleep, resting heart rate,
+          heart rate variability and stress</td>
+        <td>To put your planned sessions on your Garmin calendar as workouts, mark them done when you run, and
+          suggest an easier session after a poor night or a stressful few days. See <a href="#garmin">Garmin</a>
+          below.</td></tr>
       <tr><td><strong>Signing up on the web</strong>, before you've answered “Help improve Bao”: which setup
           pages you reached, whether you signed in and made a plan, and which version of this website you came from</td>
         <td>To see where people give up, so we can make it easier. This is anonymous: it uses a random visit id that's
@@ -54,7 +60,8 @@ import { CONTACT as contact } from "../site";
   <ul>
     <li><strong>To provide the app you asked for</strong> (contract): your account, plan answers, runs and watch
       files.</li>
-    <li><strong>Your explicit consent</strong>: health data from Health Connect, Strava, and usage analytics. Each is
+    <li><strong>Your explicit consent</strong>: health data from Health Connect or Garmin, Strava, Garmin, and
+      usage analytics. Each is
       off until you turn it on, and you can turn it off again at any time in the app, or in Android's Health
       Connect settings.</li>
     <li><strong>Legitimate interests</strong>: anonymous statistics about this website and signing up on the web, to
@@ -63,13 +70,15 @@ import { CONTACT as contact } from "../site";
       sign-in attempts.</li>
   </ul>
   <p>Heart rate, sleep and similar readings are health data, which the law protects specially. We only process
-    them with your explicit consent, given when you connect Health Connect, and only to plan your training.</p>
+    them with your explicit consent, given when you connect Health Connect or Garmin, and only to plan your
+    training.</p>
 
   <h2>What we never do</h2>
   <ul>
     <li>Sell your data, or share it with advertisers or data brokers.</li>
     <li>Show ads.</li>
-    <li>Use your health data, or data from Health Connect, Strava or any watch, to train AI models.</li>
+    <li>Use your health data, or data from Health Connect, Garmin, Strava or any watch, to train, test or improve
+      AI models.</li>
     <li>Show your runs, routes or health data to anyone but you.</li>
   </ul>
 
@@ -83,7 +92,11 @@ import { CONTACT as contact } from "../site";
       <tr><td>Resend</td><td>Sending sign-in codes to your email address</td><td>United States</td></tr>
       <tr><td>PostHog</td><td>Usage analytics and crash reports, only if you allow them</td>
         <td>European Union</td></tr>
+      <tr><td>Cloudflare</td><td>Hosting this website and the web app, and handling email to our address. It
+        passes requests on but doesn't store your plan, runs or health data</td><td>Worldwide network</td></tr>
       <tr><td>Strava</td><td>Only if you connect it: the runs Bao sends and receives</td><td>United States</td></tr>
+      <tr><td>Garmin</td><td>Only if you connect it: the workouts Bao sends, and the runs and daily readings Bao
+        receives</td><td>Garmin's own services</td></tr>
     </tbody>
   </table>
   <p>Where data leaves the UK, it's protected by the UK's adequacy regulations or the standard contractual clauses
@@ -96,10 +109,32 @@ import { CONTACT as contact } from "../site";
     features, we don't transfer it except as described here, and no person reads it unless you ask us to help
     with a problem or the law requires it.</p>
 
+  <h2 id="garmin">Garmin</h2>
+  <p>Connecting Garmin is optional. You sign in on Garmin's own page and choose there what Bao may use. Bao
+    then:</p>
+  <ul>
+    <li><strong>Sends</strong> your coming week's planned sessions to your Garmin Connect calendar as workouts, and
+      updates or removes them when your plan changes.</li>
+    <li><strong>Receives</strong> your runs (start time, duration, distance, heart rate and route) and daily sleep,
+      resting heart rate, heart rate variability and stress, which Garmin sends as they sync.</li>
+  </ul>
+  <p>We use this only to run your training plan: counting your runs and adjusting your plan, and suggesting an
+    easier day when your recovery looks low. It's stored with Supabase in London, shown only to you, and never sold,
+    shared for anyone else's use, sent to PostHog, or used for ads.</p>
+  <p><strong>AI.</strong> No AI system processes your Garmin data. Bao's coaching follows fixed rules written by us,
+    and Garmin data is never used to train, test or improve any AI model.</p>
+  <p><strong>Your control.</strong> Disconnect in the app under <strong>Settings → Connected apps → Garmin</strong>, or
+    remove Bao in Garmin Connect. Either way we delete your Garmin tokens and link. Disconnecting in the app also
+    takes Bao's workouts off your Garmin calendar. Runs and readings already in Bao stay part of your history until you delete them or your
+    account. You can see your runs in the app, ask us for a copy of everything we hold, or ask us to correct or
+    delete it, as described under <a href="#rights">Your rights</a>.</p>
+
   <h2>How long we keep it</h2>
   <ul>
     <li>Your account, plan, runs and files: until you delete them or your account.</li>
     <li>Health readings: until you delete your account. Bao only looks at the last few weeks.</li>
+    <li>Garmin: disconnecting deletes your Garmin tokens and link straight away. Runs and readings already in Bao
+      stay until you delete them or your account.</li>
     <li>Strava: disconnecting deletes your Strava tokens and link straight away. Runs already brought into Bao
       stay part of your history until you delete them.</li>
     <li>Analytics: kept by PostHog for up to a year.</li>
@@ -107,11 +142,11 @@ import { CONTACT as contact } from "../site";
 
   <h2>Deleting everything</h2>
   <p>In the app, go to <strong>Settings → Delete my account</strong>. Your account, plan, runs, routes, health
-    readings, watch files and Strava link are deleted from the live database and file storage.
+    readings, watch files, and Strava and Garmin links are deleted from the live database and file storage.
     We don't currently have any database backups available to restore. There's more on the <a href="/delete-account">delete your account</a>
     page.</p>
 
-  <h2>Your rights</h2>
+  <h2 id="rights">Your rights</h2>
   <p>You can ask to see the data we hold about you, correct it, delete it, take a copy in a portable format,
     object to how we use it, or withdraw consent at any time. Much of this you can do in the app; for anything
     else, email <a href={`mailto:${contact}`}>{contact}</a>. The law gives us a month to respond.</p>
