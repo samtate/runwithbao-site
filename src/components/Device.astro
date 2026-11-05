@@ -9,7 +9,7 @@
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
-type Shot = "today" | "plan" | "calendar" | "rate" | "progress" | "rundetail";
+type Shot = "today" | "plan" | "calendar" | "rate" | "progress" | "rundetail" | "garmin";
 interface Props {
   shots: { shot: Shot; key: string; alt: string }[];
   eager?: boolean;

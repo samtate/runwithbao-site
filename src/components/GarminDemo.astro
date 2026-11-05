@@ -1,0 +1,150 @@
+---
+/**
+ * Garmin, both ways. Out: Thursday's session leaves the plan and lands on a watch, which then steps through it
+ * (warm up, run, easy) with its ring filling. Back: the finished run arrives with its route drawing itself, then
+ * last night's sleep and HRV, and Bao's verdict. Loops while on screen.
+ */
+import Bao from "./Bao.astro";
+---
+<div class="garmin" data-reveal data-loop role="img"
+  aria-label="Thursday's 5 km session is sent to a Garmin watch, which guides it step by step. Afterwards the run comes back to Bao with its route, along with last night's sleep and HRV.">
+  <div class="out">
+    <div class="slot">
+      <span class="sent" aria-hidden="true">On your watch ✓</span>
+      <div class="session">
+      <small>Thu</small><b>Easy 5 km</b>
+      <span class="parts"><i style="--w: 20%"></i><i class="hard" style="--w: 60%"></i><i style="--w: 20%"></i></span>
+      </div>
+    </div>
+    <div class="path" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="watch" aria-hidden="true">
+      <span class="strap top"></span><span class="strap bottom"></span><span class="btn"></span>
+      <div class="face">
+        <svg class="ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" /><circle class="fill" cx="50" cy="50" r="44" pathLength="100" /></svg>
+        <span class="synced">Bao<br />synced</span>
+        <span class="stepname s1">Warm up</span><span class="stepname s2">Run</span><span class="stepname s3">Easy</span>
+        <span class="pace">5:45<small>/km</small></span>
+      </div>
+    </div>
+  </div>
+  <div class="back">
+    <div class="run">
+      <svg class="route" viewBox="0 0 120 70" aria-hidden="true">
+        <path class="under" d="M10 58 C 18 30, 34 18, 52 22 S 80 50, 96 38 S 112 12, 104 8 C 92 4, 70 14, 58 30 S 26 64, 10 58 Z" />
+        <path class="line" pathLength="100" d="M10 58 C 18 30, 34 18, 52 22 S 80 50, 96 38 S 112 12, 104 8 C 92 4, 70 14, 58 30 S 26 64, 10 58 Z" />
+      </svg>
+      <div class="stats"><small>Thursday · from Garmin</small><b>5.02 km</b><span>29:14 · 5:49/km</span></div>
+    </div>
+    <div class="chips">
+      <span class="chip c1">Slept 7h 40m</span><span class="chip c2">HRV 62 ms</span><span class="chip c3">Resting HR 51</span>
+    </div>
+    <p class="verdict"><Bao mood="happy" size={34} /><span>Well rested. Saturday's parkrun stays as planned.</span></p>
+  </div>
+</div>
+
+<style>
+  .garmin { display: grid; gap: 0.9rem; max-width: 30rem; }
+  .out, .back { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.1rem 1.2rem; }
+  .out { display: flex; align-items: center; gap: 0.6rem; }
+
+  .slot { flex: none; position: relative; width: 7.2rem; display: grid; }
+  .slot > * { grid-area: 1 / 1; }
+  .sent { display: grid; place-items: center; border-radius: 16px; border: 1.5px dashed var(--sage);
+    font: 600 0.78rem/1.2 var(--sans); color: var(--muted); text-align: center; opacity: 0; }
+  .session { display: grid; gap: 0.2rem; padding: 0.7rem 0.8rem; border-radius: 16px;
+    background: var(--sage); color: #1b2a1d; position: relative; z-index: 1; }
+  .session small { font: 600 0.68rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; }
+  .session b { font: 700 0.95rem/1.15 var(--sans); }
+  .parts { display: flex; gap: 3px; margin-top: 0.3rem; }
+  .parts i { width: var(--w); height: 5px; border-radius: 3px; background: rgb(27 42 29 / 0.3); }
+  .parts .hard { background: #1b2a1d; }
+
+  .path { flex: 1; display: flex; justify-content: space-around; align-items: center; min-width: 2.5rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.2; }
+
+  .watch { flex: none; position: relative; margin-block: 14px; width: 112px; height: 112px; display: grid; place-items: center; }
+  .strap { position: absolute; left: 50%; width: 52px; height: 30px; translate: -50% 0; background: #2a2724; }
+  .strap.top { top: -16px; border-radius: 10px 10px 4px 4px; }
+  .strap.bottom { bottom: -16px; border-radius: 4px 4px 10px 10px; }
+  .btn { position: absolute; right: -4px; top: 34%; width: 6px; height: 16px; border-radius: 3px; background: #4a4642; }
+  .face { position: relative; width: 112px; height: 112px; border-radius: 50%; background: #0c0c0d;
+    box-shadow: 0 0 0 5px #3a3733, 0 0 0 6px #55504a, 0 10px 18px -8px rgb(0 0 0 / 0.5);
+    display: grid; place-items: center; color: #fff; text-align: center; overflow: hidden; }
+  .ring { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke: rgb(255 255 255 / 0.12); stroke-width: 6; }
+  .ring .fill { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .synced, .stepname, .pace { position: absolute; opacity: 0; }
+  .synced { font: 700 0.8rem/1.15 var(--sans); color: #9fd0a6; }
+  .stepname { top: 30%; font: 600 0.7rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: #c9c3ba; }
+  .s2 { color: #ff9a6e; }
+  .pace { top: 46%; font: 700 1.35rem/1 var(--sans); font-variant-numeric: tabular-nums; }
+  .pace small { font-size: 0.6rem; font-weight: 500; color: #c9c3ba; }
+
+  .back { display: grid; gap: 0.8rem; }
+  .run { display: flex; align-items: center; gap: 1rem; }
+  .route { width: 96px; flex: none; }
+  .route .under { fill: none; stroke: var(--border); stroke-width: 4; stroke-linecap: round; }
+  .route .line { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .stats { display: grid; gap: 0.1rem; }
+  .stats small { font-size: 0.75rem; color: var(--muted); }
+  .stats b { font: 600 1.5rem/1.1 var(--serif); }
+  .stats span { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip { font: 600 0.78rem/1 var(--sans); padding: 0.45rem 0.7rem; border-radius: 999px;
+    background: color-mix(in srgb, var(--blue) 18%, transparent); color: var(--ink); }
+  .verdict { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; font-weight: 500; }
+
+  /* One 9s loop. Out (0–50%): the session lifts and flies along the dotted path into the watch, which wakes with
+     "synced", then steps through warm up, run and easy as its ring fills. Back (50–90%): the run's card rises, its
+     route draws, the readings pop in one by one and Bao gives the verdict. All of it fades away before it repeats. */
+  .garmin:global(.in) .session { animation: send 9s infinite; }
+  .garmin:global(.in) .sent { animation: sent 9s infinite; }
+  .garmin:global(.in) .dot { animation: dot 9s infinite; }
+  .garmin:global(.in) .dot:nth-child(2) { animation-delay: 0.12s; }
+  .garmin:global(.in) .dot:nth-child(3) { animation-delay: 0.24s; }
+  .garmin:global(.in) .face { animation: wake 9s infinite; }
+  .garmin:global(.in) .synced { animation: synced 9s infinite; }
+  .garmin:global(.in) .s1 { animation: s1 9s infinite; }
+  .garmin:global(.in) .s2 { animation: s2 9s infinite; }
+  .garmin:global(.in) .s3 { animation: s3 9s infinite; }
+  .garmin:global(.in) .pace { animation: pace 9s infinite; }
+  .garmin:global(.in) .ring .fill { animation: ring 9s infinite; }
+  .garmin:global(.in) .run { animation: rise 9s cubic-bezier(.2,.8,.2,1) infinite; }
+  .garmin:global(.in) .route .line { animation: draw 9s infinite; }
+  .garmin:global(.in) .chip { animation: pop 9s infinite; }
+  .garmin:global(.in) .c2 { animation-delay: 0.18s; }
+  .garmin:global(.in) .c3 { animation-delay: 0.36s; }
+  .garmin:global(.in) .verdict { animation: verdict 9s cubic-bezier(.2,.8,.2,1) infinite; }
+
+  @keyframes send {
+    0%, 6% { transform: none; opacity: 1; }
+    10% { transform: translateY(-6px) scale(1.04) rotate(-2deg); box-shadow: 0 14px 22px -12px rgb(0 0 0 / .45); animation-timing-function: cubic-bezier(.6,0,.4,1); }
+    20% { transform: translateX(calc(100% + 4rem)) scale(0.35); opacity: 0; }
+    86% { transform: translateX(calc(100% + 4rem)) scale(0.35); opacity: 0; }
+    87% { transform: translateY(8px); opacity: 0; }
+    95%, 100% { transform: none; opacity: 1; box-shadow: none; }
+  }
+  @keyframes sent { 0%, 18% { opacity: 0; } 24%, 84% { opacity: 1; } 88%, 100% { opacity: 0; } }
+  @keyframes dot { 0%, 8% { opacity: 0.2; transform: none; } 12% { opacity: 1; transform: scale(1.5); } 18%, 100% { opacity: 0.2; transform: none; } }
+  @keyframes wake { 0%, 19% { transform: none; } 21% { transform: scale(1.07); } 25%, 100% { transform: none; } }
+  @keyframes synced { 0%, 19% { opacity: 0; transform: scale(0.8); } 22%, 27% { opacity: 1; transform: none; } 30%, 100% { opacity: 0; } }
+  @keyframes s1 { 0%, 30% { opacity: 0; transform: translateY(4px); } 32%, 36% { opacity: 1; transform: none; } 38%, 100% { opacity: 0; transform: translateY(-4px); } }
+  @keyframes s2 { 0%, 38% { opacity: 0; transform: translateY(4px); } 40%, 45% { opacity: 1; transform: none; } 47%, 100% { opacity: 0; transform: translateY(-4px); } }
+  @keyframes s3 { 0%, 47% { opacity: 0; transform: translateY(4px); } 49%, 86% { opacity: 1; transform: none; } 92%, 100% { opacity: 0; } }
+  @keyframes pace { 0%, 30% { opacity: 0; } 32%, 86% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes ring { 0%, 30% { stroke-dashoffset: 100; } 52%, 86% { stroke-dashoffset: 0; opacity: 1; } 92% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 100; opacity: 0; } }
+  @keyframes rise { 0%, 52% { opacity: 0.25; transform: translateY(6px); } 57%, 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0.25; transform: translateY(6px); } }
+  @keyframes draw { 0%, 54% { stroke-dashoffset: 100; } 66%, 88% { stroke-dashoffset: 0; opacity: 1; } 95% { opacity: 0; stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; opacity: 0; } }
+  @keyframes pop {
+    0%, 66% { opacity: 0.25; transform: scale(0.92); filter: grayscale(1); }
+    69% { opacity: 1; transform: scale(1.1); }
+    72%, 88% { opacity: 1; transform: none; }
+    95%, 100% { opacity: 0.25; transform: scale(0.92); filter: grayscale(1); }
+  }
+  @keyframes verdict { 0%, 73% { opacity: 0.2; transform: translateY(4px); } 78%, 88% { opacity: 1; transform: none; } 95%, 100% { opacity: 0.2; transform: translateY(4px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .garmin:global(.in) *, .garmin:global(.in) *::before, .garmin:global(.in) *::after { animation: none !important; }
+    .route .line, .ring .fill { stroke-dashoffset: 0; } .s2, .pace { opacity: 1; }
+  }
+</style>

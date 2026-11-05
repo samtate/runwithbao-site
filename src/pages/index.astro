@@ -6,6 +6,7 @@ import WeekStrip from "../components/WeekStrip.astro";
 import ParkrunCard from "../components/ParkrunCard.astro";
 import AdaptsDemo from "../components/AdaptsDemo.astro";
 import ProgressDemo from "../components/ProgressDemo.astro";
+import GarminDemo from "../components/GarminDemo.astro";
 import { APK, APP } from "../site";
 
 const steps = [
@@ -53,6 +54,18 @@ const steps = [
     points: [],
     alt: "Bao Run's progress screen, with weekly distance, likely race times and badges",
   },
+  {
+    id: "garmin",
+    shot: "garmin",
+    label: "Garmin",
+    title: "Your plan, <em>on your wrist</em>.",
+    body: "Connect Garmin and each session goes to your watch, which guides you through it step by step. When " +
+      "you finish, the run comes back to Bao on its own.",
+    points: ["Move a run, and your watch updates.",
+      "Your sleep, resting heart rate and HRV tell Bao when to suggest an easier day.",
+      "Another watch? Bring your runs in through Strava or Health Connect."],
+    alt: "Bao Run's Garmin page: connected, with 4 workouts scheduled and 14 runs imported",
+  },
 ] as const;
 
 const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a parkrun Saturday" } as const,
@@ -64,7 +77,7 @@ const faq = [
   { q: "Is it free?", a: "Couch to 5K is free and stays free. Plans for longer distances will be a small " +
     "subscription. No ads, and nobody's data is for sale." },
   { q: "Do I need a watch?", a: "No. The Android app tracks your run with your phone's GPS and tells you when to " +
-    "run and when to walk. If you have a watch, Bao can use its runs too, through Strava or a FIT file." },
+    "run and when to walk. With a Garmin, Bao sends each session to your watch and gets the run back. Other watches can bring their runs in through Strava, Health Connect or a FIT file." },
   { q: "Can I use it without the app?", a: "Yes. Bao works in any modern browser, on a laptop or a phone, with " +
     "the same plan and the same account. Bring your runs in from Strava or your watch. Tracking a run with GPS, " +
     "and recovery from your sleep, need the Android app." },
@@ -118,6 +131,7 @@ const faq = [
           {s.id === "parkrun" && <ParkrunCard />}
           {s.id === "adapts" && <AdaptsDemo />}
           {s.id === "progress" && <ProgressDemo />}
+          {s.id === "garmin" && <GarminDemo />}
           <div class="inline"><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} flat /></div>
         </article>
       ))}
@@ -129,7 +143,7 @@ const faq = [
 
   <section class="wrap works" data-section="works" data-reveal>
     <Bao mood="proud" size={72} />
-    <p>A browser or a phone is all you need. Bao can also bring in runs from <strong>Strava</strong>, <strong>Health
+    <p>A browser or a phone is all you need. Bao can also work with <strong>Garmin</strong>, bring in runs from <strong>Strava</strong>, <strong>Health
       Connect</strong> or any watch's <strong>FIT file</strong>, and send your runs to Strava.</p>
   </section>
 
