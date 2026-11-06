@@ -52,5 +52,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+      <script>
+      // Any price on the page, in the visitor's currency.
+      import { showLocalPrices } from "../scripts/prices";
+      showLocalPrices();
+    </script>
   </body>
 </html>

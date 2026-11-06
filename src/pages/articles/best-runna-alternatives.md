@@ -14,7 +14,7 @@ The common complaints in reviews are the price, plans that feel too hard for som
 
 | App | Price | Best for |
 |---|---|---|
-| Bao Run | Free; Plus £5.99/month or £39.99/year | Plans that bend around a busy week |
+| Bao Run | Free; Plus <span data-price="monthly">£5.99</span>/month or <span data-price="yearly">£39.99</span>/year | Plans that bend around a busy week |
 | Kiprun Pacer | Free | Free plans from 10K to ultra-trail |
 | Garmin Coach | Free with a Garmin | Garmin owners training for 5K to half |
 | Coopah | About £14.99/month or £79.99/year | Access to human coaches |
@@ -26,7 +26,7 @@ The common complaints in reviews are the price, plans that feel too hard for som
 *Full disclosure: we make Bao.* We built it because most plans assume your week goes to plan, and ours rarely does.
 
 - **Free:** Couch to 5K start to finish, sending sessions to a Garmin, GPS tracking on Android, runs from Strava, Health Connect or any watch's FIT file, and every flexibility feature.
-- **Bao Plus (£5.99/month or £39.99/year):** plans from a faster 5K to the marathon, with B races. Two weeks free first, no card.
+- **Bao Plus (<span data-price="monthly">£5.99</span>/month or <span data-price="yearly">£39.99</span>/year):** plans from a faster 5K to the marathon, with B races. Two weeks free first, no card.
 - **What's different:** move a run up to three days either way and it still counts for its week; take time off for a holiday; mark yourself ill or injured and your streak waits; make any session easier in one tap; and your sleep, heart rate and other sport shape the day.
 - **What it lacks:** no iPhone app yet (it works in Safari), no Apple Watch, no human coaches.
 
