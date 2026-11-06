@@ -17,8 +17,9 @@ const steps = [
     title: "Your plan <em>adjusts</em> as you do.",
     body: "Hold a run and drag it up to three days either way. It still counts towards the week it came from, so " +
       "a busy week doesn't leave the next one overloaded.",
-    points: ["Ill or injured? Tell Bao, and your streak carries on.",
-      "Only a missed run breaks your streak, never a rest day."],
+    points: ["Heavy day? Make any session easier in one tap.",
+      "Away for a week? Add time off and the plan waits for you.",
+      "Ill or injured? Tell Bao, and your streak carries on."],
     alt: "Bao Run's calendar, with Thursday's run moved to Friday",
   },
   {
@@ -41,7 +42,7 @@ const steps = [
     body: "How did that feel? A tap from 1 to 10, or one of three words if you're new. That's all Bao needs to " +
       "keep the plan right for you.",
     points: ["Struggling? Bao offers an easier week, or to repeat one.", "Cruising? It suggests a step up.",
-      "Connect Health Connect, and a short night's sleep can mean an easier day."],
+      "Connect Garmin or Health Connect, and a short night's sleep can mean an easier day."],
     alt: "Rating a run in Bao Run, on a scale from 1 to 10",
   },
   {
@@ -111,7 +112,7 @@ const faq = [
           <a class="button" href={APP} data-app data-cta="hero">Get started</a>
           <a class="button quiet" href="#flexible" data-cta="hero-how">See how it works</a>
         </div>
-        <p class="small muted">Public beta. Free to start, in your browser or on Android.</p>
+        <p class="small muted">Public beta. Couch to 5K is free, in your browser or on Android. <a href="/pricing" data-cta="hero-pricing">See pricing</a></p>
         <div class="inline hero-phone"><Device shots={[screens[0]]} eager flat /></div>
       </section>
       <a class="more" href="#flexible" aria-label="Scroll down" data-more>
@@ -132,7 +133,7 @@ const faq = [
           {s.id === "adapts" && <AdaptsDemo />}
           {s.id === "progress" && <ProgressDemo />}
           {s.id === "garmin" && <GarminDemo />}
-          <div class="inline"><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} flat /></div>
+          <div class:list={["inline", { "from-bottom": s.shot === "rate" }]}><Device shots={[{ shot: s.shot, key: s.id, alt: s.alt }]} flat /></div>
         </article>
       ))}
     </div>
@@ -241,6 +242,16 @@ const faq = [
   @media (prefers-reduced-motion: reduce) { .more { animation: none; } }
   @media (max-width: 900px) {
     .showcase { grid-template-columns: 1fr; }
+    /* On phones the story's phones show their top part and fade out, which is where each screen's point is, so
+       the page isn't five full-height phones long. The hero's phone shows a little more. */
+    .inline { --pw: min(270px, 66vw); --show: 0.56; height: calc(var(--pw) * 2.144 * var(--show) + 1rem);
+      overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+      mask-image: linear-gradient(to bottom, #000 72%, transparent); }
+    .inline.hero-phone { --show: 0.66; }
+    /* The rating sheet sits at the bottom of its screen, so that phone shows its lower part instead. */
+    .inline.from-bottom { align-content: end; -webkit-mask-image: linear-gradient(to top, #000 72%, transparent);
+      mask-image: linear-gradient(to top, #000 72%, transparent); }
+    .inline :global(.device) { --w: var(--pw); }
     .side { display: none; }
     .inline { display: grid; justify-items: center; padding-block: 1rem 0; }
     .hero { min-height: 0; padding-top: 1.5rem; }
