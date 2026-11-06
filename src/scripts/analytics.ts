@@ -6,7 +6,7 @@
  * small batches, and on leaving the page by beacon.
  *
  * Recorded: the page view; how far down it was scrolled (25/50/75/100% as they're reached, and the furthest on
- * leaving); each section seen and for how long; clicks on anything marked [data-cta]; and joining the waitlist,
+ * leaving); each section seen and for how long; clicks on anything marked [data-cta],
  * the conversion, and leaving for the web app with "Get started". Every event carries the A/B variants the visitor saw, as PostHog's `$feature/<key>`.
  *
  * A/B tests: an element with [data-experiment="flag-key"] holds one child per variant, [data-variant="name"].
