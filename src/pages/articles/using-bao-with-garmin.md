@@ -2,18 +2,20 @@
 layout: ../../layouts/Article.astro
 title: "Using Bao with your Garmin, step by step"
 heading: "Using Bao with your <em>Garmin</em>, step by step"
-description: "Connect Garmin once and Bao puts each session on your watch, then brings your runs, sleep and heart rate back on their own. Here's how to set it up."
+description: "Connect Garmin once and Bao puts each session on your watch, then brings your runs, sleep and heart rate back by itself. Setting it up takes about two minutes."
 date: "2026-11-06"
+summary:
+  - "Connecting Garmin is free, and so is sending Couch to 5K to your watch."
+  - "Sessions go to your Garmin calendar; runs, sleep, resting heart rate and HRV come back."
+  - "Move a run in Bao and your watch has the new day after its next sync."
 ---
 
-Once Garmin is connected, you're pretty much set. Bao puts the week's sessions on your Garmin calendar, your watch guides you through each one step by step, and when you finish, the run comes back to Bao on its own. Your sleep, resting heart rate and HRV come too, so Bao can suggest an easier day when you need one.
-
-Connecting Garmin, and sending Couch to 5K to your watch, is free.
+With Garmin connected, Bao puts the week's sessions on your Garmin calendar and your watch guides you through each one, step by step. Finish a run and it comes back to Bao by itself, along with your sleep, resting heart rate and HRV, so Bao knows when to suggest an easier day.
 
 ## What you need
 
-- A Garmin watch that can follow structured workouts (most Forerunner, Fenix, Venu, Epix and Instinct models can).
-- The Garmin Connect app on your phone, signed in and paired with your watch.
+- A Garmin watch that follows structured workouts. Most Forerunner, Fenix, Venu, Epix and Instinct models do.
+- The Garmin Connect app on your phone, paired with your watch.
 - A Bao account, on Android or at [app.runwithbao.app](https://app.runwithbao.app).
 
 ## 1. Open Connected apps
@@ -22,42 +24,40 @@ In Bao, go to **Settings → Connected apps → Garmin**. If you've just signed 
 
 ## 2. Connect Garmin
 
-Tap **Connect Garmin**. You'll go to Garmin's own sign-in page. Sign in, and when Garmin asks what to share, **leave every box ticked**:
+Tap **Connect Garmin**. Garmin's own sign-in page opens. Sign in, and when Garmin asks what Bao can use, **leave every box ticked**:
 
-- **Workout import** lets Bao put sessions on your calendar.
+- **Workout import** puts sessions on your calendar.
 - **Activities** brings your runs back.
 - **Health** brings sleep, resting heart rate and HRV.
 
-Garmin then sends you back to Bao, which says Garmin's connected. Within a few seconds the page shows how many workouts it has scheduled.
+Garmin sends you back to Bao, which confirms the connection. A few seconds later the page shows how many workouts are on your calendar.
 
 ## 3. Sync your watch
 
-Open the Garmin Connect app and sync your watch. This week's sessions appear in your Garmin calendar and on the watch. On most watches, start a run and choose today's workout, or find it under your training calendar. Menus vary a little between models.
+Open Garmin Connect and sync. This week's sessions appear in your Garmin calendar and on your watch. On most watches you'll be offered today's workout when you start a run; otherwise look in your training calendar. Menus differ a little between models.
 
 ## 4. Run
 
-Follow the workout on your wrist: warm up, the main part, then easy home. When you finish and your watch syncs, the run appears in Bao, matched to the session it was for. Bao also brings in your last two weeks of runs and recovery when you first connect.
+Follow the workout on your wrist: warm up, the main part, then easy home. When the watch syncs, the run appears in Bao, matched to the session it was for. When you first connect, Bao also brings in the last two weeks of runs and recovery.
 
 ## When your plan changes
 
-Move a run, take time off or make a session easier in Bao, and the workouts on your Garmin calendar follow. Your watch picks up the change next time it syncs.
+Move a run, add time off or make a session easier in Bao, and your Garmin calendar is updated to match. The watch picks it up at its next sync.
 
-## Other sports count too
-
-Rides, football, gym sessions and long walks from your Garmin count towards how tired you are, so a big match on Saturday can mean an easier run on Sunday. They show on the day in Bao's plan, so you can see they were counted.
+> **In Bao:** rides, football, gym sessions and long walks from your Garmin count towards how tired you are, so a big match on Saturday can mean an easier run on Sunday. They show on their day in the Plan tab.
 
 ## Do I need Health Connect as well?
 
-Not if you use Garmin: everything Bao needs comes straight from Garmin, and Garmin's readings win where both have data.
+No. Everything Bao needs comes straight from Garmin, and where Health Connect has the same readings, Garmin's are used.
 
 ## If something isn't working
 
-- **No workouts on the watch:** sync the Garmin Connect app, then check the Garmin calendar.
-- **Bao says it can't add workouts or read health data:** a box was unticked on Garmin's page. In Bao, disconnect Garmin, connect again and leave every box ticked.
-- **A run hasn't arrived:** sync your watch with Garmin Connect. Runs usually arrive within a few minutes.
+- **No workouts on the watch:** sync Garmin Connect, then check its calendar.
+- **Bao says it can't add workouts or read health data:** a box was unticked on Garmin's page. Disconnect Garmin in Bao, connect again, and leave every box ticked.
+- **A run hasn't arrived:** sync your watch. Runs usually arrive within a few minutes.
 
 ## Disconnecting
 
-**Settings → Connected apps → Garmin → Disconnect Garmin** removes Bao's workouts from your Garmin calendar and stops anything new coming in. Runs already in Bao stay.
+**Settings → Connected apps → Garmin → Disconnect Garmin** takes Bao's workouts off your Garmin calendar and stops anything new coming in. Runs already in Bao stay.
 
 *Garmin and Garmin Connect are trademarks of Garmin Ltd. or its subsidiaries. Bao Run isn't affiliated with Garmin.*

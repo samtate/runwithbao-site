@@ -1,14 +1,16 @@
 ---
 /**
- * An article: a headline, when it was written, readable prose, and a way into the app at the end. Markdown pages
- * in src/pages/articles use it through their frontmatter, which also feeds the articles index and search engines.
+ * An article: headline, a short "in short" from Bao, readable prose, then a way in and more to read. Markdown pages
+ * in src/pages/articles use it through their frontmatter, which also feeds the index and search engines.
+ * In the Markdown, a blockquote is a tip from Bao ("**In Bao:** ...") and `<div class="signup"></div>` drops in a
+ * small sign-up card.
  */
 import Base from "./Base.astro";
 import Bao from "../components/Bao.astro";
 import { APP, SITE } from "../site";
 
-const { frontmatter } = Astro.props;
-const { title, description, date, heading } = frontmatter;
+const { frontmatter, headings } = Astro.props;
+const { title, description, date, heading, summary = [] } = frontmatter;
 const url = new URL(Astro.url.pathname, SITE).toString();
 const schema = JSON.stringify({
   "@context": "https://schema.org",
@@ -22,42 +24,99 @@ const schema = JSON.stringify({
   mainEntityOfPage: url,
 });
 const shown = new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const words = (await Astro.slots.render("default")).replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(2, Math.round(words / 220));
+const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("../pages/articles/*.md", { eager: true }))
+  .map(([path, page]) => ({ href: `/articles/${path.split("/").pop()!.slice(0, -3)}`, ...page.frontmatter }))
+  .filter((a) => a.href !== Astro.url.pathname.replace(/\/$/, ""));
 ---
 <Base title={`${title} · Bao Run`} description={description}>
   <script type="application/ld+json" set:html={schema} />
   <article class="wrap article">
-    <p class="label"><a href="/articles">Articles</a> · {shown}</p>
+    <p class="label"><a href="/articles">Articles</a> · {shown} · {minutes} min read</p>
     <h1 set:html={heading ?? title} />
     <p class="lede">{description}</p>
+    {summary.length > 0 && (
+      <div class="card short">
+        <Bao mood="happy" size={56} />
+        <div>
+          <p class="label">In short</p>
+          <ul>{summary.map((s: string) => <li set:html={s} />)}</ul>
+        </div>
+      </div>
+    )}
     <div class="prose"><slot /></div>
     <aside class="card cta">
-      <Bao mood="happy" size={72} />
+      <Bao mood="cheer" size={80} />
       <div>
         <h3>Try Bao free</h3>
-        <p class="muted">Couch to 5K is free, start to finish. Plans beyond it start with two weeks free, no card
-          needed.</p>
+        <p class="muted">Couch to 5K is free from your first run to your first 5K, and so is moving runs around,
+          taking time off and sending sessions to your Garmin. Race plans start with two weeks free, no card.</p>
         <div class="actions">
           <a class="button" href={APP} data-app data-cta="article">Get started</a>
           <a class="button quiet" href="/pricing">See pricing</a>
         </div>
       </div>
     </aside>
+    {others.length > 0 && (
+      <nav class="more" aria-label="More articles">
+        <p class="label">Keep reading</p>
+        <div class="more-list">
+          {others.map((a) => <a class="card more-item" href={a.href}><strong>{a.title}</strong><span class="muted">{a.description}</span></a>)}
+        </div>
+      </nav>
+    )}
   </article>
 </Base>
+
+<script>
+  // The sign-up card a Markdown article asks for with <div class="signup"></div>.
+  document.querySelectorAll<HTMLElement>(".prose .signup").forEach((el) => {
+    el.innerHTML = `<p><strong>Bao's Couch to 5K is free</strong>, and so is everything that lets your plan fit
+      around your week.</p><a class="button" href="https://app.runwithbao.app" data-app data-cta="article-inline">Start free</a>`;
+  });
+</script>
 
 <style>
   .article { max-width: 46rem; padding-top: clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1.25rem; }
   .label a { color: inherit; }
+  .short { display: flex; gap: 1rem; align-items: flex-start; }
+  .short ul { margin: 0.4rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.35rem; }
   .prose { font-size: 1.075rem; line-height: 1.7; }
-  .prose :global(h2) { font-size: 1.85rem; margin: 2.5rem 0 0.75rem; }
+  .prose :global(h2) { font-size: 1.85rem; margin: 2.75rem 0 0.75rem; }
   .prose :global(h3) { font-size: 1.25rem; margin: 1.75rem 0 0.5rem; }
-  .prose :global(p), .prose :global(ul), .prose :global(ol), .prose :global(table) { margin: 0 0 1.1rem; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem; }
   .prose :global(li) { margin-bottom: 0.45rem; }
-  .prose :global(table) { border-collapse: collapse; width: 100%; font-size: 0.95rem; display: block; overflow-x: auto; }
-  .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.55rem 0.75rem 0.55rem 0;
+  /* Tables sit in a card, with the first column as the row's name and our row picked out. */
+  .prose :global(table) { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 0.95rem;
+    display: block; overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 18px;
+    background: var(--surface); }
+  .prose :global(th), .prose :global(td) { text-align: left; vertical-align: top; padding: 0.7rem 0.9rem;
     border-bottom: 1px solid var(--border); }
+  .prose :global(tr:last-child td) { border-bottom: 0; }
+  .prose :global(th) { font-weight: 600; background: color-mix(in srgb, var(--ink) 4%, transparent); }
+  .prose :global(td:first-child) { font-weight: 600; white-space: nowrap; }
+  .prose :global(tr.ours td) { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+  /* A tip from Bao: how Bao handles what the paragraph above describes. */
+  .prose :global(blockquote) { margin: 0 0 1.4rem; padding: 1rem 1.2rem 1rem 4.2rem; position: relative;
+    background: var(--bubble); color: var(--ink); border: 2px solid var(--ink); border-radius: 18px;
+    box-shadow: 3px 3px 0 var(--ink); font-size: 1rem; font-weight: 500; }
+  .prose :global(blockquote p) { margin: 0; }
+  .prose :global(blockquote)::before { content: ""; position: absolute; left: 0.9rem; top: 0.9rem; width: 2.5rem;
+    height: 2.5rem; border-radius: 50%; background: url(/bao-300.png) center / cover; }
+  .prose :global(.app-meta) { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: -0.25rem 0 0.9rem; }
+  .prose :global(.app-meta > span) { font-size: 0.85rem; padding: 0.2rem 0.65rem; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--surface); }
+  .prose :global(.signup) { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: center;
+    justify-content: space-between; padding: 1.1rem 1.25rem; margin: 1.5rem 0 2rem; border-radius: 18px;
+    border: 2px solid var(--accent); background: var(--surface); }
+  .prose :global(.signup p) { margin: 0; flex: 1 1 18rem; }
   .cta { display: flex; gap: 1.25rem; align-items: flex-start; margin-top: 2rem; }
   .cta h3 { margin-bottom: 0.4rem; }
   .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
-  @media (max-width: 560px) { .cta { flex-direction: column; } }
+  .more { margin-top: 2rem; display: grid; gap: 0.75rem; }
+  .more-list { display: grid; gap: 0.75rem; }
+  .more-item { display: grid; gap: 0.3rem; color: var(--ink); text-decoration: none; padding: 1.1rem 1.25rem; }
+  .more-item:hover { border-color: var(--ink); color: var(--ink); }
+  @media (max-width: 560px) { .cta, .short { flex-direction: column; } }
 </style>
