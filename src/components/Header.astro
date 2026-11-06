@@ -11,7 +11,8 @@ const home = Astro.url.pathname === "/";
       <span>Bao Run</span>
     </a>
     <nav aria-label="Main">
-      <a href={home ? "#flexible" : "/#flexible"}>Discover</a>
+      <a class="hide-narrow" href={home ? "#flexible" : "/#flexible"}>Discover</a>
+      <a href="/pricing">Pricing</a>
       <ThemeToggle />
       <a class="pill" href={APP} data-app data-cta="header">Get started</a>
     </nav>
@@ -51,6 +52,7 @@ const home = Astro.url.pathname === "/";
   .brand:hover :global(svg) { transform: rotate(-10deg) scale(1.1); }
   nav { display: flex; align-items: center; gap: clamp(0.6rem, 2.2vw, 1.6rem); font-weight: 500; }
   nav a { color: var(--ink); text-decoration: none; }
+  @media (max-width: 420px) { .hide-narrow { display: none; } }
   nav a:not(.pill):hover { color: var(--accent-strong); }
   nav .pill { padding: 0.6rem 1.15rem; border-radius: 999px; background: var(--ink); color: var(--paper);
     white-space: nowrap; }

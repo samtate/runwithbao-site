@@ -1,0 +1,193 @@
+---
+import Base from "../layouts/Base.astro";
+import Bao from "../components/Bao.astro";
+import { APP } from "../site";
+
+/** Free vs Plus, row by row. Most of Bao is free, so most rows are ticked on both sides. */
+const rows: [string, boolean, boolean][] = [
+  ["Couch to 5K, start to finish", true, true],
+  ["Sessions sent to your Garmin watch", true, true],
+  ["Run tracking with your phone's GPS (Android)", true, true],
+  ["Voice cues: when to run, walk and turn for home", true, true],
+  ["Runs from Garmin, Strava, Health Connect or any watch's FIT file", true, true],
+  ["Your runs sent to Strava", true, true],
+  ["Move a run up to three days either way", true, true],
+  ["Take time off: holidays, busy weeks", true, true],
+  ["Ill or injured? Your streak waits", true, true],
+  ["Make any session easier in one tap", true, true],
+  ["Sleep and heart rate shape the day's session", true, true],
+  ["Other sport counts towards how tired you are", true, true],
+  ["Saturday parkrun planned in", true, true],
+  ["Streaks and badges", true, true],
+  ["Android and the web, one account", true, true],
+  ["No ads, and your data is never sold", true, true],
+  ["Keep building after Couch to 5K", false, true],
+  ["Plans for a faster 5K, 10K, half marathon and marathon", false, true],
+  ["B races and tune-ups around your main race", false, true],
+  ["Likely race times as you train", false, true],
+];
+
+/**
+ * How Bao compares, checked in November 2026 from each app's own pages and recent reviews. Prices are UK list
+ * prices; they change, so the table says when it was checked.
+ */
+const apps = ["Bao", "Runna", "Coopah", "Kiprun Pacer", "Garmin Coach"];
+const compare: [string, string[]][] = [
+  ["Price", ["Free, or £5.99/month or £39.99/year for Plus", "£15.99/month or £99.99/year",
+    "About £14.99/month or £79.99/year", "Free", "Free with a Garmin watch"]],
+  ["Free to use", ["Couch to 5K and everything on the free list", "Free trial only", "Free trial only",
+    "Yes, all plans", "Yes"]],
+  ["Plans", ["Couch to 5K to marathon", "Beginner to marathon", "5K to marathon", "10K to ultra-trail",
+    "5K to half marathon"]],
+  ["Where it runs", ["Android and any web browser", "iPhone and Android", "iPhone and Android",
+    "iPhone and Android", "Garmin watches and Garmin Connect"]],
+  ["Workouts on a Garmin", ["Yes", "Yes", "Yes", "Yes", "Yes"]],
+  ["Other watches", ["Runs in via Strava, Health Connect or FIT files", "Apple Watch, COROS",
+    "Apple Watch, COROS, Polar", "COROS; runs in from Polar, Suunto and Fitbit", "Garmin only"]],
+  ["Human coaches", ["–", "–", "Yes", "–", "–"]],
+  ["Strength sessions", ["Short weekly suggestions", "Yes", "Yes", "–", "–"]],
+];
+---
+<Base
+  title="Pricing · Bao Run"
+  description="Most of Bao Run is free, including Couch to 5K. Bao Plus adds plans from a faster 5K to the marathon for £5.99 a month or £39.99 a year, with two weeks free and no card needed."
+>
+  <section class="wrap hero">
+    <p class="label">Pricing</p>
+    <h1>Most of Bao is <em>free</em>.</h1>
+    <p class="lede">Couch to 5K, your watch, your runs, and everything that makes a plan bend around your week. Bao
+      Plus adds plans for when you're training for something.</p>
+  </section>
+
+  <section class="wrap plans">
+    <div class="card plan">
+      <p class="label">Free</p>
+      <p class="price">£0 <span>for good</span></p>
+      <p class="muted">No card, no trial, no catch.</p>
+      <ul class="ticks">{rows.filter((r) => r[1]).map(([what]) => <li>{what}</li>)}</ul>
+      <a class="button quiet" href={APP} data-app data-cta="pricing-free">Start free</a>
+    </div>
+    <div class="card plan plus">
+      <p class="label">Bao Plus</p>
+      <p class="price">£5.99 <span>a month</span></p>
+      <p class="muted">or £39.99 a year (that's £3.33 a month)</p>
+      <p class="trial">Two weeks free first. No card needed.</p>
+      <p class="also">Everything in Free, and:</p>
+      <ul class="ticks">{rows.filter((r) => !r[1]).map(([what]) => <li>{what}</li>)}</ul>
+      <a class="button" href={APP} data-app data-cta="pricing-plus">Try two weeks free</a>
+      <p class="small muted">Payments open soon. Until then, everything is free. The first 200 members will get Plus
+        for £29.99 a year, kept for as long as they stay.</p>
+    </div>
+  </section>
+
+  <section class="wrap table-block">
+    <h2>Free and Plus, <em>side by side</em></h2>
+    <div class="scroll">
+      <table class="grid">
+        <thead><tr><th></th><th>Free</th><th>Plus</th></tr></thead>
+        <tbody>
+          {rows.map(([what, free, plus]) => (
+            <tr>
+              <td>{what}</td>
+              <td class="mark">{free ? <span class="yes" aria-label="Included">✓</span> : <span class="no" aria-label="Not included">–</span>}</td>
+              <td class="mark">{plus ? <span class="yes" aria-label="Included">✓</span> : <span class="no" aria-label="Not included">–</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap table-block">
+    <h2>How Bao <em>compares</em></h2>
+    <p class="muted">Checked in November 2026 from each app's own pages and recent reviews. Prices change, so check
+      before you buy. Spotted something out of date? Tell us at hello@runwithbao.app.</p>
+    <div class="scroll">
+      <table class="grid compare">
+        <thead><tr><th></th>{apps.map((a) => <th>{a}</th>)}</tr></thead>
+        <tbody>
+          {compare.map(([what, cells]) => (
+            <tr><td>{what}</td>{cells.map((c, i) => <td class:list={{ ours: i === 0 }}>{c}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="card why">
+      <Bao mood="happy" size={72} />
+      <div>
+        <h3>Why runners pick Bao</h3>
+        <ul class="ticks">
+          <li>Life happens: move a run, take time off, or be ill without losing your streak.</li>
+          <li>A tough day? Make any session easier in one tap, and put it back if you change your mind.</li>
+          <li>Your sleep, heart rate and other sport shape the day's session, not just your last run.</li>
+          <li>Couch to 5K is free, start to finish, including on your Garmin.</li>
+          <li>Plus costs less than half of Runna, and the free fortnight needs no card.</li>
+          <li>Works in any browser, so it's there on a laptop or an iPhone too.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap faq">
+    <h2>Paying, <em>plainly</em></h2>
+    <details><summary>Do I need a card for the free fortnight?</summary>
+      <p>No. It starts when you finish Couch to 5K or begin a Plus plan, and simply ends after two weeks. Nothing is
+        charged unless you choose Plus.</p></details>
+    <details><summary>What happens if I don't pay after the fortnight?</summary>
+      <p>Your plan waits for you. Your runs, streak and badges stay, you can still track and bring in runs, and you
+        can switch to Couch to 5K for free at any time.</p></details>
+    <details><summary>How do I cancel?</summary>
+      <p>In Google Play's subscriptions if you paid there, or from your account on the web. You keep Plus until the
+        end of the time you've paid for.</p></details>
+    <details><summary>Can I get a refund?</summary>
+      <p>Yes. Ask within 14 days of being charged and we'll refund you, no questions asked. Email
+        hello@runwithbao.app.</p></details>
+    <details><summary>Where do I pay?</summary>
+      <p>On Android through Google Play, or on the web. Either way, Plus works on every device you sign in on.</p></details>
+  </section>
+
+  <section class="wrap end">
+    <a class="button" href={APP} data-app data-cta="pricing-end">Get started free</a>
+    <a class="button quiet" href="/articles">Read the articles</a>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-top: clamp(2rem, 6vw, 4rem); display: grid; gap: 1rem; max-width: 46rem; margin-left: max(0px, calc((100% - var(--page)) / 2)); }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.25rem;
+    margin-top: 2.5rem; align-items: start; }
+  .plan { display: grid; gap: 0.6rem; }
+  .plan .button { justify-self: start; margin-top: 0.6rem; }
+  .plus { border: 2px solid var(--accent); }
+  .price { font: 600 2.6rem/1 var(--serif); }
+  .price span { font: 500 1rem var(--sans); color: var(--muted); }
+  .trial { font-weight: 600; color: var(--accent-strong); }
+  .also { font-weight: 600; margin-top: 0.4rem; }
+  .small { font-size: 0.875rem; }
+  .ticks { list-style: none; padding: 0; margin: 0.4rem 0 0; display: grid; gap: 0.55rem; }
+  .ticks li { position: relative; padding-left: 1.8rem; }
+  .ticks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 1.25rem; height: 1.25rem;
+    border-radius: 50%; background: var(--sage-soft); color: #2f5a35; font-weight: 700; font-size: 0.8rem;
+    display: grid; place-items: center; }
+  .table-block { margin-top: clamp(3rem, 8vw, 5rem); display: grid; gap: 1rem; }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .grid { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+  .grid th, .grid td { text-align: left; vertical-align: top; padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--border); }
+  .grid th { font-weight: 600; }
+  .grid .mark { text-align: center; width: 5rem; }
+  .yes { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+    background: var(--sage-soft); color: #2f5a35; font-weight: 700; }
+  .no { color: var(--muted); }
+  .compare { min-width: 50rem; }
+  .compare td:first-child { font-weight: 600; white-space: nowrap; }
+  .compare .ours { background: color-mix(in srgb, var(--accent) 8%, transparent); font-weight: 500; }
+  .why { display: flex; gap: 1.25rem; align-items: flex-start; margin-top: 1rem; }
+  .why h3 { margin-bottom: 0.6rem; }
+  .faq { margin-top: clamp(3rem, 8vw, 5rem); max-width: 46rem; display: grid; gap: 0.25rem; }
+  .faq h2 { margin-bottom: 1rem; }
+  details { border-bottom: 1px solid var(--border); }
+  summary { cursor: pointer; padding: 1.1rem 0; font-weight: 600; font-size: 1.1rem; }
+  details p { padding-bottom: 1.25rem; color: var(--muted); }
+  .end { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  @media (max-width: 560px) { .why { flex-direction: column; } }
+</style>

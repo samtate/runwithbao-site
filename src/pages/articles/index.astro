@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+
+/** Every article, newest first, read from the Markdown pages beside this one. */
+const articles = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("./*.md", { eager: true }))
+  .map(([path, page]) => ({ href: `/articles/${path.slice(2, -3)}`, ...page.frontmatter }))
+  .sort((a, b) => b.date.localeCompare(a.date));
+---
+<Base title="Articles · Bao Run" description="Guides and honest comparisons for runners: training apps, Garmin, and fitting running around real life.">
+  <section class="wrap list">
+    <p class="label">Articles</p>
+    <h1>Guides for <em>real</em> weeks.</h1>
+    <p class="lede">Honest comparisons, step-by-step guides, and how to keep running when life gets busy.</p>
+    <div class="items">
+      {articles.map((a) => (
+        <a class="card item" href={a.href}>
+          <p class="label">{new Date(a.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
+          <h2>{a.title}</h2>
+          <p class="muted">{a.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .list { max-width: 46rem; padding-top: clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1rem; }
+  .items { display: grid; gap: 1rem; margin-top: 1.5rem; }
+  .item { display: grid; gap: 0.5rem; color: var(--ink); text-decoration: none; transition: transform 150ms ease, border-color 150ms ease; }
+  .item:hover { transform: translateY(-2px); border-color: var(--ink); color: var(--ink); }
+  .item h2 { font-size: 1.6rem; }
+</style>
