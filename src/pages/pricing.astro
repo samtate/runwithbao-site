@@ -54,7 +54,7 @@ const compare: [string, Cell[]][] = [
 ---
 <Base
   title="Pricing · Bao Run"
-  description="Most of Bao Run is free, including Couch to 5K and your Garmin. Bao Plus adds race plans from a faster 5K to the marathon, with two weeks free and no card needed."
+  description="Most of Bao Run is free, including Couch to 5K and your Garmin. Bao Plus adds race plans from a faster 5K to the marathon, with your first run free and a 14-day free trial on the yearly plan."
 >
   <section class="wrap hero">
     <p class="label">Pricing</p>
@@ -74,11 +74,10 @@ const compare: [string, Cell[]][] = [
       <p class="label">Bao Plus</p>
       <p class="price"><span data-price="monthly">£5.99</span> <span>a month</span></p>
       <p class="muted">or <span data-price="yearly">£39.99</span> a year, which works out at <span data-price="perMonth">£3.33</span> a month</p>
-      <p class="trial">Two weeks free, no card needed</p>
+      <p class="trial">Your first run free, then 14 days free on the yearly plan</p>
       <p class="also">Everything in Free, plus a plan for your race:</p>
       <ul class="ticks">{plus.map((what) => <li>{what}</li>)}</ul>
-      <p class="small muted">Payments open soon, and until then it's all free. The first 200 members will pay
-        <span data-price="founding">£29.99</span> a year for as long as they stay.</p>
+      <p class="small muted">Payments open soon, and until then it's all free.</p>
     </div>
   </section>
 
@@ -134,10 +133,15 @@ const compare: [string, Cell[]][] = [
 
   <section class="wrap faq">
     <h2>Questions about <em>paying</em></h2>
-    <details><summary>Do I need a card for the free fortnight?</summary>
-      <p>No. It starts when you finish Couch to 5K or set up a race plan, and ends after two weeks. You're only
-        charged if you choose Plus.</p></details>
-    <details><summary>What happens if I don't pay after two weeks?</summary>
+    <details><summary>How does the free trial work?</summary>
+      <p>Set up a race plan and you can see its next two weeks and do your first run free, no card. After that,
+        the yearly plan starts with 14 days free: you add a card, nothing is charged for 14 days, and we remind you
+        by notification and email two days before. Cancel before day 14 and you pay nothing. The monthly plan has
+        no trial and starts straight away.</p></details>
+    <details><summary>I forgot to cancel. Can I get my money back?</summary>
+      <p>Yes. Email hello@runwithbao.app within 14 days of the charge and we'll refund it in full, no questions
+        asked.</p></details>
+    <details><summary>What happens if I don't start a trial?</summary>
       <p>Your plan waits for you. Your runs, streak and badges stay, you can still track and bring in runs, and you
         can switch to Couch to 5K for free whenever you like.</p></details>
     <details><summary>How do I cancel?</summary>

@@ -39,7 +39,7 @@ We make Bao, so we're biased, but here's why we built it: most plans assume your
 - **Easier on the hard days.** One tap turns any session into a shorter, easy one, and one tap puts it back.
 - **Reads your recovery.** Sleep, resting heart rate, HRV and other sport (a match, a long ride) decide how hard today should be.
 - **Free where it counts.** Couch to 5K, sending sessions to a Garmin, GPS tracking on Android, and importing runs from Strava, Health Connect or a FIT file all cost nothing.
-- **Plus for races.** Plans for a faster 5K through to the marathon, with recovery weeks, a taper and B races, for <span data-price="monthly">£5.99</span> a month or <span data-price="yearly">£39.99</span> a year. That's less than half of Runna, with two weeks free and no card.
+- **Plus for races.** Plans for a faster 5K through to the marathon, with recovery weeks, a taper and B races, for <span data-price="monthly">£5.99</span> a month or <span data-price="yearly">£39.99</span> a year. That's less than half of Runna, with your first run free and a 14-day free trial on the yearly plan.
 
 What it doesn't have yet: an iPhone app (it works in Safari), Apple Watch support, or human coaches.
 
