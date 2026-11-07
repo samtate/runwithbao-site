@@ -1,7 +1,12 @@
 # runwithbao.app
 
-The Bao Run website: a landing page, privacy policy, terms, account deletion and contact. Static Astro, with no
-client-side JavaScript; Bao is drawn at build time and screenshots are compressed to WebP.
+The Bao Run website: a landing page, privacy policy, terms, account deletion and contact. Static Astro; screenshots
+are compressed to WebP.
+
+Bao comes from the app's own animation, `public/bao.json` (generated in the app repo by
+`scripts/mascot/bao_lottie.py`). Every Bao on a page is a still SVG pose exported from it; the bigger ones marked
+`live` also play his loop with lottie-web once they're on screen (not with reduced motion). After copying in a new
+`bao.json`, run `node scripts/bao-poses.mjs` (needs a Chrome or Chromium) to refresh `src/illustrations/bao-poses.json`.
 
 ```sh
 npm install

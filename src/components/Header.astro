@@ -48,8 +48,8 @@ const home = Astro.url.pathname === "/";
   .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; }
   .brand { display: flex; align-items: center; gap: 0.55rem; color: var(--ink); text-decoration: none;
     font: 600 1.3rem/1 var(--serif); letter-spacing: -0.02em; white-space: nowrap; }
-  .brand :global(svg) { transition: transform 300ms cubic-bezier(0.2, 0.9, 0.3, 1.6); }
-  .brand:hover :global(svg) { transform: rotate(-10deg) scale(1.1); }
+  .brand :global(.bao) { transition: transform 300ms cubic-bezier(0.2, 0.9, 0.3, 1.6); }
+  .brand:hover :global(.bao) { transform: rotate(-10deg) scale(1.1); }
   nav { display: flex; align-items: center; gap: clamp(0.6rem, 2.2vw, 1.6rem); font-weight: 500; }
   nav a { color: var(--ink); text-decoration: none; }
   @media (max-width: 420px) { .hide-narrow { display: none; } }
@@ -68,7 +68,7 @@ const home = Astro.url.pathname === "/";
   @media (max-width: 460px) {
     .bar { gap: 0.5rem; }
     .brand { font-size: 1.1rem; gap: 0.4rem; }
-    .brand :global(svg) { width: 32px; height: 32px; }
+    .brand :global(.bao) { width: 32px !important; height: 32px !important; }
     nav { gap: 0.5rem; }
     nav .pill { padding: 0.55rem 0.9rem; }
   }

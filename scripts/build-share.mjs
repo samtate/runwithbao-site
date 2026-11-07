@@ -2,7 +2,7 @@ import sharp from "sharp";
 import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { openSync } from "fontkit";
-import { baoBody } from "../src/illustrations/bao.ts";
+import { readFileSync } from "node:fs";
 
 const colors = { paper: "#f4eee2", surface: "#fbf7ee", ink: "#2b2118", muted: "#6f6250",
   accent: "#c4572f", border: "#e2d8c3", blue: "#c3d9ec" };
@@ -59,7 +59,8 @@ const plan = await sharp(svg(`
   label("5 km", "sans", 19, 121, 209, "#745c23"),
 ])).png().toBuffer();
 const tiltedPlan = await sharp(plan).rotate(5, { background: "#00000000" }).png().toBuffer();
-const bao = svg(`<g transform="translate(6 6)">${baoBody("happy", "share-bao")}</g>`, 212, 212);
+const { poses } = JSON.parse(readFileSync("src/illustrations/bao-poses.json", "utf8"));
+const bao = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="212" height="212" viewBox="14 26 212 212">${poses.happy.replaceAll("BAOID_", "share_")}</svg>`);
 const mascot = await sharp(bao).resize(310, 310).png().toBuffer();
 const labels = await Promise.all([
   label("Bao Run", "medium", 31, 75, 66),

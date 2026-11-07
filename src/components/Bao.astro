@@ -1,44 +1,45 @@
 ---
-import { baoBody, type BaoMood } from "../illustrations/bao";
+import posesFile from "../illustrations/bao-poses.json";
 /**
- * Bao, drawn at build time from the same shapes as the app's reference (docs/bao-reference.html), so the page
- * ships an inline SVG and no script. [wave] adds a gentle bob that stops for anyone who prefers less motion.
+ * Bao, as a still pose exported from the app's own animation (public/bao.json; scripts/bao-poses.mjs), so every page
+ * ships plain SVG. [live] (or the older [wave]) plays his mood's loop from that same pose once he scrolls into view;
+ * with reduced motion, or before the script loads, he simply stays as drawn.
  */
+export type BaoMood = keyof typeof posesFile.poses;
 interface Props {
   mood?: BaoMood;
   size?: number;
+  live?: boolean;
   wave?: boolean;
   class?: string;
   label?: string;
 }
-const { mood = "neutral", size = 160, wave = false, class: className = "", label } = Astro.props;
+const { mood = "neutral", size = 160, live = false, wave = false, class: className = "", label } = Astro.props;
 
-const body = baoBody(mood, `bao-${mood}-${Math.random().toString(36).slice(2, 8)}`);
+const id = `b${Math.random().toString(36).slice(2, 8)}`;
+const body = posesFile.poses[mood].replaceAll("BAOID_", `${id}_`);
+const [clip, at] = posesFile.frames[mood];
+const loop = clip === "idle" ? "idle" : clip;
 ---
-<svg
-  viewBox="-6 -6 212 212"
-  width={size}
-  height={size}
-  class:list={["bao", { wave }, className]}
+<span
+  class:list={["bao", className]}
+  style={`width:${size}px;height:${size}px`}
+  data-bao-live={live || wave ? JSON.stringify([loop, at]) : undefined}
   role={label ? "img" : undefined}
   aria-label={label}
   aria-hidden={label ? undefined : "true"}
-  set:html={body}
-/>
+>
+  <svg viewBox="14 26 212 212" set:html={body} />
+</span>
+
+<script>
+  import { bringBaoToLife } from "../scripts/bao-live";
+  bringBaoToLife();
+</script>
 
 <style>
-  .bao { overflow: visible; flex: none; }
-  .wave { animation: bob 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
-  .wave :global(.star) { animation: twinkle 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-6px) rotate(-2deg); }
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .wave, .wave :global(.star) { animation: none; }
-  }
+  .bao { display: inline-block; position: relative; flex: none; vertical-align: middle; }
+  .bao > svg, .bao :global(.bao-live) { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .bao :global(.bao-live svg) { overflow: visible; }
+  .bao:global(.live) > svg { visibility: hidden; }
 </style>
