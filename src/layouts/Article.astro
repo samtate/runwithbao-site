@@ -1,16 +1,25 @@
 ---
 /**
- * An article: headline, a short "in short" from Bao, readable prose, then a way in and more to read. Markdown pages
- * in src/pages/articles use it through their frontmatter, which also feeds the index and search engines.
- * In the Markdown, a blockquote is a tip from Bao ("**In Bao:** ...") and `<div class="signup"></div>` drops in a
- * small sign-up card.
+ * An article: headline, its illustration, a short "in short" from Bao, readable prose, then a way in and more to
+ * read. MDX pages in src/pages/articles use it through their frontmatter, which also feeds the index and search
+ * engines: `art` names the illustration (src/illustrations/scenes.mjs) and `share` the share card's headline, both
+ * drawn by scripts/build-share.mjs. In the text, a blockquote is a tip from Bao ("**In Bao:** ...")
+ * and `<div class="signup"></div>` drops in a small sign-up card.
  */
+import type { ImageMetadata } from "astro";
 import Base from "./Base.astro";
 import Bao from "../components/Bao.astro";
+import ArticleArt from "../components/ArticleArt.astro";
+import ArticleThumb from "../components/ArticleThumb.astro";
+import { SCENES } from "../illustrations/scenes.mjs";
 import { APP, SITE } from "../site";
 
-const { frontmatter, headings } = Astro.props;
-const { title, description, date, heading, summary = [] } = frontmatter;
+const { frontmatter } = Astro.props;
+const { title, description, date, updated, heading, summary = [], art } = frontmatter;
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop()!;
+const cards = import.meta.glob<{ default: ImageMetadata }>("../assets/share/articles/*.png", { eager: true });
+const card = cards[`../assets/share/articles/${slug}.png`]?.default;
+const cardAlt = art ? `${SCENES[art as keyof typeof SCENES].alt}. ${title}` : undefined;
 const url = new URL(Astro.url.pathname, SITE).toString();
 const schema = JSON.stringify({
   "@context": "https://schema.org",
@@ -18,24 +27,30 @@ const schema = JSON.stringify({
   headline: title,
   description,
   datePublished: date,
-  dateModified: frontmatter.updated ?? date,
+  dateModified: updated ?? date,
+  ...(card ? { image: new URL(card.src, SITE).toString() } : {}),
   author: { "@type": "Organization", name: "Run With Bao" },
   publisher: { "@type": "Organization", name: "Run With Bao", logo: `${SITE}/bao-300.png` },
   mainEntityOfPage: url,
 });
-const shown = new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const long = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const shown = updated ? `Updated ${long(updated)}` : long(date);
 const words = (await Astro.slots.render("default")).replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
 const minutes = Math.max(2, Math.round(words / 220));
-const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("../pages/articles/*.md", { eager: true }))
-  .map(([path, page]) => ({ href: `/articles/${path.split("/").pop()!.slice(0, -3)}`, ...page.frontmatter }))
-  .filter((a) => a.href !== Astro.url.pathname.replace(/\/$/, ""));
+// Three more to read, newest first.
+const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("../pages/articles/*.mdx", { eager: true }))
+  .map(([path, page]) => ({ slug: path.split("/").pop()!.replace(/\.mdx$/, ""), ...page.frontmatter }))
+  .filter((a) => a.slug !== slug)
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
 ---
-<Base title={`${title} · Run With Bao`} description={description}>
+<Base title={`${title} · Run With Bao`} description={description} image={card} imageAlt={cardAlt}>
   <script type="application/ld+json" set:html={schema} />
   <article class="wrap article">
     <p class="label"><a href="/articles">Articles</a> · {shown} · {minutes} min read</p>
     <h1 set:html={heading ?? title} />
     <p class="lede">{description}</p>
+    {art && <ArticleArt scene={art} />}
     {summary.length > 0 && (
       <div class="card short">
         <Bao mood="happy" size={56} />
@@ -62,7 +77,12 @@ const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, str
       <nav class="more" aria-label="More articles">
         <p class="label">Keep reading</p>
         <div class="more-list">
-          {others.map((a) => <a class="card more-item" href={a.href}><strong>{a.title}</strong><span class="muted">{a.description}</span></a>)}
+          {others.map((a) => (
+            <a class="card more-item" href={`/articles/${a.slug}`}>
+              <ArticleThumb slug={a.slug} sizes="(max-width: 560px) 90vw, 11rem" />
+              <span class="more-text"><strong>{a.title}</strong><span class="muted">{a.description}</span></span>
+            </a>
+          ))}
         </div>
       </nav>
     )}
@@ -116,7 +136,9 @@ const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, str
   .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
   .more { margin-top: 2rem; display: grid; gap: 0.75rem; }
   .more-list { display: grid; gap: 0.75rem; }
-  .more-item { display: grid; gap: 0.3rem; color: var(--ink); text-decoration: none; padding: 1.1rem 1.25rem; }
+  .more-item { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; align-items: center; color: var(--ink);
+    text-decoration: none; padding: 0.9rem; }
+  .more-text { display: grid; gap: 0.3rem; }
   .more-item:hover { border-color: var(--ink); color: var(--ink); }
-  @media (max-width: 560px) { .cta, .short { flex-direction: column; } }
+  @media (max-width: 560px) { .cta, .short { flex-direction: column; } .more-item { grid-template-columns: 1fr; } }
 </style>

@@ -1,22 +1,29 @@
 ---
 import Base from "../../layouts/Base.astro";
+import ArticleThumb from "../../components/ArticleThumb.astro";
 
-/** Every article, newest first, read from the Markdown pages beside this one. */
-const articles = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("./*.md", { eager: true }))
-  .map(([path, page]) => ({ href: `/articles/${path.slice(2, -3)}`, ...page.frontmatter }))
-  .sort((a, b) => b.date.localeCompare(a.date));
+/** Every article, newest first, read from the MDX pages beside this one. */
+const articles = Object.entries(import.meta.glob<{ frontmatter: Record<string, string> }>("./*.mdx", { eager: true }))
+  .map(([path, page]) => ({ slug: path.slice(2, -4), ...page.frontmatter }))
+  .sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
+const long = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 ---
-<Base title="Articles · Run With Bao" description="Guides and honest comparisons for runners: training apps, Garmin, and fitting running around real life.">
+<Base title="Articles · Run With Bao" description="Guides and honest comparisons for runners: training apps, Garmin, treadmills, time trials, and fitting running around real life.">
   <section class="wrap list">
-    <p class="label">Articles</p>
-    <h1>Guides for <em>real</em> weeks.</h1>
-    <p class="lede">Honest comparisons, step-by-step guides, and how to keep running when life gets busy.</p>
+    <div class="head">
+      <p class="label">Articles</p>
+      <h1>Guides for <em>real</em> weeks.</h1>
+      <p class="lede">Honest comparisons, step-by-step guides, and how to keep running when life gets busy.</p>
+    </div>
     <div class="items">
-      {articles.map((a) => (
-        <a class="card item" href={a.href}>
-          <p class="label">{new Date(a.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
-          <h2>{a.title}</h2>
-          <p class="muted">{a.description}</p>
+      {articles.map((a, i) => (
+        <a class="card item" href={`/articles/${a.slug}`}>
+          <ArticleThumb slug={a.slug} eager={i < 2} sizes="(max-width: 760px) 92vw, 34rem" />
+          <span class="text">
+            <span class="label">{a.updated ? `Updated ${long(a.updated)}` : long(a.date)}</span>
+            <h2>{a.title}</h2>
+            <span class="muted">{a.description}</span>
+          </span>
         </a>
       ))}
     </div>
@@ -24,9 +31,14 @@ const articles = Object.entries(import.meta.glob<{ frontmatter: Record<string, s
 </Base>
 
 <style>
-  .list { max-width: 46rem; padding-top: clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1rem; }
-  .items { display: grid; gap: 1rem; margin-top: 1.5rem; }
-  .item { display: grid; gap: 0.5rem; color: var(--ink); text-decoration: none; transition: transform 150ms ease, border-color 150ms ease; }
+  .list { padding-top: clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: 1rem; }
+  .head { display: grid; gap: 1rem; max-width: 46rem; }
+  .items { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 1.25rem;
+    margin-top: 1.5rem; }
+  .item { display: grid; align-content: start; gap: 1rem; padding: 0.75rem 0.75rem 1.25rem; color: var(--ink);
+    text-decoration: none; transition: transform 150ms ease, border-color 150ms ease; }
   .item:hover { transform: translateY(-2px); border-color: var(--ink); color: var(--ink); }
-  .item h2 { font-size: 1.6rem; }
+  .text { display: grid; gap: 0.5rem; padding-inline: 0.5rem; }
+  .item h2 { font-size: 1.45rem; }
+  @media (prefers-reduced-motion: reduce) { .item { transition: none; } .item:hover { transform: none; } }
 </style>

@@ -1,0 +1,38 @@
+---
+/**
+ * An article's illustration at the top of the page: its scene (src/illustrations/scenes.mjs) drawn inline, so it's
+ * sharp at any size and follows dark mode, with Bao standing in it as a still pose. Decorative: the headline says
+ * what the page is about.
+ */
+import Bao from "./Bao.astro";
+import { SCENES, drawScene } from "../illustrations/scenes.mjs";
+
+interface Props { scene: keyof typeof SCENES }
+const { scene } = Astro.props;
+const { bao } = SCENES[scene];
+const place = `left: ${(bao.x / 800) * 100}%; top: ${(bao.y / 400) * 100}%; width: ${(bao.size / 800) * 100}%;`;
+---
+<div class="art" aria-hidden="true">
+  <svg viewBox="0 0 800 400" width="800" height="400" set:html={drawScene(scene)} />
+  <span class="spot" style={place}><Bao mood={bao.mood} size={bao.size} /></span>
+</div>
+
+<style>
+  .art { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 2 / 1; }
+  .art > svg { width: 100%; height: 100%; }
+  .spot { position: absolute; aspect-ratio: 1; }
+  .spot :global(.bao) { width: 100% !important; height: 100% !important; }
+</style>
+
+<style is:global>
+  /* The scene's shapes take the page's colours, so they follow the theme. */
+  .art .f-paper { fill: var(--paper); } .art .f-surface { fill: var(--surface); } .art .f-border { fill: var(--border); }
+  .art .f-ink { fill: var(--ink); } .art .f-muted { fill: var(--muted); } .art .f-accent { fill: var(--accent); }
+  .art .f-accentSoft { fill: color-mix(in srgb, var(--accent) 20%, var(--surface)); } .art .f-blue { fill: var(--blue); }
+  .art .f-bubble { fill: var(--bubble); } .art .f-sage { fill: var(--sage); } .art .f-sageSoft { fill: var(--sage-soft); }
+  .art .f-butter { fill: var(--butter); } .art .f-butterSoft { fill: var(--butter-soft); } .art .f-walk { fill: var(--walk); }
+  .art .f-device { fill: var(--phone); }
+  .art .s-surface { stroke: var(--surface); } .art .s-border { stroke: var(--border); } .art .s-ink { stroke: var(--ink); }
+  .art .s-muted { stroke: var(--muted); } .art .s-accent { stroke: var(--accent); } .art .s-blue { stroke: var(--blue); }
+  .art .s-sage { stroke: var(--sage); } .art .s-butter { stroke: var(--butter); } .art .s-device { stroke: var(--phone); }
+</style>
