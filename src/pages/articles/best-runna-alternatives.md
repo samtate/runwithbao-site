@@ -2,27 +2,28 @@
 layout: ../../layouts/Article.astro
 title: "The best Runna alternatives in 2026, free and paid"
 heading: "The best Runna alternatives in <em>2026</em>"
-description: "Runna costs £99.99 a year and its beginner plans aren't free any more. Here's what else is worth a look, what each costs, and where each falls short."
+description: "Runna now lists £109.99 a year in the UK, and its beginner plans aren't free any more. Here's what else is worth a look, what each costs, and where each falls short."
 date: "2026-11-06"
+updated: "2026-11-10"
 summary:
-  - "Runna is £15.99 a month or £99.99 a year in the UK, and its beginner plans went behind the paywall in June 2026."
+  - "Runna is £17.99 a month or £109.99 a year in the UK. If you already pay £15.99 or £99.99, the new price starts at your first renewal on or after 10 December 2026."
   - "Run With Bao does Couch to 5K for free and race plans for <span data-price=\"yearly\">£39.99</span> a year, and it's built for weeks that don't go to plan."
-  - "Kiprun Pacer and Garmin Coach are free, but Kiprun starts at 10K and Garmin Coach stops at the half marathon."
+  - "Garmin Coach is free if you own a Garmin and goes up to the half marathon. Coopah adds human coaches for £79.99 a year."
 ---
 
-Runna does a lot well: adaptive plans, watch sync and a tidy app. The trouble is the price. In the UK it's £15.99 a month or £99.99 a year, and since June 2026 even its beginner plans (New to Running, Return to Running and Path to parkrun) need a subscription.
+Runna does a lot well: adaptive plans, watch sync and a tidy app. The trouble is the price. In the UK it's now £17.99 a month or £109.99 a year. If you already subscribe, you'll move up from £15.99 a month or £99.99 a year at your first renewal on or after 10 December 2026. Since June 2026, even its beginner plans (New to Running, Return to Running and Path to parkrun) need a subscription after the first week. If you pay for Strava too, the Strava + Runna bundle is £119.99 a year.
 
 Price isn't the only complaint in reviews. Runners also say the plans can be too hard, and that rescheduling is limited: a run can only move within its own week or one week either side, and never onto a day that already has a run.
 
-Prices below are UK list prices, checked in November 2026.
+Prices below were checked in November 2026, from each app's own price page or its UK App Store listing.
 
 <table>
   <thead><tr><th>App</th><th>Price</th><th>Best for</th></tr></thead>
   <tbody>
     <tr class="ours"><td>Run With Bao</td><td>Free; Plus <span data-price="monthly">£5.99</span>/month or <span data-price="yearly">£39.99</span>/year</td><td>Beginners, and anyone whose week changes</td></tr>
-    <tr><td>Kiprun Pacer</td><td>Free</td><td>Free race plans from 10K up</td></tr>
+    <tr><td>Runna</td><td>£17.99/month or £109.99/year</td><td>A polished app, with Apple Watch support</td></tr>
     <tr><td>Garmin Coach</td><td>Free with a Garmin</td><td>Garmin owners training up to a half</td></tr>
-    <tr><td>Coopah</td><td>About £14.99/month or £79.99/year</td><td>Talking to a human coach</td></tr>
+    <tr><td>Coopah</td><td>£14.99/month or £79.99/year</td><td>Talking to a human coach</td></tr>
     <tr><td>NHS Couch to 5K</td><td>Free</td><td>A fixed nine-week start</td></tr>
     <tr><td>Nike Run Club</td><td>Free</td><td>Guided runs for motivation</td></tr>
   </tbody>
@@ -34,10 +35,13 @@ Prices below are UK list prices, checked in November 2026.
 
 We make Bao, so we're biased, but here's why we built it: most plans assume your week goes the way you planned it. Ours rarely does.
 
-- **Moves with you.** Drag a run up to three days either way and it still counts for its own week, so the next week isn't overloaded.
-- **Time off and illness.** Add a holiday and the runs in between come off. Mark yourself ill or injured, even for days that have passed, and your streak waits.
+- **Moves with you.** Drag a run up to three days either way and it still counts for its own week, so the next week isn't overloaded. Miss one and Bao offers the days it can still go to; with no free day, a missed long run or workout can take an easy run's place.
+- **Time off and illness.** Add a holiday and the runs in between come off. Ill or injured? Say so for up to a week afterwards, and your streak waits.
 - **Easier on the hard days.** One tap turns any session into a shorter, easy one, and one tap puts it back.
 - **Reads your recovery.** Sleep, resting heart rate, HRV and other sport (a match, a long ride) decide how hard today should be.
+- **Indoors too.** Choose **Indoors or treadmill** before a run on Android, and treadmill runs from Garmin, Strava, Health Connect or a FIT file are recognised.
+- **Expects you to improve.** Race plans build on what you actually ran, and a 5K time trial every few weeks (on your parkrun, if you do one) checks your fitness and resets your paces.
+- **Notes from your own runs.** What Bao tells you comes from fixed rules about your runs, like your first 20 minutes non-stop. No AI summaries.
 - **Free where it counts.** Couch to 5K, sending sessions to a Garmin, GPS tracking on Android, and importing runs from Strava, Health Connect or a FIT file all cost nothing.
 - **Plus for races.** Plans for a faster 5K through to the marathon, with recovery weeks, a taper and B races, for <span data-price="monthly">£5.99</span> a month or <span data-price="yearly">£39.99</span> a year. That's less than half of Runna, with your first run free and a 14-day free trial on the yearly plan.
 
@@ -45,31 +49,25 @@ What it doesn't have yet: an iPhone app (it works in Safari), Apple Watch suppor
 
 <div class="signup"></div>
 
-## 2. Kiprun Pacer
-
-<div class="app-meta"><span>Free</span><span>iPhone and Android</span><span>10K to ultra-trail</span></div>
-
-Decathlon's app is free and covers 10K up to ultra-trail. It adjusts after each workout and can send sessions to Garmin and COROS watches. There's no beginner or 5K plan, so it isn't a place to start running. Reviews also mention syncs failing and activities appearing twice, and one reviewer found the early interval sessions very hard.
-
-## 3. Garmin Coach
+## 2. Garmin Coach
 
 <div class="app-meta"><span>Free with a Garmin</span><span>Garmin watches only</span><span>5K to half marathon</span></div>
 
-Garmin Coach is built into Garmin Connect, so if you own a Garmin there's nothing to install. Plans go up to the half marathon. Coach workouts can't be moved to another day, and the plan doesn't always react when the watch itself says you're tired. It only works with Garmin watches.
+Garmin Coach is built into Garmin Connect, so if you own a Garmin there's nothing to install. Its adaptive plans cover the 5K, 10K and half marathon, and Garmin says they adjust to your performance and recovery. Moving a Coach workout to another day is limited, and runners on Garmin's forums trade workarounds such as changing the plan's training days. It only works with Garmin watches.
 
-## 4. Coopah
+## 3. Coopah
 
-<div class="app-meta"><span>About £14.99/month or £79.99/year</span><span>iPhone and Android</span></div>
+<div class="app-meta"><span>£14.99/month or £79.99/year</span><span>iPhone and Android</span><span>5K to marathon</span></div>
 
-Coopah's selling point is access to human coaches and a friendly community. It's a little cheaper than Runna. Reviewers say changing run days or a race date can be fiddly, and that the plan doesn't account for other sport.
+Coopah's selling point is access to human coaches: its team includes running coaches, a physio, a nutritionist and a sports psychologist. Coopah Pro is £14.99 a month or £79.99 a year on the UK App Store, with a pricier Coopah Coaching tier, so it's cheaper than Runna. Sessions can be moved when your week changes, though some reviewers find changing a race date fiddly. It works with Garmin, Apple Watch and COROS.
 
-## 5. NHS Couch to 5K
+## 4. NHS Couch to 5K
 
 <div class="app-meta"><span>Free</span><span>iPhone and Android</span><span>Beginners to 5K</span></div>
 
 The NHS app has helped millions of people start running, with audio from a coach over nine weeks. It's a fixed nine-week plan rather than one that adapts to you, and it stops at 5K.
 
-## 6. Nike Run Club
+## 5. Nike Run Club
 
 <div class="app-meta"><span>Free</span><span>iPhone and Android</span></div>
 
@@ -78,6 +76,9 @@ Nike Run Club's guided audio runs are good for motivation. It's less suited to s
 ## Which one?
 
 - **Starting from nothing:** Bao's free Couch to 5K adapts as you go, moves when you need it to and works with your Garmin. The NHS app is the simpler fixed alternative.
-- **Training for a race on a budget:** Bao Plus is <span data-price="yearly">£39.99</span> a year. If it has to cost nothing, Kiprun Pacer covers 10K and up, and Garmin Coach covers up to the half if you own a Garmin.
+- **Training for a race on a budget:** Bao Plus is <span data-price="yearly">£39.99</span> a year. If it has to cost nothing and you own a Garmin, Garmin Coach covers up to the half.
 - **Busy, unpredictable weeks:** Bao. Moving runs, time off and easier sessions are all free.
 - **You want a person to talk to:** Coopah.
+- **You're on iPhone and Apple Watch and happy with the price:** Runna is still a good app.
+
+*Runna, Strava, Garmin, Garmin Coach, Coopah and Nike Run Club are trademarks of their owners. Run With Bao isn't affiliated with any of them. If anything here is out of date, tell us at hello@runwithbao.app and we'll fix it.*

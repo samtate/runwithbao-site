@@ -7,7 +7,7 @@ import { APP } from "../site";
 const free = [
   "Couch to 5K, start to finish",
   "Sessions sent to your Garmin watch",
-  "Run tracking with your phone's GPS, with voice cues (Android)",
+  "Run tracking with your phone's GPS, or indoors on a treadmill, with voice cues (Android)",
   "Runs from Garmin, Strava, Health Connect or any watch's FIT file",
   "Move a run up to three days either way",
   "Time off for holidays and busy weeks",
@@ -25,31 +25,36 @@ const plus = [
   "Built around your race day, with recovery weeks and a proper taper",
   "Intervals, tempo, hills, strides and progression runs, varied week to week",
   "Steps up when you're cruising, eases off when it's hard",
+  "Expects you to get fitter, and checks with a 5K time trial every few weeks, on your parkrun if you do one",
   "Run by pace or by heart rate",
   "B races and parkruns as tune-ups, with their times setting your paces",
   "Your likely race times, updated as you train",
 ];
 
 /**
- * How Bao compares, checked in November 2026 from each app's own pages and support docs. "yes", "no" and
- * "part" draw as marks; anything else is shown as text. Where we couldn't confirm a feature it says "–".
+ * How Bao compares, checked on 10 November 2026 from each app's own price page, UK App Store listing, support
+ * docs and recent reviews. "yes", "no" and "part" draw as marks; anything else is shown as text. Where we couldn't
+ * confirm a feature either way it says "–".
  */
 type Cell = "yes" | "no" | "part" | string;
-const apps = ["Bao", "Runna", "Coopah", "Kiprun Pacer", "Garmin Coach"];
+const apps = ["Bao", "Runna", "Coopah", "Garmin Coach"];
 const compare: [string, Cell[]][] = [
-  ["Price", ["Free · Plus [[plus]]", "£15.99/month, £99.99/year", "About £14.99/month, £79.99/year", "Free",
-    "Free with a Garmin"]],
-  ["Free plan for beginners", ["yes", "no", "no", "no", "With a Garmin"]],
-  ["Plans from 5K to marathon", ["yes", "yes", "yes", "10K and up", "Up to half marathon"]],
-  ["Move a run to another day", ["Up to 3 days, any week", "Within limits", "part", "–", "no"]],
-  ["Time off without breaking the plan", ["yes", "yes", "–", "–", "part"]],
-  ["Make a session easier in one tap", ["yes", "part", "–", "–", "–"]],
-  ["Sleep and heart rate change the day", ["yes", "no", "–", "–", "part"]],
-  ["Other sport counts towards tiredness", ["yes", "–", "no", "–", "yes"]],
-  ["Works in a web browser", ["yes", "no", "no", "no", "part"]],
-  ["Workouts on a Garmin", ["yes", "yes", "yes", "yes", "yes"]],
-  ["iPhone and Apple Watch app", ["no", "yes", "yes", "yes", "no"]],
-  ["Human coaches", ["no", "–", "yes", "no", "no"]],
+  ["Price", ["Free · Plus [[plus]]",
+    "£17.99/month, £109.99/year<small>If you already pay £15.99 or £99.99: from your first renewal on or after 10 Dec 2026</small>",
+    "£14.99/month, £79.99/year", "Free with a Garmin"]],
+  ["Free plan for beginners", ["yes", "First week only", "no", "With a Garmin"]],
+  ["Plans from 5K to marathon", ["yes", "yes", "yes", "Up to half marathon"]],
+  ["Move a run to another day", ["Up to 3 days, any week", "Within a week either side", "yes", "part"]],
+  ["Time off without breaking the plan", ["yes", "yes", "–", "part"]],
+  ["Make a session easier in one tap", ["yes", "part", "–", "–"]],
+  ["Sleep and heart rate change the day", ["yes", "–", "–", "yes"]],
+  ["Other sport counts towards tiredness", ["yes", "–", "–", "yes"]],
+  ["Indoor and treadmill runs", ["yes", "yes", "–", "yes"]],
+  ["Paces checked with a regular 5K time trial", ["yes", "Adjusts paces as you train", "–", "Adapts as you train"]],
+  ["Works in a web browser", ["yes", "no", "no", "part"]],
+  ["Workouts on a Garmin", ["yes", "yes", "yes", "yes"]],
+  ["iPhone and Apple Watch app", ["no", "yes", "yes", "no"]],
+  ["Human coaches", ["no", "–", "yes", "no"]],
 ];
 ---
 <Base
@@ -83,8 +88,9 @@ const compare: [string, Cell[]][] = [
 
   <section class="wrap compare-block">
     <h2>How Bao <em>compares</em></h2>
-    <p class="muted">Checked in November 2026 against each app's own pages, with UK prices. Prices change, so do check. If anything
-      here is out of date, tell us at hello@runwithbao.app and we'll fix it.</p>
+    <p class="muted">Prices checked November 2026, from each app's own price page or its UK App Store listing, and
+      features from their own pages, help guides and recent reviews. Prices change, so do check. If anything here is
+      out of date, tell us at hello@runwithbao.app and we'll fix it.</p>
     <div class="scroll">
       <table class="compare">
         <thead><tr><th></th>{apps.map((a, i) => <th class:list={{ ours: i === 0 }}>{i === 0 ? <span class="us"><Bao mood="happy" size={28} />Bao</span> : a}</th>)}</tr></thead>
@@ -118,8 +124,10 @@ const compare: [string, Cell[]][] = [
             your streak.</li>
           <li>On a heavy day, one tap gives you an easier session. Change your mind and put it back.</li>
           <li>Your sleep, heart rate and other sport decide how hard today should be, not only your last run.</li>
-          <li>Kiprun Pacer is free too, but starts at 10K. Bao takes you from your first run to the marathon, and
-            the first part is free.</li>
+          <li>Plans expect you to get fitter, and a 5K time trial every few weeks, on your parkrun if you do one,
+            keeps your paces in step with you.</li>
+          <li>Winter on the treadmill? Choose indoors before a run on Android, or bring treadmill runs in from your
+            watch, and they still count towards your week.</li>
           <li>Plus costs less than half as much as Runna, and your first run is free, with no card.</li>
           <li>It works in any browser, so it's there on a laptop or an iPhone as well.</li>
         </ul>
@@ -179,7 +187,9 @@ const compare: [string, Cell[]][] = [
   .compare-block { margin-top: clamp(3.5rem, 9vw, 6rem); display: grid; gap: 1rem; }
   .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 24px; border: 1px solid var(--border);
     background: var(--surface); }
-  .compare { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 52rem; font-size: 0.93rem; }
+  .compare { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 46rem; font-size: 0.93rem; }
+  .compare :global(small) { display: block; margin-top: 0.3rem; font-size: 0.75rem; font-weight: 400; color: var(--muted);
+    line-height: 1.35; }
   .compare th, .compare td { padding: 0.85rem 0.9rem; text-align: center; vertical-align: middle;
     border-bottom: 1px solid var(--border); }
   .compare tbody tr:last-child > * { border-bottom: 0; }
