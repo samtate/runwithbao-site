@@ -17,7 +17,8 @@ const steps = [
     title: "Your plan <em>adjusts</em> as you do.",
     body: "Hold a run and drag it up to three days either way. It still counts towards the week it came from, so " +
       "a busy week doesn't leave the next one overloaded.",
-    points: ["Heavy day? Make any session easier in one tap.",
+    points: ["Missed a run? Bao asks about it the next day, with the days it can still go to.",
+      "Heavy day? Make any session easier in one tap.",
       "Away for a week? Add time off and the plan waits for you.",
       "Ill or injured? Tell Bao, and your streak carries on."],
     alt: "Bao Run's calendar, with Thursday's run moved to Friday",
@@ -42,7 +43,9 @@ const steps = [
     body: "How did that feel? A tap from 1 to 10, or one of three words if you're new. That's all Bao needs to " +
       "keep the plan right for you.",
     points: ["Struggling? Bao offers an easier week, or to repeat one.", "Cruising? It suggests a step up.",
-      "Connect Garmin or Health Connect, and a short night's sleep can mean an easier day."],
+      "Connect Garmin or Health Connect, and a short night's sleep can mean an easier day.",
+      "Each week builds on what you actually ran.",
+      "Bao's notes come from your own runs, like your first 20 minutes non-stop. No AI summaries."],
     alt: "Rating a run in Bao Run, on a scale from 1 to 10",
   },
   {
@@ -79,6 +82,12 @@ const faq = [
     "first run free and a 14-day free trial on the yearly plan. No ads, and nobody's data is for sale. <a href=\"/pricing\">See pricing</a>." },
   { q: "Do I need a watch?", a: "No. The Android app tracks your run with your phone's GPS and tells you when to " +
     "run and when to walk. With a Garmin, Bao sends each session to your watch and gets the run back. Other watches can bring their runs in through Strava, Health Connect or a FIT file." },
+  { q: "What if I miss a run?", a: "Bao asks about it the next day and offers the days it can still go to, up to " +
+    "three days from where it was planned. If it doesn't fit, let it go: missed runs aren't piled onto the next " +
+    "week. On Couch to 5K nothing is skipped, because your next run is the one you missed. Ill or injured? Say so " +
+    "when Bao asks, and your streak carries on. <a href=\"/articles/missed-a-run\">More on missed runs</a>." },
+  { q: "What if I change my plan?", a: "Your runs come with you. A new plan starts from what you've already run, " +
+    "so your paces and your long run pick up where you are, not from scratch." },
   { q: "Can I use it without the app?", a: "Yes. Bao works in any modern browser, on a laptop or a phone, with " +
     "the same plan and the same account. Bring your runs in from Strava or your watch. Tracking a run with GPS, " +
     "and recovery from your sleep, need the Android app." },

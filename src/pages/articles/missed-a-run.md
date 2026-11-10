@@ -20,13 +20,13 @@ The usual mistake is catching up: Tuesday's run on Wednesday, plus Wednesday's. 
 
 Move a run only if it won't land next to another hard session; keep an easy day or a rest day between hard efforts. If it would have to move more than three days, it belongs to next week, so let it go.
 
-> **In Bao:** hold a run in the calendar and drag it up to three days either way. It still counts for its own week, so the next one isn't overloaded.
+> **In Bao:** hold a run in the calendar and drag it up to three days either way. It still counts for its own week, so the next one isn't overloaded. Miss one, and the next day Bao asks about it and offers the days it can still go to.
 
 ## Ill? Use the neck rule
 
 A common rule of thumb: if it's only above the neck (a runny nose, a mild sore throat), a short easy run is usually fine. If it's below the neck (chest, fever, aching muscles, an upset stomach), rest. If you're unsure, rest, and check with your GP if it lingers. Come back with a few easy days before anything hard.
 
-> **In Bao:** tell Bao you were ill or injured, even for days that have already passed, and your streak carries on. It only breaks if you choose to let a run go.
+> **In Bao:** for a day or two after a missed run, Bao asks what happened. Tell it you were ill or injured and your streak carries on. If you let the run go, or don't answer, the streak starts again.
 
 ## Plan holidays as time off
 
