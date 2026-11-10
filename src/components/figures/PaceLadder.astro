@@ -10,14 +10,14 @@ const toSeconds = (t: string) => { const [m, s] = t.split(":").map(Number); retu
 const slowest = toSeconds("8:00"), quickest = toSeconds("4:30");
 const at = (t: string) => ((slowest - toSeconds(t)) / (slowest - quickest)) * 100;
 const rows = [
-  { name: "Easy", from: "7:36", to: "6:41", note: "Most of your running" },
+  { name: "Easy", from: "7:10", to: "6:21", note: "Most of your running" },
   { name: "Tempo", from: "5:25", to: "5:16", note: "Comfortably hard" },
   { name: "5K race", from: "5:00", to: "5:00", note: "The time trial itself" },
   { name: "Intervals", from: "4:55", to: "4:45", note: "Short and quick" },
 ];
 ---
 <Figure title="What a 25:00 5K sets, per kilometre"
-  caption="Bao's starting paces for a runner who runs a 5K time trial in 25 minutes. Easy pace is a wide, slow range on purpose. Bao then adjusts them to your own runs and heart rate.">
+  caption="Bao's starting paces for a runner who runs a 5K time trial in 25 minutes. Easy pace is a wide range on purpose. Bao then adjusts them to your own runs and heart rate.">
   <ul class="ladder">
     {rows.map((r) => (
       <li class:list={{ point: r.from === r.to }}>
