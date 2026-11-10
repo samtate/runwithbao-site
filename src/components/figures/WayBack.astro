@@ -1,0 +1,48 @@
+---
+/**
+ * The three ways back after a week or more without running, and how much of a normal week each week back holds
+ * (bao-run backend coach/Resume.ts). Bao suggests easing back after one to two weeks and rebuilding after longer.
+ */
+import Figure from "./Figure.astro";
+
+const ways = [
+  { name: "Carry on", weeks: [90, 100, 100, 100] },
+  { name: "Ease back in", weeks: [70, 85, 100, 100], note: "Suggested after one to two weeks off" },
+  { name: "Rebuild", weeks: [55, 70, 85, 100], note: "Suggested after two weeks or more" },
+];
+---
+<Figure title="Three ways back, week by week"
+  caption="How much of a normal week's running each week back holds, on a race or keep-fit plan. Your first run back is when Bao asks which you'd like.">
+  <div class="ways">
+    {ways.map((w) => (
+      <div class="way">
+        <p class="name"><strong>{w.name}</strong>{w.note && <span>{w.note}</span>}</p>
+        <ol class="weeks">
+          {w.weeks.map((v, i) => (
+            <li>
+              <span class="col"><span class:list={["bar", { full: v === 100 }]} style={`height: ${v}%`}></span></span>
+              <span class="v">{v}%</span>
+              <span class="wk">Week {i + 1}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </div>
+</Figure>
+
+<style>
+  .ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.75rem; }
+  .way { display: grid; gap: 0.6rem; align-content: start; padding: 0.9rem; border-radius: 16px; background: var(--paper);
+    border: 1px solid var(--border); }
+  .name { margin: 0; display: grid; line-height: 1.25; min-height: 2.6rem; }
+  .name span { font-size: 0.76rem; color: var(--muted); }
+  .weeks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  li { margin: 0; display: grid; grid-template-rows: 5rem auto auto; justify-items: center; gap: 0.15rem; }
+  .col { width: 100%; height: 100%; display: flex; align-items: flex-end; }
+  .bar { width: 100%; border-radius: 4px 4px 0 0; background: color-mix(in srgb, var(--sage) 55%, var(--surface));
+    border: 2px solid var(--sage); border-bottom: 0; }
+  .bar.full { background: var(--sage); }
+  .v { font-size: 0.75rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .wk { font-size: 0.66rem; color: var(--muted); white-space: nowrap; }
+</style>
