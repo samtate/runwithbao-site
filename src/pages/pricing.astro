@@ -39,22 +39,20 @@ const plus = [
 type Cell = "yes" | "no" | "part" | string;
 const apps = ["Bao", "Runna", "Coopah", "Garmin Coach"];
 const compare: [string, Cell[]][] = [
-  ["Price", ["Free · Plus [[plus]]",
-    "£17.99/month, £109.99/year<small>If you already pay £15.99 or £99.99: from your first renewal on or after 10 Dec 2026</small>",
-    "£14.99/month, £79.99/year", "Free with a Garmin"]],
+  ["Price", ["Free · Plus [[plus]]", "£17.99/month, £109.99/year", "£14.99/month, £79.99/year", "Free with a Garmin"]],
   ["Free plan for beginners", ["yes", "First week only", "no", "With a Garmin"]],
-  ["Plans from 5K to marathon", ["yes", "yes", "yes", "Up to half marathon"]],
+  ["Plans from 5K to marathon", ["yes", "yes", "yes", "yes|Marathon on compatible watches"]],
   ["Move a run to another day", ["Up to 3 days, any week", "Within a week either side", "yes", "part"]],
-  ["Time off without breaking the plan", ["yes", "yes", "–", "part"]],
-  ["Make a session easier in one tap", ["yes", "part", "–", "–"]],
-  ["Sleep and heart rate change the day", ["yes", "–", "–", "yes"]],
-  ["Other sport counts towards tiredness", ["yes", "–", "–", "yes"]],
-  ["Indoor and treadmill runs", ["yes", "yes", "–", "yes"]],
-  ["Paces checked with a regular 5K time trial", ["yes", "Adjusts paces as you train", "–", "Adapts as you train"]],
+  ["Time off without breaking the plan", ["yes", "yes", "yes", "yes"]],
+  ["Make a session easier in one tap", ["yes", "part", "no", "no"]],
+  ["Sleep and heart rate change the day", ["yes", "no", "–", "yes"]],
+  ["Other sport counts towards tiredness", ["yes", "no", "–", "yes"]],
+  ["Indoor and treadmill runs", ["yes", "yes", "part|Logged by hand", "yes"]],
+  ["Paces checked with a regular 5K time trial", ["yes", "Adjusts paces as you train", "no", "Adapts as you train"]],
   ["Works in a web browser", ["yes", "no", "no", "part"]],
   ["Workouts on a Garmin", ["yes", "yes", "yes", "yes"]],
   ["iPhone and Apple Watch app", ["no", "yes", "yes", "no"]],
-  ["Human coaches", ["no", "–", "yes", "no"]],
+  ["Human coaches", ["no", "yes|Message the coaching team", "yes", "no"]],
 ];
 ---
 <Base
@@ -100,11 +98,13 @@ const compare: [string, Cell[]][] = [
               <th scope="row">{what}</th>
               {cells.map((c, i) => (
                 <td class:list={{ ours: i === 0 }}>
-                  {c === "yes" ? <span class="mark yes" aria-label="Yes">✓</span>
+                  {c.startsWith("yes|") ? <><span class="mark yes" aria-label="Yes">✓</span><small>{c.slice(4)}</small></>
+                    : c.startsWith("part|") ? <><span class="mark part" aria-label="Partly">~</span><small>{c.slice(5)}</small></>
+                    : c === "yes" ? <span class="mark yes" aria-label="Yes">✓</span>
                     : c === "no" ? <span class="mark no" aria-label="No">✕</span>
                     : c === "part" ? <span class="mark part" aria-label="Partly">~</span>
                     : c === "–" ? <span class="unknown" aria-label="Not that we could find">–</span>
-                    : <span set:html={c.replace("[[plus]]", "<span data-price=\"monthly\">£5.99</span>/month")} />}
+                    : <span set:html={c.replace("[[plus]]", "<span data-price=\"monthly\">£5.99</span>/month, <span data-price=\"yearly\">£39.99</span>/year")} />}
                 </td>
               ))}
             </tr>

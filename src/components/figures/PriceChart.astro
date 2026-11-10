@@ -9,13 +9,13 @@ import Figure from "./Figure.astro";
 const rows = [
   { name: "Run With Bao Plus", price: 39.99, ours: true },
   { name: "Coopah Pro", price: 79.99 },
-  { name: "Runna", price: 109.99, mark: "*" },
+  { name: "Runna", price: 109.99 },
   { name: "Strava + Runna", price: 119.99 },
 ];
 const most = 120;
 ---
 <Figure title="A year of each, in the UK"
-  caption="Yearly prices as listed in November 2026. *Runna's price for new subscribers; existing subscribers pay £99.99 until their first renewal on or after 10 December 2026. Free: Bao's Couch to 5K, Garmin Coach (with a Garmin watch), the NHS Couch to 5K app and Nike Run Club.">
+  caption="Yearly prices as listed in November 2026. Free: Bao's Couch to 5K, Garmin Coach (with a Garmin watch), the NHS Couch to 5K app and Nike Run Club.">
   <ul class="bars">
     {rows.map((r) => (
       <li class:list={{ ours: r.ours }}>
