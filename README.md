@@ -1,6 +1,6 @@
 # runwithbao.app
 
-The Bao Run website: a landing page, privacy policy, terms, account deletion and contact. Static Astro; screenshots
+The Run With Bao website: a landing page, privacy policy, terms, account deletion and contact. Static Astro; screenshots
 are compressed to WebP.
 
 Bao comes from the app's own animation, `public/bao.json` (generated in the app repo by

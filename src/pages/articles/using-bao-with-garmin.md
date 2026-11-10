@@ -60,4 +60,4 @@ No. Everything Bao needs comes straight from Garmin, and where Health Connect ha
 
 **Settings → Connected apps → Garmin → Disconnect Garmin** takes Bao's workouts off your Garmin calendar and stops anything new coming in. Runs already in Bao stay.
 
-*Garmin and Garmin Connect are trademarks of Garmin Ltd. or its subsidiaries. Bao Run isn't affiliated with Garmin.*
+*Garmin and Garmin Connect are trademarks of Garmin Ltd. or its subsidiaries. Run With Bao isn't affiliated with Garmin.*

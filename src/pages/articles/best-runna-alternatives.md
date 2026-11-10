@@ -6,7 +6,7 @@ description: "Runna costs £99.99 a year and its beginner plans aren't free any 
 date: "2026-11-06"
 summary:
   - "Runna is £15.99 a month or £99.99 a year in the UK, and its beginner plans went behind the paywall in June 2026."
-  - "Bao Run does Couch to 5K for free and race plans for <span data-price=\"yearly\">£39.99</span> a year, and it's built for weeks that don't go to plan."
+  - "Run With Bao does Couch to 5K for free and race plans for <span data-price=\"yearly\">£39.99</span> a year, and it's built for weeks that don't go to plan."
   - "Kiprun Pacer and Garmin Coach are free, but Kiprun starts at 10K and Garmin Coach stops at the half marathon."
 ---
 
@@ -19,7 +19,7 @@ Prices below are UK list prices, checked in November 2026.
 <table>
   <thead><tr><th>App</th><th>Price</th><th>Best for</th></tr></thead>
   <tbody>
-    <tr class="ours"><td>Bao Run</td><td>Free; Plus <span data-price="monthly">£5.99</span>/month or <span data-price="yearly">£39.99</span>/year</td><td>Beginners, and anyone whose week changes</td></tr>
+    <tr class="ours"><td>Run With Bao</td><td>Free; Plus <span data-price="monthly">£5.99</span>/month or <span data-price="yearly">£39.99</span>/year</td><td>Beginners, and anyone whose week changes</td></tr>
     <tr><td>Kiprun Pacer</td><td>Free</td><td>Free race plans from 10K up</td></tr>
     <tr><td>Garmin Coach</td><td>Free with a Garmin</td><td>Garmin owners training up to a half</td></tr>
     <tr><td>Coopah</td><td>About £14.99/month or £79.99/year</td><td>Talking to a human coach</td></tr>
@@ -28,7 +28,7 @@ Prices below are UK list prices, checked in November 2026.
   </tbody>
 </table>
 
-## 1. Bao Run
+## 1. Run With Bao
 
 <div class="app-meta"><span>Free, or <span data-price="monthly">£5.99</span>/month for Plus</span><span>Android and web</span><span>Couch to 5K to marathon</span></div>
 

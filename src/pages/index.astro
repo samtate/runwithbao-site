@@ -21,7 +21,7 @@ const steps = [
       "Heavy day? Make any session easier in one tap.",
       "Away for a week? Add time off and the plan waits for you.",
       "Ill or injured? Tell Bao, and your streak carries on."],
-    alt: "Bao Run's calendar, with Thursday's run moved to Friday",
+    alt: "Run With Bao's calendar, with Thursday's run moved to Friday",
   },
   {
     id: "parkrun",
@@ -33,7 +33,7 @@ const steps = [
     points: ["Your hard sessions go on other days, so you turn up fresh.",
       "Just starting out? Run your intervals, then walk to the finish.",
       "Christmas Day, New Year's Day: Bao knows your country's extra parkruns and offers to swap one in."],
-    alt: "Bao Run's week, with Saturday's parkrun as part of the plan",
+    alt: "Run With Bao's week, with Saturday's parkrun as part of the plan",
   },
   {
     id: "adapts",
@@ -46,7 +46,7 @@ const steps = [
       "Connect Garmin or Health Connect, and a short night's sleep can mean an easier day.",
       "Each week builds on what you actually ran.",
       "Bao's notes come from your own runs, like your first 20 minutes non-stop. No AI summaries."],
-    alt: "Rating a run in Bao Run, on a scale from 1 to 10",
+    alt: "Rating a run in Run With Bao, on a scale from 1 to 10",
   },
   {
     id: "progress",
@@ -56,7 +56,7 @@ const steps = [
     body: "A streak of planned runs, badges for real milestones like your first 10K or a run before 7am, and " +
       "Couch to 5K's 27 runs ticked off one at a time.",
     points: [],
-    alt: "Bao Run's progress screen, with weekly distance, likely race times and badges",
+    alt: "Run With Bao's progress screen, with weekly distance, likely race times and badges",
   },
   {
     id: "garmin",
@@ -67,11 +67,11 @@ const steps = [
       "and the run is in Bao before you're through the door.",
     points: ["Swap a run in Bao, and the watch has the new one next time it syncs.",
       "No Garmin? Strava and Health Connect bring your runs in instead."],
-    alt: "Bao Run's Garmin page: connected, with 4 workouts scheduled and 14 runs imported",
+    alt: "Run With Bao's Garmin page: connected, with 4 workouts scheduled and 14 runs imported",
   },
 ] as const;
 
-const screens = [{ shot: "today", key: "hero", alt: "Bao Run's Today screen on a parkrun Saturday" } as const,
+const screens = [{ shot: "today", key: "hero", alt: "Run With Bao's Today screen on a parkrun Saturday" } as const,
   ...steps.map((s) => ({ shot: s.shot, key: s.id, alt: s.alt }))];
 
 const faq = [
@@ -99,8 +99,8 @@ const faq = [
 ];
 ---
 <Base
-  title="Bao Run · running plans that bend around your week"
-  shareTitle="Bao Run · your plan adjusts as you do"
+  title="Run With Bao · running plans that bend around your week"
+  shareTitle="Run With Bao · your plan adjusts as you do"
   description="Whether it's Couch to 5K or a marathon, Bao builds a plan around your week. parkrun built in. Free to start on Android and the web."
 >
   <div class="wrap showcase" data-story data-active="hero">

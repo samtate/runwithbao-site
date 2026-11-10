@@ -19,8 +19,8 @@ const schema = JSON.stringify({
   description,
   datePublished: date,
   dateModified: frontmatter.updated ?? date,
-  author: { "@type": "Organization", name: "Bao Run" },
-  publisher: { "@type": "Organization", name: "Bao Run", logo: `${SITE}/bao-300.png` },
+  author: { "@type": "Organization", name: "Run With Bao" },
+  publisher: { "@type": "Organization", name: "Run With Bao", logo: `${SITE}/bao-300.png` },
   mainEntityOfPage: url,
 });
 const shown = new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
@@ -30,7 +30,7 @@ const others = Object.entries(import.meta.glob<{ frontmatter: Record<string, str
   .map(([path, page]) => ({ href: `/articles/${path.split("/").pop()!.slice(0, -3)}`, ...page.frontmatter }))
   .filter((a) => a.href !== Astro.url.pathname.replace(/\/$/, ""));
 ---
-<Base title={`${title} · Bao Run`} description={description}>
+<Base title={`${title} · Run With Bao`} description={description}>
   <script type="application/ld+json" set:html={schema} />
   <article class="wrap article">
     <p class="label"><a href="/articles">Articles</a> · {shown} · {minutes} min read</p>

@@ -63,7 +63,7 @@ const { poses } = JSON.parse(readFileSync("src/illustrations/bao-poses.json", "u
 const bao = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="212" height="212" viewBox="14 26 212 212">${poses.happy.replaceAll("BAOID_", "share_")}</svg>`);
 const mascot = await sharp(bao).resize(310, 310).png().toBuffer();
 const labels = await Promise.all([
-  label("Bao Run", "medium", 31, 75, 66),
+  label("Run With Bao", "medium", 31, 75, 66),
   label("Public beta", "medium", 18, 998, 72, colors.muted),
   label("Your plan", "serif", 92, 70, 151),
   label("adjusts", "italic", 100, 69, 250, colors.accent),

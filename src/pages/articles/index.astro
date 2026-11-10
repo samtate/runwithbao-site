@@ -6,7 +6,7 @@ const articles = Object.entries(import.meta.glob<{ frontmatter: Record<string, s
   .map(([path, page]) => ({ href: `/articles/${path.slice(2, -3)}`, ...page.frontmatter }))
   .sort((a, b) => b.date.localeCompare(a.date));
 ---
-<Base title="Articles · Bao Run" description="Guides and honest comparisons for runners: training apps, Garmin, and fitting running around real life.">
+<Base title="Articles · Run With Bao" description="Guides and honest comparisons for runners: training apps, Garmin, and fitting running around real life.">
   <section class="wrap list">
     <p class="label">Articles</p>
     <h1>Guides for <em>real</em> weeks.</h1>
