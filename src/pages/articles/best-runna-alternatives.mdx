@@ -12,6 +12,8 @@ summary:
   - "Run With Bao does Couch to 5K for free and race plans for <span data-price=\"yearly\">£39.99</span> a year, and it's built for weeks that don't go to plan."
   - "Garmin Coach is free if you own a Garmin and goes up to the half marathon. Coopah adds human coaches for £79.99 a year."
 ---
+import PriceChart from "../../components/figures/PriceChart.astro";
+import Pull from "../../components/figures/Pull.astro";
 
 Runna does a lot well: adaptive plans, watch sync and a tidy app. The trouble is the price. In the UK it's now £17.99 a month or £109.99 a year. If you already subscribe, you'll move up from £15.99 a month or £99.99 a year at your first renewal on or after 10 December 2026. Since June 2026, even its beginner plans (New to Running, Return to Running and Path to parkrun) need a subscription after the first week. If you pay for Strava too, the Strava + Runna bundle is £119.99 a year.
 
@@ -31,11 +33,15 @@ Prices below were checked in November 2026, from each app's own price page or it
   </tbody>
 </table>
 
+<PriceChart />
+
 ## 1. Run With Bao
 
 <div class="app-meta"><span>Free, or <span data-price="monthly">£5.99</span>/month for Plus</span><span>Android and web</span><span>Couch to 5K to marathon</span></div>
 
-We make Bao, so we're biased, but here's why we built it: most plans assume your week goes the way you planned it. Ours rarely does.
+We make Bao, so we're biased, but here's why we built it:
+
+<Pull>Most plans assume your week goes the way you planned it. Ours rarely does.</Pull>
 
 - **Moves with you.** Drag a run up to three days either way and it still counts for its own week, so the next week isn't overloaded. Miss one and Bao offers the days it can still go to; with no free day, a missed long run or workout can take an easy run's place.
 - **Time off and illness.** Add a holiday and the runs in between come off. Ill or injured? Say so for up to a week afterwards, and your streak waits.

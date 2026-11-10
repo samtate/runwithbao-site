@@ -1,0 +1,49 @@
+---
+/**
+ * A short sequence, numbered, left to right on a wide screen and top to bottom on a phone. With `loop`, the last
+ * step says it goes back round to the first.
+ */
+import Figure from "./Figure.astro";
+interface Props {
+  title?: string;
+  caption?: string;
+  steps: { title: string; text: string }[];
+  loop?: boolean;
+}
+const { title, caption, steps, loop = false } = Astro.props;
+---
+<Figure title={title} caption={caption}>
+  <ol class:list={["steps", { loop }]} style={`--n: ${steps.length}`}>
+    {steps.map((s, i) => (
+      <li>
+        <span class="num" aria-hidden="true">{i + 1}</span>
+        <strong>{s.title}</strong>
+        <span class="text" set:html={s.text} />
+      </li>
+    ))}
+  </ol>
+  {loop && <p class="again"><span aria-hidden="true">↻</span> Then round again for the next session.</p>}
+</Figure>
+
+<style>
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), 1fr);
+    gap: 0.75rem; }
+  li { position: relative; display: grid; align-content: start; gap: 0.3rem; padding: 0.9rem 0.9rem 1rem;
+    border-radius: 16px; background: var(--paper); border: 1px solid var(--border); margin: 0; }
+  /* An arrow in the gap to the next step. */
+  li:not(:last-child)::after { content: ""; position: absolute; right: -0.62rem; top: 1.45rem; z-index: 1;
+    width: 0.5rem; height: 0.5rem; border-top: 2.5px solid var(--accent); border-right: 2.5px solid var(--accent);
+    transform: rotate(45deg); }
+  .num { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--ink);
+    color: var(--paper); font: 700 0.85rem/1 var(--sans); margin-bottom: 0.2rem; }
+  strong { font-weight: 600; line-height: 1.3; }
+  .text { color: var(--muted); font-size: 0.9rem; }
+  .again { margin: 0; color: var(--muted); font-size: 0.9rem; font-weight: 500; }
+  .again span { color: var(--accent); font-weight: 700; }
+  @media (max-width: 640px) {
+    .steps { grid-template-columns: 1fr; }
+    li { grid-template-columns: auto 1fr; column-gap: 0.75rem; }
+    .num { grid-row: span 2; margin: 0; }
+    li:not(:last-child)::after { right: auto; left: 1.55rem; top: auto; bottom: -0.55rem; transform: rotate(135deg); }
+  }
+</style>

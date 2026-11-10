@@ -1,0 +1,77 @@
+---
+/**
+ * Where a missed run can go, as Bao works it out (bao-run backend rules.ts): first a free day within three days of
+ * where it was planned, never beside another hard day if it's a long run or workout; with no free day, it can take
+ * the next easy run's place instead.
+ */
+import Figure from "./Figure.astro";
+
+type Cell = { day: string; kind: "missed" | "free" | "no" | "easy" | "parkrun" | "long" | "hard" | "swap"; what?: string; note?: string };
+const rows: { title: string; cells: Cell[]; says: string }[] = [
+  {
+    title: "A free day close by",
+    cells: [
+      { day: "Tue", kind: "missed", what: "Tempo", note: "Missed" },
+      { day: "Wed", kind: "free", what: "Free", note: "Move it here" },
+      { day: "Thu", kind: "easy", what: "Easy" },
+      { day: "Fri", kind: "no", what: "Free", note: "Not beside parkrun" },
+      { day: "Sat", kind: "parkrun", what: "parkrun" },
+    ],
+    says: "Wednesday is free and within three days, with an easy day after it. Friday is free too, but two hard runs " +
+      "side by side is how niggles start.",
+  },
+  {
+    title: "No free day",
+    cells: [
+      { day: "Sat", kind: "missed", what: "Long run", note: "Missed" },
+      { day: "Sun", kind: "swap", what: "Long run", note: "Instead of easy" },
+      { day: "Mon", kind: "easy", what: "Easy" },
+      { day: "Tue", kind: "hard", what: "Hills" },
+    ],
+    says: "Every day in reach already has a run, so the long run can take Sunday's easy run's place. The easy run is " +
+      "dropped, and nothing piles onto next week.",
+  },
+];
+---
+<Figure title="Where a missed run can go"
+  caption="Bao offers these for two days after a missed run. Ill or injured instead? Say so within a week and your streak carries on.">
+  {rows.map((row) => (
+    <div class="row">
+      <p class="label">{row.title}</p>
+      <ol class="strip">
+        {row.cells.map((c) => (
+          <li class:list={["cell", c.kind]}>
+            <span class="day">{c.day}</span>
+            <span class="what">{c.what}</span>
+            {c.note && <span class="note">{c.note}</span>}
+          </li>
+        ))}
+      </ol>
+      <p class="says">{row.says}</p>
+    </div>
+  ))}
+</Figure>
+
+<style>
+  .row { display: grid; gap: 0.5rem; }
+  .row + .row { padding-top: 0.9rem; border-top: 1px solid var(--border); }
+  .strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .cell { margin: 0; display: grid; align-content: start; gap: 0.15rem; padding: 0.5rem 0.4rem 0.55rem;
+    border-radius: 12px; text-align: center; min-height: 5.4rem; border: 1.5px solid transparent; }
+  .day { font: 500 0.7rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: inherit; opacity: 0.8; }
+  .what { font-weight: 700; font-size: 0.82rem; line-height: 1.2; overflow-wrap: anywhere; }
+  .note { font-size: 0.74rem; line-height: 1.2; font-weight: 600; }
+  .missed { border: 1.5px dashed var(--accent); color: var(--accent-strong); }
+  .missed .what { text-decoration: line-through; text-decoration-thickness: 2px; }
+  .free { border: 2px solid var(--sage); background: var(--sage-soft); }
+  .free .note::before { content: "✓ "; }
+  .no { border: 1.5px dashed var(--border); color: var(--muted); }
+  .no .note::before { content: "✕ "; }
+  .easy { background: var(--sage-soft); }
+  .swap { background: var(--bubble); border: 2px solid var(--blue); }
+  .swap .note::before { content: "⇄ "; }
+  .parkrun { background: var(--butter); color: #2b2118; }
+  .long, .hard { background: var(--butter-soft); }
+  .says { font-size: 0.9rem; color: var(--muted); margin: 0; }
+  @media (max-width: 480px) { .cell { padding-inline: 0.2rem; } .what { font-size: 0.74rem; } .note { font-size: 0.68rem; } }
+</style>

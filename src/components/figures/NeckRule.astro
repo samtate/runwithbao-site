@@ -1,0 +1,50 @@
+---
+/** The neck rule for running with a cold, as two cards: above the neck and below it. */
+import Figure from "./Figure.astro";
+---
+<Figure title="The neck rule" caption="A rule of thumb, not medical advice. If you're unsure, rest, and see your GP if it lingers.">
+  <div class="two">
+    <div class="side above">
+      <svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+        <path d="M14 118 C14 92 34 82 60 82 S106 92 106 118" class="body" />
+        <circle cx="60" cy="44" r="30" class="head on" />
+        <path d="M8 76 H112" class="neck" />
+      </svg>
+      <div>
+        <p class="where">Above the neck</p>
+        <p>Runny nose, blocked nose, a mild sore throat.</p>
+        <p class="then">A short, easy run is usually fine.</p>
+      </div>
+    </div>
+    <div class="side below">
+      <svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+        <path d="M14 118 C14 92 34 82 60 82 S106 92 106 118" class="body on" />
+        <circle cx="60" cy="44" r="30" class="head" />
+        <path d="M8 76 H112" class="neck" />
+      </svg>
+      <div>
+        <p class="where">Below the neck</p>
+        <p>A chesty cough, a temperature, aching muscles, an upset stomach.</p>
+        <p class="then">Rest until it's gone.</p>
+      </div>
+    </div>
+  </div>
+</Figure>
+
+<style>
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; }
+  .side { display: flex; gap: 0.9rem; align-items: center; padding: 0.9rem; border-radius: 16px; background: var(--paper);
+    border: 1px solid var(--border); }
+  .side p { margin: 0; }
+  svg { width: 4.5rem; height: auto; flex: none; }
+  .head, .body { fill: var(--border); stroke: var(--ink); stroke-width: 3; }
+  .above .on { fill: var(--sage); }
+  .below .on { fill: var(--accent); }
+  .neck { stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 5 6; opacity: 0.6; }
+  .where { font-weight: 700; }
+  .then { font-weight: 600; margin-top: 0.3rem !important; }
+  .above .then { color: #3f6a44; }
+  .below .then { color: var(--accent-strong); }
+  :global([data-theme="dark"]) .above .then { color: var(--sage); }
+  @media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .above .then { color: var(--sage); } }
+</style>

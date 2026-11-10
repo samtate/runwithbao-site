@@ -4,6 +4,7 @@ title: "Using Bao with your Garmin, step by step"
 heading: "Using Bao with your <em>Garmin</em>, step by step"
 description: "Connect Garmin once and Bao puts each session on your watch, then brings your runs, sleep and heart rate back by itself. Setting it up takes about two minutes."
 date: "2026-11-06"
+updated: "2026-11-10"
 art: garmin
 share: ["Using Bao with", "your *Garmin*,", "step by step"]
 summary:
@@ -11,8 +12,16 @@ summary:
   - "Sessions go to your Garmin calendar; runs, sleep, resting heart rate and HRV come back."
   - "Move a run in Bao and your watch has the new day after its next sync."
 ---
+import Steps from "../../components/figures/Steps.astro";
 
 With Garmin connected, Bao puts the week's sessions on your Garmin calendar and your watch guides you through each one, step by step. Finish a run and it comes back to Bao by itself, along with your sleep, resting heart rate and HRV, so Bao knows when to suggest an easier day.
+
+<Steps title="How a session goes round" loop steps={[
+  { title: "Bao plans the week", text: "Each session goes onto your Garmin calendar." },
+  { title: "Your watch syncs", text: "Today's workout is waiting on your wrist." },
+  { title: "You run", text: "The watch takes you through each step." },
+  { title: "It all comes back", text: "Your run, sleep, resting heart rate and HRV arrive in Bao." },
+]} />
 
 ## What you need
 
@@ -41,6 +50,8 @@ Open Garmin Connect and sync. This week's sessions appear in your Garmin calenda
 ## 4. Run
 
 Follow the workout on your wrist: warm up, the main part, then easy home. When the watch syncs, the run appears in Bao, matched to the session it was for. When you first connect, Bao also brings in the last two weeks of runs and recovery.
+
+Running on a treadmill? Record it as a treadmill run on the watch and it comes into Bao as an indoor run: it counts towards your week, and the watch's guess at distance only nudges your paces a little.
 
 ## When your plan changes
 
