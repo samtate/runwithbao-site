@@ -26,7 +26,7 @@ Move a run only if it won't land next to another hard session; keep an easy day 
 
 A common rule of thumb: if it's only above the neck (a runny nose, a mild sore throat), a short easy run is usually fine. If it's below the neck (chest, fever, aching muscles, an upset stomach), rest. If you're unsure, rest, and check with your GP if it lingers. Come back with a few easy days before anything hard.
 
-> **In Bao:** for a day or two after a missed run, Bao asks what happened. Tell it you were ill or injured and your streak carries on. If you let the run go, or don't answer, the streak starts again.
+> **In Bao:** for a day or two after a missed run, Bao asks what happened. Tell it you were ill or injured and your streak carries on. If you let the run go, or don't answer, the streak starts again. If it does, Bao tells you, and you can still say you were ill or injured for a week.
 
 ## Plan holidays as time off
 
