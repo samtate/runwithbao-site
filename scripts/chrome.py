@@ -3,8 +3,10 @@
 The content gives up 176 rows: it's clipped just above the tab bar (as if scrolled under it), and the tab bar
 moves down to sit on the gesture area."""
 import sys
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-FONT = "/home/smeeps/Projects/bao-run/shared/src/commonMain/composeResources/font/archivo_medium.ttf"
+SITE = Path(__file__).resolve().parents[1]
+FONT = str(SITE.parent / "bao-run/shared/src/commonMain/composeResources/font/archivo_medium.ttf")
 W, H, TOP, BOTTOM = 1080, 2316, 110, 66
 
 def tab_bar_height(im):
@@ -52,5 +54,5 @@ def chrome(path, out):
 for theme in ("light", "dark"):
     for name in ("today", "plan", "calendar", "rate", "progress", "rundetail", "garmin"):
         src = f"/tmp/bao-dev/screens-orig/{theme}/{name}.png"
-        dst = f"/home/smeeps/Projects/runwithbao-site/src/assets/screens/{theme}/{name}.png"
+        dst = f"{SITE}/src/assets/screens/{theme}/{name}.png"
         print(theme, name, "tab bar", chrome(src, dst))
